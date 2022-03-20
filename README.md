@@ -1,5 +1,5 @@
 
-# Medical Record
+# Patient registration and Appointment scheduling system.
 
 ## Brief description of the project:
   -	Medical Record is mobile application in which the patients get tickets online. And patients get notified their scheduled date and doctors assigned for them.
