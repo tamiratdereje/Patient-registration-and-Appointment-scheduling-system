@@ -1,21 +1,21 @@
 
-# Patient registration and Appointment scheduling system.
+# Patient registration and Appointment scheduling system .
 
 ## Brief description of the project:
-  -	Medical Record is mobile application in which the patients get tickets online. And patients get notified their scheduled date and doctors assigned for them.
-  -	The admin will add the certified doctors of the hospital and track the patient through process.
-  -	Patient will get checkup result and will be notified the next step.
-  -	Finally patient will be suggested the prescribed medicines if it presents in the hospitals pharmacy.
-  -	The pharmacist will control pharmacy, through registering when new medicines, update when it gets sold and delete the medicines when it is over. 
-  -	The patients will give feedback at the end about the hospitals.
+  -  Patient registration and Appointment scheduling system is mobile application in which a patient can schedule his or her medical appointment. And the patient can get notified their schedule (the date and the doctor assigned for them) besides that the patient will get the checkup result in his or her medical record  and also the patient can get notified with the prescribed medication's availiability  and related informations from the hospital's pharmacy in addition after a checkup the patient will get information about his or her next appointment.
+  
+  - From this system a user with a role doctor can get information about the patients that he is resposnsible for and would update their record in every single checkup in order to have better medical history documentation.
+  
+  - And a pharmacist (which is also another user) will manage the numerical data about availiable medicines in the pharmacy so that it can help patients to get information about their prescribed medications.
+
+- Generally this system is intended to simplify patients experience in the medication process starting from appointment scheduling (which is exhausting routine in hospitals) to the end of the medication process and Documenting well formatted, standardized medical record side by side.
 
 
 ## Authentication/Authorization Features:
-  *	Sign up for patients.
-  *	Login and Logout for patients, doctors, pharmacists and admins.
-  *	Patients are authorized to see their records
-  *	Doctors are authorized to see list of the patients assigned for them.
-  * Pharmacists are authorized to check the availability of medicines.
+  *  Signing up is granted for patients.
+  *  Registering pharamcists, doctors and other admins will be done by the admin.
+  *  Login and Logout are availiable for patients, doctors, pharmacists and admins.
+  *  Access to different features will be granted based on the roles (patient, doctor, pharmacist and admin).
     
 ## Business Features:
   1. Patients can buy card and get notified the doctors assigned for them. The doctors can see list of patients assigned for them.
@@ -29,4 +29,4 @@
 - Liban Abduba UGR/3781/12 
 - Naol Kecha UGR/6903/12 
 - Abel Mekonen UGR/7784/12 
-- Jebessa Dejene UGR/0459/12 
+- Jebessa Dejene UGR/0459/12
