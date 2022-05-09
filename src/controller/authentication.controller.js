@@ -2,15 +2,18 @@ const User = require('../models/user.js');
 const jwt = require('jsonwebtoken');
 const config = require('../config/my_config');
 
-const signUp = async (req, res) => {
+
+const signUp =  async (req, res) => {
+
+    console.log(req.file)
     
     email = req.body.email;
     password = req.body.password;
     roles = req.body.roles;
 
-    if(roles === undefined) roles = 'patient';
+    if(roles === undefined || roles === "") roles = 'patient';
 
-    
+
     if (req.body.name == null || email === null || password == null || req.body.birth_date == null){
         res.status(401).json({
             message: "name, email and password, image and username cannot be null",
@@ -19,6 +22,8 @@ const signUp = async (req, res) => {
                 email : req.body.email,
                 password: req.body.password,
                 birth_date: req.body.birth_date,
+                image: req.file.path
+
                 
             }
         })
@@ -46,7 +51,9 @@ const signUp = async (req, res) => {
         email : req.body.email,
         birth_date: req.body.birth_date,
         roles: roles,
+        image: req.file.path,
         password: await User.encryptPassword(password)
+
 
     })
 
@@ -90,7 +97,8 @@ const logIn = async (req, res) => {
         _id: userExist._id,
         name: userExist.name,
         message: 'Auth Succesful',
-        token: token
+        token: token,
+        profileImage: userExist.image
     })
 
 }
