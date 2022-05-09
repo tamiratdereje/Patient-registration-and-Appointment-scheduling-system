@@ -16,14 +16,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    username: {
-        type: String,
-        required: true,
-        trim: true
-    },
     image: {
         type: String,
-        required: true
+        required: false
     },
     password: {
         type: String,
@@ -31,7 +26,7 @@ const userSchema = new mongoose.Schema({
         trim: true
     },
     roles: {
-        type: string,
+        type: String,
         required: true,
         default: 'patient',
         enum: ['doctor', 'patient', 'pharmacist']
@@ -43,8 +38,6 @@ const userSchema = new mongoose.Schema({
         type: Date,
         required: true
     }
-
-    
 });
 
 // Hash password before save in DB

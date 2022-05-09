@@ -6,6 +6,10 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 const mongoose = require('mongoose');
 const pkg = require('./package.json');
+const authRoutes = require('./routes/authentication.route');
+const check = require('./routes/check');
+
+
 
 // Initializing the app
 const app = express();
@@ -31,11 +35,11 @@ app.get('/welcome', (req, res) => {
     })
 })
 
-app.get('*', function (req, res, next) {
-    res.locals.api_key = req.session.api_key;
-    console.log(res.locals.api_key);
-    next();
-});
+// app.get('*', function (req, res, next) {
+//     res.locals.api_key = req.session.api_key;
+//     console.log(res.locals.api_key);
+//     next();
+// });
 
 app.use(session({
     secret: 'keyboard cat',
@@ -53,11 +57,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-
 // Checking if server starts successfully
 app.get('/',(req,res)=>{
     res.json({ message: 'server starts successfully '})
 })
+
+app.use('/api/auth', authRoutes);
+app.use('/let', check);
 
 
 // assigning port
