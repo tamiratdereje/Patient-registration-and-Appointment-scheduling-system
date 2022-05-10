@@ -1,7 +1,5 @@
 const express = require('express');
-// exports.findAllBooks = async (req, res) => {}
-// router.get('/', bookCtrl.findAllBooks);
-
+const authCtrl = require('../controller/authentication.controller');
 
 const router = express.Router();
 
@@ -34,15 +32,7 @@ const upload = multer({
 });
 // const upload = multer({dest:'uploads/'});
 
-
-
-
-const authCtrl = require('../controller/authentication.controller');
-
-
 router.post('/signup',upload.single('profileImage'), authCtrl.signUp);
-
-
 router.post('/login', authCtrl.logIn);
 
 
