@@ -7,7 +7,7 @@ const signupValidation = (data) => {
     const signUpSchema = Joi.object({
         name : Joi.string().required().min(3),
         email: Joi.string().required().email().min(6),
-        // birth_date: Joi.date().format('YYYY-MM-DD').required().less(),
+        birth_date: Joi.date().required(),
         password: Joi.string().required().min(4)
     });
 
