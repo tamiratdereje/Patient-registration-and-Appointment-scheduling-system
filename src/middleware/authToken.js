@@ -9,7 +9,7 @@ exports.verifyToken = async (req, res, next) => {
     if (!token) return res.status(403).json({
         message: "No token provided"
     })
-        const decoded = jwt.verify(token, config.secret_key)
+        const decoded = jwt.verify(token, process.env.SECRET_KEY)
         req.userId = decoded.id;
 
         const user = await User.findById(req.userId, { password: 0 })
