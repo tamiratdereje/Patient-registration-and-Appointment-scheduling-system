@@ -6,6 +6,8 @@ var session = require('express-session');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authentication.route');
 const check = require('./routes/check');
+const medicine_route = require('./routes/medicine.route');
+
 const dotEnv = require('dotenv');
 
 // Initializing the app
@@ -43,6 +45,9 @@ app.get('/',(req,res)=>{
 // Defining routes
 app.use('/api/auth', authRoutes);
 app.use('/let', check);
+app.use('/medicine', medicine_route);
+
+medicine_route
 
 // assigning port
 app.listen(3000,()=>{

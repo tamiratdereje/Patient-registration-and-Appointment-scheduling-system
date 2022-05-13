@@ -1,4 +1,3 @@
-const { number } = require('joi');
 const mongoose = require('mongoose');
 // const { RecordSchema } = require('../models/record');
 
@@ -11,7 +10,7 @@ const medicineSchema = new mongoose.Schema({
     },
     descrption: {
         type: String,
-        required: true
+        required: false
     },
 
     quantity: {
