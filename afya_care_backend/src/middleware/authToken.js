@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
-const config = require('../config/my_config');
+
 
 
 exports.verifyToken = async (req, res, next) => {
