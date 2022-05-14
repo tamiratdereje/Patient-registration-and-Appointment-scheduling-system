@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authentication.route');
 const check = require('./routes/check');
 const medicine_route = require('./routes/medicine.route');
+const record_route = require('./routes/record_route');
+
 
 const dotEnv = require('dotenv');
 
@@ -46,8 +48,8 @@ app.get('/',(req,res)=>{
 app.use('/api/auth', authRoutes);
 app.use('/let', check);
 app.use('/medicine', medicine_route);
+app.use('/record', record_route);
 
-medicine_route
 
 // assigning port
 app.listen(3000,()=>{
