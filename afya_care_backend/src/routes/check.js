@@ -7,10 +7,7 @@ const authToken = require('../middleware/authToken');
 const router = express.Router();
 
 
-router.get('/check',[authToken.verifyToken], async (req, res) => {
-    
-    res.send("hello welcome");
-});
+router.get('/check',[authToken.verifyToken]);
 
 
 module.exports = router;
