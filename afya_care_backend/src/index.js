@@ -46,7 +46,7 @@ app.get('/',(req,res)=>{
 
 // Defining routes
 app.use('/api/auth', authRoutes);
-app.use('/let', check);
+// app.use('/let', check);
 app.use('/medicine', medicine_route);
 app.use('/record', record_route);
 app.use('/schedule', schedule_route );
