@@ -45,7 +45,7 @@ const signUp =  async (req, res) => {
 
    
 
-
+//login logics found in here
 const logIn = async (req, res) => {
 
     const {error} =  loginValidation(req.body)
