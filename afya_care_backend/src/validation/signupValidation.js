@@ -1,7 +1,7 @@
 // Import validation module
 const Joi = require('joi');
 
-// Define 
+// Define validation for user signup
 const pattern = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 const signupValidation = (data) => {
     const signUpSchema = Joi.object({
@@ -14,5 +14,6 @@ const signupValidation = (data) => {
     const pass = signUpSchema.validate(data);
     return pass;
 }
+
 
 module.exports.signupValidation = signupValidation;
