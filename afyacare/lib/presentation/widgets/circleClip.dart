@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class ClipPathClass extends CustomClipper<Rect> {
   @override
   Rect getClip(Size size) {
@@ -34,8 +35,7 @@ class circleClip extends StatelessWidget {
       child:Stack(
         children: [
           Container(
-            // margin: EdgeInsets.only(left: 15, right: 15),
-            // alignment: Alignment.center,
+
             child: ClipOval(
               clipper: ClipPathClass(),
               child: SizedBox(
