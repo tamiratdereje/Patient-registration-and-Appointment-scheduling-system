@@ -11,7 +11,7 @@ const add_record = async (req, res) => {
   if (error) return res.status(400).send({ message: error.details[0].message });
 
 
-  var record = await new Record({
+  var record = new Record({
     date: req.body.date,
     descrption: req.body.descrption,
     medicine: req.body.medicine,

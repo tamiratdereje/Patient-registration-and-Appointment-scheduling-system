@@ -54,6 +54,8 @@ const edit_medicine = async (req, res) => {
         res.status(404).json({ message: "this product already exist" });
         return;
       }
+
+
       Medicine.findById(req.params.id, async function (err, existing_med) {
         if (err) {
           res.status(404).json({ message: "medicine not found" });
@@ -81,6 +83,8 @@ const edit_medicine = async (req, res) => {
   );
 };
 
+
+
 const all_medicine = async (req, res) => {
   var med = await Medicine.find();
   if (!med) {
@@ -92,6 +96,8 @@ const all_medicine = async (req, res) => {
 
   res.status(200).json(med);
 };
+
+
 
 const delete_medicine = async (req, res) => {
   try {

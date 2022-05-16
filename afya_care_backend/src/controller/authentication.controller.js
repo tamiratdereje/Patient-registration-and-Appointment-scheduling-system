@@ -7,6 +7,10 @@ const {loginValidation} = require('../validation/loginValidation');
 const signUp =  async (req, res) => {
     
     // validating signup form input
+    console.log({
+        message:"req body accessed",
+        name:req.body.name
+    })
     const {error} = signupValidation(req.body);
     if(error) return res.status(400).send({message: error.details[0].message});
 
@@ -30,6 +34,8 @@ const signUp =  async (req, res) => {
     // save created user object
     const savedUser = await newUser.save();
     console.log(savedUser);
+
+    res.json({message: "user account created successfully"});
             
 }
 

@@ -32,7 +32,6 @@ const userSchema = new mongoose.Schema({
         enum: ['doctor', 'patient', 'pharmacist']
     },
 
-    // record: [RecordSchema],
 
     birth_date: {
         type: Date,

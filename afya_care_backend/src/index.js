@@ -8,7 +8,7 @@ const authRoutes = require('./routes/authentication.route');
 const check = require('./routes/check');
 const medicine_route = require('./routes/medicine.route');
 const record_route = require('./routes/record_route');
-
+const schedule_route = require('./routes/schedule.route')
 
 const dotEnv = require('dotenv');
 
@@ -49,7 +49,7 @@ app.use('/api/auth', authRoutes);
 app.use('/let', check);
 app.use('/medicine', medicine_route);
 app.use('/record', record_route);
-
+app.use('/schedule', schedule_route );
 
 // assigning port
 app.listen(3000,()=>{
