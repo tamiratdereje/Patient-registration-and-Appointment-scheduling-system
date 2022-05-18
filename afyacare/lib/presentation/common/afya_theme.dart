@@ -6,43 +6,44 @@ class AfyaTheme {
 
   static TextTheme lightTextTheme = TextTheme(
     //  this is for normal body text
-    bodyText1: GoogleFonts.openSans(
+    bodyText1: GoogleFonts.outfit(
       fontSize: 12.0,
       fontWeight: FontWeight.w700,
       color: Colors.black,
     ),
-    bodyText2: GoogleFonts.openSans(
+    bodyText2: GoogleFonts.outfit(
       fontSize: 10.0,
       fontWeight: FontWeight.w700,
       color: Colors.black.withOpacity(0.7),
     ),
     
-    headline1: GoogleFonts.openSans(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
+    headline1: GoogleFonts.outfit(
+      fontSize: 55.0,
+      fontWeight: FontWeight.w600,
       color: Colors.black,
       
     ),
+
     // this is headline font name of doctor in doctor's patient history 
-    headline2: GoogleFonts.openSans(
-      fontSize: 26.0,
-      fontWeight: FontWeight.w700,
+    headline2: GoogleFonts.outfit(
+      fontSize: 24.0,
+      fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
 
     // this is headline font for normal text 
-    headline3: GoogleFonts.openSans(
+    headline3: GoogleFonts.outfit(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
-    headline6: GoogleFonts.openSans(
+    headline6: GoogleFonts.outfit(
       fontSize: 20.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
     // for button text
-    button: GoogleFonts.openSans(
+    button: GoogleFonts.outfit(
       fontSize: 18.0,
       color: Color(0xFFFFF9F9)
     )

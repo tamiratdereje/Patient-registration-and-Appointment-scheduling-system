@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ClipPathClass extends CustomClipper<Rect> {
   @override
   Rect getClip(Size size) {
-    return Rect.fromCircle(center: const Offset(180, -40), radius: 250);
+    return Rect.fromCircle(center: const Offset(180, -40), radius: 240);
   }
 
   @override
