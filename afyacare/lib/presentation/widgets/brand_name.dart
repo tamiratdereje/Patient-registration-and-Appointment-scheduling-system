@@ -7,6 +7,7 @@ class BrandName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           "AFYA ",
@@ -15,8 +16,8 @@ class BrandName extends StatelessWidget {
         ),
         Text(
           "CARE",
-          style:
-              AfyaTheme.lightTextTheme.headline1!.copyWith(color: Colors.green,fontWeight: FontWeight.w200),
+          style: AfyaTheme.lightTextTheme.headline1!
+              .copyWith(color: Colors.green, fontWeight: FontWeight.w200),
         )
       ],
     );
