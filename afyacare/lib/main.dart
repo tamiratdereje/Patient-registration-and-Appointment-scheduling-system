@@ -1,3 +1,4 @@
+import 'package:afyacare/presentation/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
 
 import './presentation/screens/Home.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       
-      home: const Home(),
+      home: const IntroScreen(),
     );
   }
 }
