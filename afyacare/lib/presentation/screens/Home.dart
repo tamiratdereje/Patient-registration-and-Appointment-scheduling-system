@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import "../widgets/circleClip.dart";
+import '../widgets/circle_clip.dart';
+import '../widgets/custom_button.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -10,8 +11,13 @@ class Home extends StatelessWidget {
       body: Column(
         children: [
           circleClip(),
-          Center(
-            child: Text("home page"),
+          Column(
+            children: [
+              Container(
+                child: TextButton(onPressed: () {}, child:CustomButton(title: "Get started",icon:Icons.arrow_forward_rounded) ),
+              )
+              
+            ],
           )
         ],
       ),
