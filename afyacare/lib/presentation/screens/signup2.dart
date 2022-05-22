@@ -1,0 +1,636 @@
+// import 'package:afyacare/presentation/widgets/circle_clip.dart';
+// import 'package:afyacare/presentation/widgets/custom_button.dart';
+// import 'package:flutter/material.dart';
+// import 'package:regexpattern/regexpattern.dart';
+// import '../common/afya_theme.dart';
+// import '../widgets/brand_name.dart';
+// import 'package:intl/intl.dart';
+
+// class Signup2 extends StatefulWidget {
+//   const Signup2({Key? key}) : super(key: key);
+
+//   @override
+//   State<Signup2> createState() => _Signup2State();
+// }
+
+// class _Signup2State extends State<Signup2> {
+//   late bool _passwordVisible;
+//   late bool _passwordConfirmVisible;
+
+//   final _formKey = GlobalKey<FormState>();
+//   TextEditingController usernameController = TextEditingController();
+//   TextEditingController passwordController = TextEditingController();
+//   TextEditingController fullNameController = TextEditingController();
+//   TextEditingController birthdayController = TextEditingController();
+//   TextEditingController dateinput = TextEditingController();
+
+//   TextEditingController genderController = TextEditingController();
+//   String _selectedGender = 'male';
+
+//   @override
+//   void initState() {
+//     _passwordVisible = true;
+//     _passwordConfirmVisible = true;
+//     dateinput.text = "";
+//     super.initState();
+//   }
+
+//   @override
+//   void dispose() {
+//     // Clean up the controller when the widget is removed from the widget tree.
+//     // This also removes the _printLatestValue listener.
+//     usernameController.dispose();
+//     passwordController.dispose();
+//     fullNameController.dispose();
+//     birthdayController.dispose();
+//     genderController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         resizeToAvoidBottomInset: false,
+//         body: Stack(
+//           children: [
+//             circleClip(),
+//             Container(
+//               width: MediaQuery.of(context).size.width,
+//               height: MediaQuery.of(context).size.height,
+//               child: CustomScrollView(
+//                 physics:BouncingScrollPhysics(),
+//                 slivers: <Widget>[
+//                   // circleClip(),
+                  
+
+//                   SliverAppBar(
+                    
+//                     collapsedHeight: 100,
+//                     pinned: true,
+//                     expandedHeight: 200.0,
+//                     backgroundColor: Colors.transparent,
+//                     elevation: 0,
+//                     flexibleSpace: FlexibleSpaceBar(
+//                       titlePadding: EdgeInsets.all(20),
+//                       collapseMode: CollapseMode.pin,
+//                       // background: circleClip(),
+
+//                       title: Column(
+//                         mainAxisSize: MainAxisSize.min,
+//                         mainAxisAlignment: MainAxisAlignment.start,
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           // circleClip(),
+//                           Text(
+//                             "Signup",
+//                             style: AfyaTheme.lightTextTheme.headline2,
+//                           ),
+//                           Text(
+//                             "Welcome",
+//                             style: AfyaTheme.lightTextTheme.bodyText1,
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   SliverToBoxAdapter(
+//                     child: SizedBox(
+//                       height: MediaQuery.of(context).size.width * 2.1,
+//                       child: Center(
+//                         child: Column(
+//                             // mainAxisAlignment: MainAxisAlignment.start,
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               const SizedBox(
+//                                 height: 50,
+//                               ),
+//                               BrandName(),
+//                               // BrandName(),
+//                               // BrandName(),
+//                               // BrandName(),
+//                               // Form(child: child)
+//                               Form(
+//                                 key: _formKey,
+//                                 child: Container(
+//                                   child: Column(
+//                                     // crossAxisAlignment: CrossAxisAlignment.start,
+//                                     children: [
+//                                       Padding(
+//                                         padding: const EdgeInsets.all(12),
+//                                         child: Column(
+//                                           children: [
+//                                             TextFormField(
+//                                               controller: fullNameController,
+//                                               decoration: InputDecoration(
+//                                                 labelText: "Enter full name",
+//                                               ),
+//                                               validator: (value) {
+//                                                 if (value!.isEmpty ||
+//                                                     !RegExp(r'^[a-zA-Z ]+$')
+//                                                         .hasMatch(value)) {
+//                                                   return "Enter correct name";
+//                                                 } else {
+//                                                   return null;
+//                                                 }
+//                                               },
+//                                             ),
+//                                             const SizedBox(
+//                                               height: 25,
+//                                             ),
+//                                             TextFormField(
+//                                               controller:
+//                                                   dateinput, //editing controller of this TextField
+
+//                                               decoration: InputDecoration(
+//                                                   suffixIcon: Icon(Icons
+//                                                       .calendar_today), //icon of text field
+//                                                   labelText:
+//                                                       "Enter Date" //label text of field
+//                                                   ),
+
+//                                               readOnly:
+//                                                   true, //set it true, so that user will not able to edit text
+//                                               onTap: () async {
+//                                                 DateTime? pickedDate =
+//                                                     await showDatePicker(
+//                                                         context: context,
+//                                                         initialDate:
+//                                                             DateTime.now(),
+//                                                         firstDate: DateTime(
+//                                                             1930), //DateTime.now() - not to allow to choose before today.
+//                                                         lastDate:
+//                                                             DateTime.now());
+
+//                                                 if (pickedDate != null) {
+//                                                   print(
+//                                                       pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+//                                                   String formattedDate =
+//                                                       DateFormat('yyyy-MM-dd')
+//                                                           .format(pickedDate);
+//                                                   print(
+//                                                       formattedDate); //formatted date output using intl package =>  2021-03-16
+//                                                   //you can implement different kind of Date Format here according to your requirement
+
+//                                                   setState(() {
+//                                                     dateinput.text =
+//                                                         formattedDate; //set output date to TextField value.
+//                                                   });
+//                                                 } else {
+//                                                   print("Date is not selected");
+//                                                 }
+//                                               },
+//                                               validator: (value) {
+//                                                 if (value!.isEmpty) {
+//                                                   return "Pick birthdate";
+//                                                 } else {
+//                                                   return null;
+//                                                 }
+//                                               },
+//                                             ),
+//                                             const SizedBox(
+//                                               height: 25,
+//                                             ),
+//                                             Row(
+//                                               children: [
+//                                                 Expanded(
+//                                                   // flex: 1,
+//                                                   child: Text(
+//                                                     "Gender",
+//                                                     style: TextStyle(
+//                                                         color: Color.fromARGB(
+//                                                             255, 131, 131, 131),
+//                                                         fontSize: 16),
+//                                                   ),
+//                                                 ),
+//                                                 Expanded(
+//                                                   child: ListTile(
+//                                                     contentPadding:
+//                                                         EdgeInsets.all(0),
+//                                                     horizontalTitleGap: 0,
+//                                                     leading: Radio<String>(
+//                                                       value: 'male',
+//                                                       groupValue:
+//                                                           _selectedGender,
+//                                                       onChanged: (value) {
+//                                                         setState(() {
+//                                                           _selectedGender =
+//                                                               value!;
+//                                                         });
+//                                                       },
+//                                                     ),
+//                                                     title: const Text('Male'),
+//                                                   ),
+//                                                 ),
+//                                                 Expanded(
+//                                                   child: ListTile(
+//                                                     contentPadding:
+//                                                         EdgeInsets.all(0),
+//                                                     horizontalTitleGap: 0,
+//                                                     leading: Radio<String>(
+//                                                       value: 'female',
+//                                                       groupValue:
+//                                                           _selectedGender,
+//                                                       onChanged: (value) {
+//                                                         setState(() {
+//                                                           _selectedGender =
+//                                                               value!;
+//                                                         });
+//                                                       },
+//                                                     ),
+//                                                     title: const Text('Female'),
+//                                                   ),
+//                                                 ),
+//                                                 // Text(_selectedGender == 'male'
+//                                                 //     ? 'Hello gentlement!'
+//                                                 //     : 'Hi lady!')
+//                                               ],
+//                                             ),
+//                                             // const SizedBox(height: 25),
+//                                             TextFormField(
+//                                               controller: usernameController,
+//                                               decoration: InputDecoration(
+//                                                 labelText: "Create username",
+//                                               ),
+//                                               validator: (value) {
+//                                                 if (value!.isEmpty ||
+//                                                     !value.isUsername()) {
+//                                                   return "Enter correct username, Eg. Jeb_deju";
+//                                                 } else {
+//                                                   return null;
+//                                                 }
+//                                               },
+//                                             ),
+//                                             const SizedBox(
+//                                               height: 25,
+//                                             ),
+//                                             TextFormField(
+//                                               obscureText: _passwordVisible,
+//                                               controller: passwordController,
+//                                               decoration: InputDecoration(
+//                                                 suffixIcon: IconButton(
+//                                                   onPressed: () {
+//                                                     setState(() {
+//                                                       _passwordVisible =
+//                                                           !_passwordVisible;
+//                                                     });
+//                                                   },
+//                                                   icon: Icon(_passwordVisible
+//                                                       ? Icons.visibility
+//                                                       : Icons.visibility_off),
+//                                                 ),
+//                                                 // suffixIcon: Icon(Icons.scuba_diving),
+//                                                 labelText: "Enter password",
+//                                               ),
+//                                               validator: (value) {
+//                                                 if (value!.isEmpty ||
+//                                                     !value
+//                                                         .isPasswordEasyWithspace()) {
+//                                                   return "Password should not below 8 character";
+//                                                 } else {
+//                                                   return null;
+//                                                 }
+//                                               },
+//                                             ),
+//                                             const SizedBox(
+//                                               height: 25,
+//                                             ),
+//                                             TextFormField(
+//                                               obscureText:
+//                                                   _passwordConfirmVisible,
+//                                               decoration: InputDecoration(
+//                                                 suffixIcon: IconButton(
+//                                                   onPressed: () {
+//                                                     setState(() {
+//                                                       _passwordConfirmVisible =
+//                                                           !_passwordConfirmVisible;
+//                                                     });
+//                                                   },
+//                                                   icon: Icon(
+//                                                       _passwordConfirmVisible
+//                                                           ? Icons.visibility
+//                                                           : Icons
+//                                                               .visibility_off),
+//                                                 ),
+//                                                 // suffixIcon: Icon(Icons.scuba_diving),
+//                                                 labelText: "confirm password",
+//                                               ),
+//                                               validator: (value) {
+//                                                 if (value!.isEmpty ||
+//                                                     !value
+//                                                         .isPasswordEasyWithspace()) {
+//                                                   return "Password should not below 8 character";
+//                                                 } else if (value !=
+//                                                     passwordController.text) {
+//                                                   return "Password not matched!";
+//                                                 } else {
+//                                                   return null;
+//                                                 }
+//                                               },
+//                                             ),
+//                                             const SizedBox(
+//                                               height: 25,
+//                                             ),
+//                                           ],
+//                                         ),
+//                                       ),
+//                                       TextButton(
+//                                           onPressed: () {
+//                                             if (_formKey.currentState!
+//                                                 .validate()) {
+//                                               ScaffoldMessenger.of(context)
+//                                                   .showSnackBar(
+//                                                 const SnackBar(
+//                                                     content: Text(
+//                                                         'Processing Data')),
+//                                               );
+//                                             }
+//                                           },
+//                                           child:
+//                                               CustomButton(title: "Sign up")),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               )
+//                             ]),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ));
+//   }
+//   // body: SafeArea(
+//   //   child: Stack(children: [
+//   //     circleClip(),
+//   //     Container(
+//   //       height: 100,
+//   //       child: CustomScrollView(
+//   //         slivers: <Widget>[
+//   //           SliverAppBar(
+//   //             // pinned: true,
+//   //             expandedHeight: 250.0,
+
+//   //             title: Text(
+//   //               "Signup2",
+//   //               style: AfyaTheme.lightTextTheme.headline2,
+//   //             ),
+//   //           ),
+//   //         ],
+//   //       ),
+//   //     ),
+//   //     SingleChildScrollView(
+//   //       child: Container(
+//   //         padding: EdgeInsets.fromLTRB(15, 60, 15, 5),
+//   //         child: Column(
+//   //             // mainAxisAlignment: MainAxisAlignment.start,
+//   //             crossAxisAlignment: CrossAxisAlignment.start,
+//   //             children: [
+//   //               //  Text(
+//   //               //     "Signup2",
+//   //               //     style: AfyaTheme.lightTextTheme.headline2,
+//   //               //   ),
+//   //               // Text(
+//   //               //   "Welcome",
+//   //               //   style: AfyaTheme.lightTextTheme.bodyText1,
+//   //               // ),
+//   //               const SizedBox(
+//   //                 height: 50,
+//   //               ),
+//   //               BrandName(),
+//   //               // Form(child: child)
+//   //               Form(
+//   //                 key: _formKey,
+//   //                 child: Container(
+//   //                   child: Column(
+//   //                     // crossAxisAlignment: CrossAxisAlignment.start,
+//   //                     children: [
+//   //                       Padding(
+//   //                         padding: const EdgeInsets.all(12),
+//   //                         child: Column(
+//   //                           children: [
+//   //                             TextFormField(
+//   //                               controller: fullNameController,
+//   //                               decoration: InputDecoration(
+//   //                                 labelText: "Enter full name",
+//   //                               ),
+//   //                               validator: (value) {
+//   //                                 if (value!.isEmpty ||
+//   //                                     !RegExp(r'^[a-zA-Z ]+$')
+//   //                                         .hasMatch(value)) {
+//   //                                   return "Enter correct name";
+//   //                                 } else {
+//   //                                   return null;
+//   //                                 }
+//   //                               },
+//   //                             ),
+//   //                             const SizedBox(
+//   //                               height: 25,
+//   //                             ),
+//   //                             TextFormField(
+//   //                               controller:
+//   //                                   dateinput, //editing controller of this TextField
+
+//   //                               decoration: InputDecoration(
+//   //                                   suffixIcon: Icon(Icons
+//   //                                       .calendar_today), //icon of text field
+//   //                                   labelText:
+//   //                                       "Enter Date" //label text of field
+//   //                                   ),
+
+//   //                               readOnly:
+//   //                                   true, //set it true, so that user will not able to edit text
+//   //                               onTap: () async {
+//   //                                 DateTime? pickedDate =
+//   //                                     await showDatePicker(
+//   //                                         context: context,
+//   //                                         initialDate: DateTime.now(),
+//   //                                         firstDate: DateTime(
+//   //                                             1930), //DateTime.now() - not to allow to choose before today.
+//   //                                         lastDate: DateTime.now());
+
+//   //                                 if (pickedDate != null) {
+//   //                                   print(
+//   //                                       pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+//   //                                   String formattedDate =
+//   //                                       DateFormat('yyyy-MM-dd')
+//   //                                           .format(pickedDate);
+//   //                                   print(
+//   //                                       formattedDate); //formatted date output using intl package =>  2021-03-16
+//   //                                   //you can implement different kind of Date Format here according to your requirement
+
+//   //                                   setState(() {
+//   //                                     dateinput.text =
+//   //                                         formattedDate; //set output date to TextField value.
+//   //                                   });
+//   //                                 } else {
+//   //                                   print("Date is not selected");
+//   //                                 }
+//   //                               },
+//   //                               validator: (value) {
+//   //                                 if (value!.isEmpty) {
+//   //                                   return "Pick birthdate";
+//   //                                 } else {
+//   //                                   return null;
+//   //                                 }
+//   //                               },
+//   //                             ),
+//   //                             const SizedBox(
+//   //                               height: 25,
+//   //                             ),
+//   //                             Row(
+//   //                               children: [
+//   //                                 Expanded(
+//   //                                   // flex: 1,
+//   //                                   child: Text(
+//   //                                     "Gender",
+//   //                                     style: TextStyle(
+//   //                                         color: Color.fromARGB(
+//   //                                             255, 131, 131, 131),
+//   //                                         fontSize: 16),
+//   //                                   ),
+//   //                                 ),
+//   //                                 Expanded(
+//   //                                   child: ListTile(
+//   //                                     contentPadding: EdgeInsets.all(0),
+//   //                                     horizontalTitleGap: 0,
+//   //                                     leading: Radio<String>(
+//   //                                       value: 'male',
+//   //                                       groupValue: _selectedGender,
+//   //                                       onChanged: (value) {
+//   //                                         setState(() {
+//   //                                           _selectedGender = value!;
+//   //                                         });
+//   //                                       },
+//   //                                     ),
+//   //                                     title: const Text('Male'),
+//   //                                   ),
+//   //                                 ),
+//   //                                 Expanded(
+//   //                                   child: ListTile(
+//   //                                     contentPadding: EdgeInsets.all(0),
+//   //                                     horizontalTitleGap: 0,
+//   //                                     leading: Radio<String>(
+//   //                                       value: 'female',
+//   //                                       groupValue: _selectedGender,
+//   //                                       onChanged: (value) {
+//   //                                         setState(() {
+//   //                                           _selectedGender = value!;
+//   //                                         });
+//   //                                       },
+//   //                                     ),
+//   //                                     title: const Text('Female'),
+//   //                                   ),
+//   //                                 ),
+//   //                                 // Text(_selectedGender == 'male'
+//   //                                 //     ? 'Hello gentlement!'
+//   //                                 //     : 'Hi lady!')
+//   //                               ],
+//   //                             ),
+//   //                             // const SizedBox(height: 25),
+//   //                             TextFormField(
+//   //                               controller: usernameController,
+//   //                               decoration: InputDecoration(
+//   //                                 labelText: "Create username",
+//   //                               ),
+//   //                               validator: (value) {
+//   //                                 if (value!.isEmpty ||
+//   //                                     !value.isUsername()) {
+//   //                                   return "Enter correct username, Eg. Jeb_deju";
+//   //                                 } else {
+//   //                                   return null;
+//   //                                 }
+//   //                               },
+//   //                             ),
+//   //                             const SizedBox(
+//   //                               height: 25,
+//   //                             ),
+//   //                             TextFormField(
+//   //                               obscureText: _passwordVisible,
+//   //                               controller: passwordController,
+//   //                               decoration: InputDecoration(
+//   //                                 suffixIcon: IconButton(
+//   //                                   onPressed: () {
+//   //                                     setState(() {
+//   //                                       _passwordVisible =
+//   //                                           !_passwordVisible;
+//   //                                     });
+//   //                                   },
+//   //                                   icon: Icon(_passwordVisible
+//   //                                       ? Icons.visibility
+//   //                                       : Icons.visibility_off),
+//   //                                 ),
+//   //                                 // suffixIcon: Icon(Icons.scuba_diving),
+//   //                                 labelText: "Enter password",
+//   //                               ),
+//   //                               validator: (value) {
+//   //                                 if (value!.isEmpty ||
+//   //                                     !value.isPasswordEasyWithspace()) {
+//   //                                   return "Password should not below 8 character";
+//   //                                 } else {
+//   //                                   return null;
+//   //                                 }
+//   //                               },
+//   //                             ),
+//   //                             const SizedBox(
+//   //                               height: 25,
+//   //                             ),
+//   //                             TextFormField(
+//   //                               obscureText: _passwordConfirmVisible,
+//   //                               decoration: InputDecoration(
+//   //                                 suffixIcon: IconButton(
+//   //                                   onPressed: () {
+//   //                                     setState(() {
+//   //                                       _passwordConfirmVisible =
+//   //                                           !_passwordConfirmVisible;
+//   //                                     });
+//   //                                   },
+//   //                                   icon: Icon(_passwordConfirmVisible
+//   //                                       ? Icons.visibility
+//   //                                       : Icons.visibility_off),
+//   //                                 ),
+//   //                                 // suffixIcon: Icon(Icons.scuba_diving),
+//   //                                 labelText: "confirm password",
+//   //                               ),
+//   //                               validator: (value) {
+//   //                                 if (value!.isEmpty ||
+//   //                                     !value.isPasswordEasyWithspace()) {
+//   //                                   return "Password should not below 8 character";
+//   //                                 } else if (value !=
+//   //                                     passwordController.text) {
+//   //                                   return "Password not matched!";
+//   //                                 } else {
+//   //                                   return null;
+//   //                                 }
+//   //                               },
+//   //                             ),
+//   //                             const SizedBox(
+//   //                               height: 25,
+//   //                             ),
+//   //                           ],
+//   //                         ),
+//   //                       ),
+//   //                       TextButton(
+//   //                           onPressed: () {
+//   //                             if (_formKey.currentState!.validate()) {
+//   //                               ScaffoldMessenger.of(context).showSnackBar(
+//   //                                 const SnackBar(
+//   //                                     content: Text('Processing Data')),
+//   //                               );
+//   //                             }
+//   //                           },
+//   //                           child: CustomButton(title: "Sign up")),
+//   //                     ],
+//   //                   ),
+//   //                 ),
+//   //               )
+//   //             ]),
+//   //       ),
+//   //       )
+//   //     ]),
+//   //   ),
+//   // );
+// //   }
+// // }
+// }

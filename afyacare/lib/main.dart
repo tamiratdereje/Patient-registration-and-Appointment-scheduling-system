@@ -1,6 +1,7 @@
+import 'package:afyacare/presentation/screens/signup2.dart';
 import 'package:flutter/material.dart';
 import 'presentation/screens/signup.dart';
-
+import 'package:intl/intl.dart';
 import './presentation/screens/Home.dart';
 
 void main() {
@@ -15,10 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       
-      home: const Login(),
+      home: const Signup()
     );
   }
 }
