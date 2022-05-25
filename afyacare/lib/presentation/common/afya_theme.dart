@@ -26,7 +26,7 @@ class AfyaTheme {
 
     // this is headline font name of doctor in doctor's patient history 
     headline2: GoogleFonts.outfit(
-      fontSize: 24.0,
+      fontSize: 30.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
