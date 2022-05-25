@@ -166,9 +166,6 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                                 dateinput.text =
                                                     formattedDate; //set output date to TextField value.
                                               });
-                                            
-
-                                            // _displayDateTime(selectedDateTime);
                                           },
                                           currentTime: DateTime.now(),
                                         );
