@@ -13,8 +13,8 @@ class AfyaTheme {
     ),
     bodyText2: GoogleFonts.outfit(
       fontSize: 10.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.black.withOpacity(0.7),
+      fontWeight: FontWeight.normal,
+      color: Colors.black.withOpacity(0.5),
     ),
     
     headline1: GoogleFonts.outfit(
@@ -26,7 +26,7 @@ class AfyaTheme {
 
     // this is headline font name of doctor in doctor's patient history 
     headline2: GoogleFonts.outfit(
-      fontSize: 24.0,
+      fontSize: 30.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),

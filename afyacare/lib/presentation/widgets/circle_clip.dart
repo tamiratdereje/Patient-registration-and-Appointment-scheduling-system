@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ClipPathClass extends CustomClipper<Rect> {
   @override
   Rect getClip(Size size) {
@@ -12,7 +11,6 @@ class ClipPathClass extends CustomClipper<Rect> {
     return false;
   }
 }
-
 
 class ClipPathClass2 extends CustomClipper<Rect> {
   @override
@@ -27,38 +25,34 @@ class ClipPathClass2 extends CustomClipper<Rect> {
 }
 
 class circleClip extends StatelessWidget {
-  const circleClip({ Key? key }) : super(key: key);
+  const circleClip({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:Stack(
-        children: [
-          Container(
-
-            child: ClipOval(
-              clipper: ClipPathClass(),
-              child: SizedBox(
-                width:MediaQuery.of(context).size.width,
-                height:500,
-                child: Container(color: Colors.green.withOpacity(0.2)),
-              ),
+        child: Stack(
+      children: [
+        Container(
+          child: ClipOval(
+            clipper: ClipPathClass(),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 500,
+              child: Container(color: Colors.green.withOpacity(0.2)),
             ),
           ),
-
-           Container(
-
-            child: ClipOval(
-              clipper: ClipPathClass2(),
-              child: SizedBox(
-                width:MediaQuery.of(context).size.width,
-                height:250,
-                child: Container(color: Colors.green.withOpacity(0.2)),
-              ),
+        ),
+        Container(
+          child: ClipOval(
+            clipper: ClipPathClass2(),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 250,
+              child: Container(color: Colors.green.withOpacity(0.2)),
             ),
           ),
-        ],
-      
+        ),
+      ],
     ));
   }
 }

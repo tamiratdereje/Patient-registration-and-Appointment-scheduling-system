@@ -6,17 +6,17 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final IconData? icon;
-  const CustomButton({required this.title, this.width, this.height=35, this.icon });
+  const CustomButton({Key? key, required this.title, this.width, this.height=35, this.icon }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double width_full = double.infinity;
+    double widthFull = double.infinity;
     return Container(
-        width: width == null ? width_full : width,
+        width: width ?? widthFull,
         height: width == null ? 50 : height,
         // margin: EdgeInsets.all(8),
         // padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Colors.green,
         ),
@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Text(
                   title,       
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18
                   ),
