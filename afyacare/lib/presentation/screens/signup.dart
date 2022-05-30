@@ -54,7 +54,6 @@ class _SignupState extends State<Signup> {
         child: Stack(children: [
           circleClip(),
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
             child: Container(
               padding: EdgeInsets.fromLTRB(15, 60, 15, 5),
               child: Column(
