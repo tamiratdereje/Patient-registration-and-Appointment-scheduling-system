@@ -1,5 +1,7 @@
 
 import 'package:afyacare/presentation/screens/appointment_booking.dart';
+import 'package:afyacare/presentation/screens/appointed_patient.dart';
+
 import 'package:flutter/material.dart';
 import 'presentation/screens/signup.dart';
 
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       
-      home: const AppointmentBooking()
+      home: const AppointedPatient()
     );
   }
 }

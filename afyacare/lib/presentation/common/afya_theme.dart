@@ -13,8 +13,8 @@ class AfyaTheme {
     ),
     bodyText2: GoogleFonts.outfit(
       fontSize: 10.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.black.withOpacity(0.7),
+      fontWeight: FontWeight.normal,
+      color: Colors.black.withOpacity(0.5),
     ),
     
     headline1: GoogleFonts.outfit(
