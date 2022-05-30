@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      
-      home: const AppointedPatient()
+      home: const AppointmentBooking()
     );
   }
 }
