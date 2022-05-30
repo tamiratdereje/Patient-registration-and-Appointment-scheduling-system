@@ -161,7 +161,6 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                                       .add_jm()
                                                       .format(date);
 
-
                                               setState(() {
                                                 dateinput.text =
                                                     formattedDate; //set output date to TextField value.
@@ -169,7 +168,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                           },
                                           currentTime: DateTime.now(),
                                         );
-                                        // });
+                                      
                                       },
                                       validator: (value) {
                                         if (value!.isEmpty) {
