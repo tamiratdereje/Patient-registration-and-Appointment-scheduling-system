@@ -24,12 +24,15 @@ class _PatientDetailsState extends State<PatientDetails> {
   List<String> chipsList = chips().chipsList;
 
   Widget createChip(String name) {
-    return Padding(
-      padding: const EdgeInsets.all(6),
-      child: Chip(
-        label: Text(name),
-        labelPadding: EdgeInsets.all(6),
-      ),
+    return Chip(
+      backgroundColor: Color.fromARGB(53, 70, 171, 73),
+      deleteIconColor: Color.fromARGB(255, 198, 114, 110),
+      label: Text(name),
+      labelPadding: EdgeInsets.symmetric(horizontal: 12),
+      deleteButtonTooltipMessage: 'Delete',
+      deleteIcon: Icon(
+          Icons.highlight_off), // The icon displayed when onDeleted is set.
+      onDeleted: () {},
     );
   }
 
@@ -73,7 +76,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                           style: AfyaTheme.lightTextTheme.headline2,
                         ),
                         const SizedBox(
-                          height: 70,
+                          height: 40,
                         ),
                       ],
                     ),
@@ -90,6 +93,8 @@ class _PatientDetailsState extends State<PatientDetails> {
                                     Padding(
                                       padding: const EdgeInsets.all(12),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           TextFormField(
                                             controller: prescribeMed,
@@ -118,7 +123,19 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             },
                                           ),
                                           const SizedBox(
-                                            height: 25,
+                                            height: 10,
+                                          ),
+                                          SizedBox(
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: chipsList
+                                                      .map((value) =>
+                                                          createChip(value))
+                                                      .toList()),
+                                            ),
                                           ),
                                           TextFormField(
                                             controller: recordDescription,
@@ -137,16 +154,6 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             height: 25,
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                            children: chipsList
-                                                .map((value) =>
-                                                    createChip(value))
-                                                .toList()),
                                       ),
                                     ),
                                     const SizedBox(
