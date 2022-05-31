@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authentication.route');
-const check = require('./routes/check');
+// const check = require('./routes/check');
 const medicine_route = require('./routes/medicine.route');
 const record_route = require('./routes/record_route');
 const schedule_route = require('./routes/schedule.route')
@@ -46,7 +46,7 @@ app.get('/',(req,res)=>{
 
 // Defining routes
 app.use('/api/auth', authRoutes);
-app.use('/let', check);
+// app.use('/let', check);
 app.use('/medicine', medicine_route);
 app.use('/record', record_route);
 app.use('/schedule', schedule_route );
