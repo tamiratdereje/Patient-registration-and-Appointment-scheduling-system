@@ -29,7 +29,8 @@ class IntroScreen extends StatelessWidget {
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width - 120,
-                          child: const Image(image: AssetImage("Intro.png"))),
+                          child: const Image(
+                              image: AssetImage("assets/Intro.png"))),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -48,7 +49,7 @@ class IntroScreen extends StatelessWidget {
                             height: 30,
                           ),
                           TextButton(
-                            onPressed: (){},
+                            onPressed: () {},
                             child: const CustomButton(
                                 title: "Get Started",
                                 icon: Icons.arrow_forward_outlined),

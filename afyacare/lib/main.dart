@@ -1,4 +1,5 @@
 import 'package:afyacare/presentation/screens/appointment_booking.dart';
+
 import 'package:afyacare/presentation/screens/appointed_patient.dart';
 import 'package:flutter/material.dart';
 import 'presentation/screens/signup.dart';
@@ -14,6 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home: const PatientDetails());
+=======
+
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -21,5 +31,6 @@ class MyApp extends StatelessWidget {
       ),
       home: const AppointmentBooking()
     );
+>>>>>>> 5f7c83ec757460d843611079db038c1e4fa60776
   }
 }
