@@ -1,12 +1,15 @@
+import 'package:afyacare/presentation/screens/appointment_booking.dart';
 
-import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
+import 'package:afyacare/presentation/screens/appointed_patient.dart';
+import 'package:flutter/material.dart';
+import 'presentation/screens/signup.dart';
 
-import 'presentation/pages/appointment/appointment_booking.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const UpcomingSchedule()
+      home: const PatientDetails(),
     );
   }
 }
