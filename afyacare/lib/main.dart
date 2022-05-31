@@ -1,3 +1,4 @@
+import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
 import 'package:afyacare/presentation/pages/record/pateint_details.dart';
 
 import 'package:afyacare/presentation/pages/appointment/appointed_patient.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const PatientDetails(),
+      home: const UpcomingSchedule(),
     );
   }
 }
