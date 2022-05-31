@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/widgets/brand_name.dart';
 import '../../core/widgets/circle_clip.dart';
@@ -49,11 +50,14 @@ class IntroScreen extends StatelessWidget {
                             height: 30,
                           ),
                           TextButton(
-                            onPressed: (){},
+                            onPressed: () {
+                              context.go('/login');
+                            },
                             child: const CustomButton(
-                                title: "Get Started",
-                                icon: Icons.arrow_forward_outlined,
-                                icon_visiblity: true,),
+                              title: "Get Started",
+                              icon: Icons.arrow_forward_outlined,
+                              icon_visiblity: true,
+                            ),
                           ),
                         ],
                       ),
