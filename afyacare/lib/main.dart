@@ -1,10 +1,9 @@
-
 import 'package:afyacare/presentation/screens/appointment_booking.dart';
 import 'package:afyacare/presentation/screens/appointed_patient.dart';
 import 'package:flutter/material.dart';
 import 'presentation/screens/signup.dart';
-
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(const MyApp());
