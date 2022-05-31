@@ -1,11 +1,13 @@
-
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/brand_name.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:regexpattern/regexpattern.dart';
 import 'package:intl/intl.dart';
+
+import '../appointment/appointment_booking.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -67,7 +69,9 @@ class _LoginState extends State<Login> {
                           "Login Account",
                           style: AfyaTheme.lightTextTheme.headline2,
                         ),
-                        SizedBox(width: 8,),
+                        SizedBox(
+                          width: 8,
+                        ),
                         Icon(Icons.account_circle_outlined)
                       ],
                     ),
@@ -151,9 +155,10 @@ class _LoginState extends State<Login> {
                                     const SnackBar(
                                         content: Text('Processing Data')),
                                   );
+                                  context.go('/upcomingSchedule');
                                 }
                               },
-                              child: CustomButton(title: "Sign up"),
+                              child: CustomButton(title: "Login"),
                             ),
                           ],
                         ),
