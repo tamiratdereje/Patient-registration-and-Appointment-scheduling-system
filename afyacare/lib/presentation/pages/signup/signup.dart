@@ -1,10 +1,12 @@
-import 'package:afyacare/presentation/widgets/circle_clip.dart';
-import 'package:afyacare/presentation/widgets/custom_button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:regexpattern/regexpattern.dart';
-import '../common/afya_theme.dart';
-import '../widgets/brand_name.dart';
+import '../../core/afya_theme.dart';
 import 'package:intl/intl.dart';
+
+import '../../core/widgets/brand_name.dart';
+import '../../core/widgets/circle_clip.dart';
+import '../../core/widgets/custom_button.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);

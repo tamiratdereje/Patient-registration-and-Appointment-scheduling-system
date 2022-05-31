@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../common/afya_theme.dart';
+import '../afya_theme.dart';
 
 class BrandName extends StatelessWidget {
   const BrandName({Key? key}) : super(key: key);

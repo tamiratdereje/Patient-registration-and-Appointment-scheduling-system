@@ -1,12 +1,12 @@
-import 'package:afyacare/presentation/common/afya_theme.dart';
-import 'package:afyacare/presentation/widgets/brand_name.dart';
-import 'package:afyacare/presentation/widgets/circle_clip.dart';
+import '../../core/afya_theme.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:regexpattern/regexpattern.dart';
-import 'package:afyacare/presentation/widgets/custom_button.dart';
-import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/widgets/circle_clip.dart';
+import '../../core/widgets/custom_button.dart';
+import 'appointment_text.dart';
 
 class AppointmentBooking extends StatefulWidget {
   const AppointmentBooking({Key? key}) : super(key: key);
@@ -74,13 +74,13 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                         height: 35,
                       ),
                       Text(
-                        TextData().appointmentTitle,
+                        AppointmentText().appointmentTitle,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      Text(TextData().appointmentDetail),
+                      Text(AppointmentText().appointmentDetail),
                       const SizedBox(
                         height: 30,
                       ),
@@ -196,7 +196,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                       );
                                     }
                                   },
-                                  child: CustomButton(title: "Submit")),
+                                  child: CustomButton(title: "Submit",)),
                             ],
                           ),
                         ),

@@ -1,9 +1,10 @@
-import 'package:afyacare/presentation/widgets/circle_clip.dart';
-import 'package:afyacare/presentation/widgets/custom_button.dart';
+
+import 'package:afyacare/presentation/core/afya_theme.dart';
+import 'package:afyacare/presentation/core/widgets/brand_name.dart';
+import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
+import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:regexpattern/regexpattern.dart';
-import '../common/afya_theme.dart';
-import '../widgets/brand_name.dart';
 import 'package:intl/intl.dart';
 
 class Login extends StatefulWidget {

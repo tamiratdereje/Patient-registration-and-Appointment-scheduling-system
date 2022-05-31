@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/circle_clip.dart';
-import '../widgets/custom_button.dart';
+import '../../core/widgets/circle_clip.dart';
+import '../../core/widgets/custom_button.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
