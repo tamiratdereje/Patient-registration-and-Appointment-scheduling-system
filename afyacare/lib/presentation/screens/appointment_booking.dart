@@ -36,6 +36,8 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
     // Clean up the controller when the widget is removed from the widget tree.
     // This also removes the _printLatestValue listener.
     placeofResidence.dispose();
+    dateinput.dispose();
+
     phoneNumber.dispose();
     birthdayController.dispose();
     genderController.dispose();

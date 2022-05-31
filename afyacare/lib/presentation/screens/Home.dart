@@ -14,9 +14,9 @@ class Home extends StatelessWidget {
           Column(
             children: [
               Container(
-                child: TextButton(onPressed: () {}, child:CustomButton(title: "Get started",icon:Icons.arrow_forward_rounded) ),
+                child: TextButton(onPressed: () {}, child:
+                CustomButton(title: "Get started",icon:Icons.arrow_forward_rounded) ),
               )
-              
             ],
           )
         ],
