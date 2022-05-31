@@ -94,7 +94,7 @@ const all_medicine = async (req, res) => {
     return;
   }
 
-  res.status(200).json(med);
+  res.status(200).json({medicines:med});
 };
 
 
