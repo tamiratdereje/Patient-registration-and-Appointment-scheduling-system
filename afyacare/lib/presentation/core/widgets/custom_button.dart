@@ -6,7 +6,17 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final IconData? icon;
-  const CustomButton({Key? key, required this.title, this.width, this.height=35, this.icon }) : super(key: key);
+  final bool muted;
+  final bool icon_visiblity;
+  const CustomButton(
+      {Key? key,
+      required this.title,
+      this.width,
+      this.height = 35,
+      this.icon,
+      this.icon_visiblity=false,
+      this.muted = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,28 +26,24 @@ class CustomButton extends StatelessWidget {
         height: width == null ? 50 : height,
         // margin: EdgeInsets.all(8),
         // padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.green,
+          color: muted ? Colors.green.withOpacity(0.3) : Colors.green,
         ),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
-              
               flex: 3,
               child: Align(
-                alignment: Alignment.centerRight,
+                alignment:icon_visiblity? Alignment.centerRight: Alignment.center,
                 child: Text(
-                  title,       
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18
-                  ),
+                  title,
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
             ),
-            Expanded(flex:2,child: Icon(icon,color: Colors.white,size: 26))
+           if(icon_visiblity) Expanded(flex: 2, child: Icon(icon, color: Colors.white, size: 26))
           ],
         ));
   }

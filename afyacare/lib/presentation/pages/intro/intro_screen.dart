@@ -52,7 +52,8 @@ class IntroScreen extends StatelessWidget {
                             onPressed: (){},
                             child: const CustomButton(
                                 title: "Get Started",
-                                icon: Icons.arrow_forward_outlined),
+                                icon: Icons.arrow_forward_outlined,
+                                icon_visiblity: true,),
                           ),
                         ],
                       ),
