@@ -1,6 +1,7 @@
 import 'package:afyacare/presentation/pages/record/pateint_details.dart';
 
 import 'package:afyacare/presentation/pages/appointment/appointed_patient.dart';
+import 'package:afyacare/presentation/pages/record/pateint_details.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
