@@ -1,14 +1,15 @@
-import 'package:afyacare/presentation/common/afya_theme.dart';
-import 'package:afyacare/presentation/widgets/brand_name.dart';
-import 'package:afyacare/presentation/widgets/circle_clip.dart';
+
+import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:afyacare/presentation_data/chip_data.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:regexpattern/regexpattern.dart';
-import 'package:afyacare/presentation/widgets/custom_button.dart';
 import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/afya_theme.dart';
+import '../../core/widgets/circle_clip.dart';
 
 class PatientDetails extends StatefulWidget {
   const PatientDetails({Key? key}) : super(key: key);

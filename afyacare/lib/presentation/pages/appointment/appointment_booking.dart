@@ -2,7 +2,6 @@ import '../../core/afya_theme.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:regexpattern/regexpattern.dart';
-import 'package:afyacare/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/widgets/circle_clip.dart';
@@ -197,7 +196,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                       );
                                     }
                                   },
-                                  child: CustomButton(title: "Submit")),
+                                  child: CustomButton(title: "Submit",)),
                             ],
                           ),
                         ),

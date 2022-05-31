@@ -1,4 +1,4 @@
-import 'package:afyacare/presentation/widgets/circle_clip.dart';
+import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:flutter/material.dart';
 
 class Loading extends StatelessWidget {
