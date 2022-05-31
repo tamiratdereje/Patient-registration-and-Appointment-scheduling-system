@@ -4,6 +4,7 @@ import '../common/afya_theme.dart';
 class BrandName extends StatelessWidget {
   const BrandName({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Row(
