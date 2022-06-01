@@ -1,5 +1,7 @@
+
 import 'package:afyacare/presentation/routes/router.dart' as AfyaRouter;
 import 'package:flutter/widgets.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     
     return AfyaRouter.Router();
+
   }
 }

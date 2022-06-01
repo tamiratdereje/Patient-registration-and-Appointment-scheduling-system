@@ -2,7 +2,7 @@ import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
 import 'package:afyacare/presentation/pages/intro/intro_screen.dart';
 import 'package:afyacare/presentation/pages/login/login.dart';
 import 'package:afyacare/presentation/pages/record/pateint_details.dart';
-
+import 'package:afyacare/presentation/pages/Medicine/list_of_medicines.dart';
 import '../pages/appointment/appointment_booking.dart';
 import '../pages/appointment/upcoming_schedule.dart';
 import '../pages/signup/signup.dart';
@@ -54,6 +54,11 @@ class Router extends StatelessWidget {
         path: '/appointment',
         builder: (BuildContext context, GoRouterState state) =>
             const AppointmentBooking(),
+      ),
+      GoRoute(
+        path: '/medicineList',
+        builder: (BuildContext context, GoRouterState state) =>
+        const ListOfMedicine(),
       ),
     ],
   );
