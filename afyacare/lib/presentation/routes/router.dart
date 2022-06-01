@@ -4,6 +4,7 @@ import 'package:afyacare/presentation/pages/login/login.dart';
 import 'package:afyacare/presentation/pages/record/pateint_details.dart';
 
 import '../pages/appointment/appointment_booking.dart';
+import '../pages/appointment/upcoming_schedule.dart';
 import '../pages/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
