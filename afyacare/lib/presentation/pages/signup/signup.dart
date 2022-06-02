@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:regexpattern/regexpattern.dart';
 import '../../core/afya_theme.dart';
 import 'package:intl/intl.dart';
@@ -26,9 +26,6 @@ class _SignupState extends State<Signup> {
   TextEditingController birthdayController = TextEditingController();
   TextEditingController dateinput = TextEditingController();
 
-  TextEditingController genderController = TextEditingController();
-  String _selectedGender = 'male';
-
   @override
   void initState() {
     _passwordVisible = true;
@@ -45,7 +42,6 @@ class _SignupState extends State<Signup> {
     passwordController.dispose();
     fullNameController.dispose();
     birthdayController.dispose();
-    genderController.dispose();
     super.dispose();
   }
 
@@ -113,7 +109,7 @@ class _SignupState extends State<Signup> {
                                         labelText:
                                             "Enter Date" //label text of field
                                         ),
-                                        
+
                                     readOnly:
                                         true, //set it true, so that user will not able to edit text
                                     onTap: () async {
@@ -124,7 +120,6 @@ class _SignupState extends State<Signup> {
                                               firstDate: DateTime(
                                                   1930), //DateTime.now() - not to allow to choose before today.
                                               lastDate: DateTime.now());
-                                      
 
                                       if (pickedDate != null) {
                                         print(
@@ -145,7 +140,7 @@ class _SignupState extends State<Signup> {
                                       }
                                     },
                                     validator: (value) {
-                                      if (value!.isEmpty ) {
+                                      if (value!.isEmpty) {
                                         return "Pick birthdate";
                                       } else {
                                         return null;
@@ -155,55 +150,7 @@ class _SignupState extends State<Signup> {
                                   const SizedBox(
                                     height: 25,
                                   ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        // flex: 1,
-                                        child: Text(
-                                          "Gender",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 131, 131, 131),
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: ListTile(
-                                          contentPadding: EdgeInsets.all(0),
-                                          horizontalTitleGap: 0,
-                                          leading: Radio<String>(
-                                            value: 'male',
-                                            groupValue: _selectedGender,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _selectedGender = value!;
-                                              });
-                                            },
-                                          ),
-                                          title: const Text('Male'),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: ListTile(
-                                          contentPadding: EdgeInsets.all(0),
-                                          horizontalTitleGap: 0,
-                                          leading: Radio<String>(
-                                            value: 'female',
-                                            groupValue: _selectedGender,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _selectedGender = value!;
-                                              });
-                                            },
-                                          ),
-                                          title: const Text('Female'),
-                                        ),
-                                      ),
-                                      // Text(_selectedGender == 'male'
-                                      //     ? 'Hello gentlement!'
-                                      //     : 'Hi lady!')
-                                    ],
-                                  ),
+
                                   // const SizedBox(height: 25),
                                   TextFormField(
                                     controller: usernameController,
@@ -297,6 +244,21 @@ class _SignupState extends State<Signup> {
                                   }
                                 },
                                 child: CustomButton(title: "Sign up")),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Have an account? "),
+                                TextButton(
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      context.go('/login');
+                                    },
+                                    child: Text(" Login")),
+                              ],
+                            )
                           ],
                         ),
                       ),

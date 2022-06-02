@@ -30,36 +30,27 @@ class Login extends StatefulWidget {
 
 
 
-
-class LoginState extends StatelessWidget {
-  // late bool _passwordVisible;
-  // late bool _passwordConfirmVisible;
-  // final LoginRepo loginRepo;
-  LoginState();
+class _LoginState extends State<Login> {
+  late bool passwordVisible;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController birthdayController = TextEditingController();
-  TextEditingController dateinput = TextEditingController();
-
-  TextEditingController genderController = TextEditingController();
-  String _selectedGender = 'male';
-
-  // @override
-  // void initState() {
-  //   _passwordVisible = true;
-  //   _passwordConfirmVisible = true;
-  //   dateinput.text = "";
-  // }
+  
+  @override
+  void initState() {
+    passwordVisible = true;
+    super.initState();
+  }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
-    // This also removes the _printLatestValue listener.
     usernameController.dispose();
     passwordController.dispose();
+    super.dispose();
+
+
+
   }
 
   @override
@@ -124,8 +115,9 @@ class LoginState extends StatelessWidget {
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    obscureText: true,
+                                    obscureText: passwordVisible,
                                     controller: passwordController,
+
                                     decoration: InputDecoration(
                                       // suffixIcon: IconButton(
                                       //   onPressed: () {
@@ -160,14 +152,18 @@ class LoginState extends StatelessWidget {
                               ),
                             ),
 
-                            BlocConsumer<AuthBloc, AuthState>(
-                              listener: (context, state) {
-                                Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => PatientDetails(),
-                                ),
-                              ); 
+                            TextButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Processing Data')),
+                                  );
+                                  // context.go('/mainscreen');
+                                  // context.go('/doctorscreen');
+                                  context.go('/pharmacistScreen');
+                                }
+
                               },
 
                               builder: (context, state) {
@@ -213,6 +209,21 @@ class LoginState extends StatelessWidget {
                               },
 
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Not register yet ?"),
+                                TextButton(
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      context.go('/signup');
+                                    },
+                                    child: Text(" Create Account")),
+                              ],
+                            )
                           ],
                         ),
                       ),
