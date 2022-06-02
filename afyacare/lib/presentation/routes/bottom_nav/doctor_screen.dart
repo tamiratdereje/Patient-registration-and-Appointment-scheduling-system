@@ -11,7 +11,7 @@ class DoctorScreen extends StatefulWidget {
 }
 
 class _DoctorScreenState extends State<DoctorScreen> {
-  List pages = [AppointedPatient(), Search(), Profile()];
+  List pages = [AppointedPatient(), Search(), UserProfile()];
   int current = 0;
   @override
   Widget build(BuildContext context) {

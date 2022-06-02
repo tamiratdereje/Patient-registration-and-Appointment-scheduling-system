@@ -55,9 +55,9 @@ class Search extends StatelessWidget {
                         child: CustomButton(
                           title: "",
                           icon: Icons.search,
+                          iconVisiblity: true,
                           width: 55,
                           height: 55,
-                          icon_visiblity: true,
                         ))
                   ],
                 ),

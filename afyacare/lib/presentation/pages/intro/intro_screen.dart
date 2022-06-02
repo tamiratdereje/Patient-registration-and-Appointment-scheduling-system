@@ -23,28 +23,29 @@ class IntroScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SizedBox(height: 90,),
+                  SizedBox(
+                    height: 90,
+                  ),
                   const BrandName(),
                   const SizedBox(
                     height: 20,
                   ),
                   Container(
                       width: MediaQuery.of(context).size.width - 120,
-                      child: const Image(image: AssetImage("assets/Intro.png"))),
+                      child:
+                          const Image(image: AssetImage("assets/Intro.png"))),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
                         height: 20,
                       ),
-
                       Text(
                         IntroText().introTitle,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 10,
-
                       ),
                       Text(IntroText().introDetails),
                       const SizedBox(
@@ -57,7 +58,7 @@ class IntroScreen extends StatelessWidget {
                         child: const CustomButton(
                           title: "Get Started",
                           icon: Icons.arrow_forward_outlined,
-                          icon_visiblity: true,
+                          iconVisiblity: true,
                         ),
                       ),
                     ],

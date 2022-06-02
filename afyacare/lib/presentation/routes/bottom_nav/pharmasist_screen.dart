@@ -11,7 +11,7 @@ class PharmacistScreen extends StatefulWidget {
 }
 
 class _PharmacistScreenState extends State<PharmacistScreen> {
-  List pages = [ const ListOfMedicine(),const AddMedicine(), const Profile()];
+  List pages = [ const ListOfMedicine(),const AddMedicine(), const UserProfile()];
   int current = 0;
   @override
   Widget build(BuildContext context) {
