@@ -59,6 +59,7 @@ class _UserProfileState extends State<UserProfile> {
             isButtonVisible = false;
             isSaveVisible = true;
             isPasswordEditable = true;
+            _isEnable = true;
           });
         },
         backgroundColor: Colors.green,
@@ -87,7 +88,7 @@ class _UserProfileState extends State<UserProfile> {
                       ],
                     ),
                     Text(
-                      "Welcome",
+                      "User Id",
                       style: AfyaTheme.lightTextTheme.bodyText1,
                     ),
                     const SizedBox(
@@ -107,7 +108,7 @@ class _UserProfileState extends State<UserProfile> {
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    enabled: _isEnable,
+                                    enabled: false,
                                     controller: fullNameController,
                                     decoration: const InputDecoration(
                                       labelText: "Full name",
@@ -147,7 +148,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   : Icons.visibility_off),
                                             ),
                                             // suffixIcon: Icon(Icons.scuba_diving),
-                                            labelText: "Enter password",
+                                            labelText: "Enter new password",
                                           ),
                                           validator: (value) {
                                             if (value!.isEmpty ||
@@ -174,7 +175,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   : Icons.visibility_off),
                                             ),
                                             // suffixIcon: Icon(Icons.scuba_diving),
-                                            labelText: "confirm password",
+                                            labelText: "confirm new password",
                                           ),
                                           validator: (value) {
                                             if (value!.isEmpty ||
@@ -227,7 +228,7 @@ class _UserProfileState extends State<UserProfile> {
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceAround,
                                           children: [
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -250,7 +251,6 @@ class _UserProfileState extends State<UserProfile> {
                                                             content: Text(
                                                                 'Saving user Data')),
                                                       );
-
                                                       _isEnable = false;
                                                       isButtonVisible = true;
                                                       isSaveVisible = false;
@@ -264,7 +264,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   width: MediaQuery.of(context)
                                                               .size
                                                               .width /
-                                                          2 -
+                                                          3 -
                                                       60,
                                                   height: 30,
                                                 ),
@@ -272,36 +272,40 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                           ],
                                         ),
-                                        TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              _isEnable = true;
-                                            });
-                                          },
-                                          child: CustomButton(
-                                            title: "Logout",
-                                            width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2 -
-                                                60,
-                                            height: 30,
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: CustomButton(
-                                            title: "Delete",
-                                            width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2 -
-                                                60,
-                                            height: 30,
-                                            icon: Icons.delete,
-                                            iconVisiblity: true,
-                                          ),
-                                        ),
+                                        Row(
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  _isEnable = true;
+                                                });
+                                              },
+                                              child: CustomButton(
+                                                title: "Logout",
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2 -
+                                                    60,
+                                                height: 30,
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {},
+                                              child: CustomButton(
+                                                title: "Delete",
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2 -
+                                                    60,
+                                                height: 30,
+                                                icon: Icons.delete,
+                                                iconVisiblity: true,
+                                              ),
+                                            ),
+                                          ],
+                                        )
                                       ])
                                 ],
                               ),
