@@ -1,3 +1,8 @@
+import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
+import 'package:afyacare/presentation/pages/intro/intro_screen.dart';
+import 'package:afyacare/presentation/pages/login/login.dart';
+import 'package:afyacare/presentation/pages/record/pateint_details.dart';
+import 'package:afyacare/presentation/pages/Medicine/list_of_medicines.dart';
 import '../pages/appointment/appointment_booking.dart';
 import '../pages/signup/signup.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +17,47 @@ class Router extends StatelessWidget {
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         title: title,
+        theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
       );
 
   final GoRouter _router = GoRouter(
+    // initialLocation: '/',
     routes: <GoRoute>[
       GoRoute(
         path: '/',
-        builder: (BuildContext context, GoRouterState state) => const Signup(),
+        builder: (BuildContext context, GoRouterState state) => const IntroScreen(),
       ),
       GoRoute(
         path: '/appointment',
         builder: (BuildContext context, GoRouterState state) =>
             const AppointmentBooking(),
+      ),
+       GoRoute(
+        path: '/login',
+        builder: (BuildContext context, GoRouterState state) =>
+            const Login(),
+      ),
+       GoRoute(
+        path: '/upcomingSchedule',
+        builder: (BuildContext context, GoRouterState state) =>
+            const UpcomingSchedule(),
+      ),
+       GoRoute(
+        path: '/patientDetails',
+        builder: (BuildContext context, GoRouterState state) =>
+            const PatientDetails(),
+      ),
+       GoRoute(
+        path: '/appointment',
+        builder: (BuildContext context, GoRouterState state) =>
+            const AppointmentBooking(),
+      ),
+      GoRoute(
+        path: '/medicineList',
+        builder: (BuildContext context, GoRouterState state) =>
+        const ListOfMedicine(),
       ),
     ],
   );

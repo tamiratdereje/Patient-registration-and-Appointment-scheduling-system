@@ -1,20 +1,33 @@
+
 import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
 import 'package:afyacare/domain/auth/login_user_domain.dart';
+
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/brand_name.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:afyacare/presentation/pages/record/pateint_details.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:go_router/go_router.dart';
+
 import 'package:regexpattern/regexpattern.dart';
 import 'package:intl/intl.dart';
 import 'package:afyacare/infrastructure/auth/login_repository.dart';
 import 'package:afyacare/infrastructure/auth/login_model.dart';
 
+
 import '../../../application/signin_form/signin_form_event.dart';
 import '../../../application/signin_form/signin_form_state.dart';
 import '../../../infrastructure/auth/login_data_provider.dart';
+
+import '../appointment/appointment_booking.dart';
+
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
 
 
 
@@ -198,6 +211,7 @@ class LoginState extends StatelessWidget {
                                   child: CustomButton(title: "Sign in"),
                                 );
                               },
+
                             ),
                           ],
                         ),
