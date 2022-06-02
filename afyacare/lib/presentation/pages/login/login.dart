@@ -1,4 +1,4 @@
-import 'package:afyacare/application/auth/signin_form/signin_form_bloc.dart';
+import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
 import 'package:afyacare/domain/auth/login_user_domain.dart';
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/brand_name.dart';
@@ -12,8 +12,8 @@ import 'package:intl/intl.dart';
 import 'package:afyacare/infrastructure/auth/login_repository.dart';
 import 'package:afyacare/infrastructure/auth/login_model.dart';
 
-import '../../../application/auth/signin_form/signin_form_event.dart';
-import '../../../application/auth/signin_form/signin_form_state.dart';
+import '../../../application/signin_form/signin_form_event.dart';
+import '../../../application/signin_form/signin_form_state.dart';
 import '../../../infrastructure/auth/login_data_provider.dart';
 
 

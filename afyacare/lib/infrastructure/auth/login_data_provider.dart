@@ -25,7 +25,7 @@ class ApiClient {
         return User.fromJson(jsonDecode(response.body));
       }
       else {
-        throw Exception('Invalid Credentail');
+        throw Exception('Invalid Credential');
   
       }
 
