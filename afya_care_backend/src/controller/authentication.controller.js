@@ -16,6 +16,7 @@ const signUp =  async (req, res) => {
 
     //check if email is already in use
     const emailExist = await User.findOne({email: req.body.email});
+    
     if(emailExist) return res.status(401).json({message: 'User with this email already exists'});
 
     // Hashing user password
@@ -27,7 +28,7 @@ const signUp =  async (req, res) => {
         email : req.body.email,
         birth_date: req.body.birth_date,
         roles: req.body.roles,
-        image: req.file.path,
+        // image: req.file.path,
         password: hashedPassword
     })
 
@@ -79,14 +80,21 @@ const logIn = async (req, res) => {
         profileImage: userExist.image
     })
 
-    
-
 
 }
 
+const logout = async (req, res) => {
+    res.header("token","");
+    return res.status(200).json({
+        message : "you are logged out"
+    })
+
+    // res.redirect('/');
+}
 
 
 module.exports = {
     logIn,
-    signUp
+    signUp,
+    logout
 }

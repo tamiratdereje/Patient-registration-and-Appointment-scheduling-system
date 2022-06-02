@@ -4,18 +4,21 @@ const Record = require("../models/Record");
 const User = require("../models/user");
 
 
-const { recordValidation } = require("../validation/recordValidation");
+// const { recordValidation } = require("../validation/recordValidation");
 
 const add_record = async (req, res) => {
-  const { error } = recordValidation(req.body);
-  if (error) return res.status(400).send({ message: error.details[0].message });
+  
+  // const { error } = recordValidation(req.body);
+  // if (error) return res.status(400).send({ message: error.details[0].message });
 
 
   var record = new Record({
+
     date: req.body.date,
     descrption: req.body.descrption,
     medicine: req.body.medicine,
-    doctor: req.body.doctor
+    user: req.body.user
+
   });
   
   await record.save(function (err, output) {
@@ -29,7 +32,7 @@ const add_record = async (req, res) => {
         date: record.date,
         descrption: record.descrption,
         medicine: record.medicine,
-        doctor : record.doctor
+        user : record.user
       },
     });
   });
@@ -38,16 +41,11 @@ const add_record = async (req, res) => {
 
 
 const edit_record = async (req, res) => {
-  const { error } = recordValidation(req.body);
-  if (error) return res.status(400).send({ message: error.details[0].message });
 
-  var doctor = await User.findById(req.body.doctor)
-  if (!doctor){
-      res.status(401).json({
-          message : "no such doctor exist"
-      })
-      return
-  }
+  // const { error } = recordValidation(req.body);
+  // if (error) return res.status(400).send({ message: error.details[0].message });
+
+  
 
   var rec = await Record.findById(req.params.id);
   if (!rec) {
@@ -56,10 +54,8 @@ const edit_record = async (req, res) => {
     });
     return;
   }
-    rec.date = req.body.date;
     rec.descrption = req.body.descrption;
     rec.medicine = req.body.medicine;
-    rec.doctor = req.body.doctor;
 
     await rec.save(function (err) {
         if (err) {
@@ -73,7 +69,7 @@ const edit_record = async (req, res) => {
         date : rec.date,
         descrption : rec.descrption,
         medicine : rec.medicine ,
-        doctor :  rec.doctor
+        user :  rec.user
       },
     });  
     };
@@ -90,7 +86,7 @@ const delete_record = async (req, res) => {
         date : rec.date,
         descrption : rec.descrption,
         medicine : rec.medicine ,
-        doctor :  rec.doctor
+        user :  rec.user
       },
     });
 
@@ -104,3 +100,5 @@ module.exports = {
   delete_record,
   edit_record,
 };
+
+

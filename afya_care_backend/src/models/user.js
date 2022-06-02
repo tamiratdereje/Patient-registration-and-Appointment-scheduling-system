@@ -41,14 +41,8 @@ const userSchema = new mongoose.Schema({
     birth_date: {
         type: Date,
         required: true
-    },
+    },    
 
-    active : {
-        type: bool,
-        required: false,
-        default: false,
-    }
-    
 });
 
 // Hash password before save in DB
