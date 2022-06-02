@@ -18,35 +18,21 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   late bool _passwordVisible;
-  late bool _passwordConfirmVisible;
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController birthdayController = TextEditingController();
-  TextEditingController dateinput = TextEditingController();
-
-  TextEditingController genderController = TextEditingController();
-  String _selectedGender = 'male';
-
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  
   @override
   void initState() {
     _passwordVisible = true;
-    _passwordConfirmVisible = true;
-    dateinput.text = "";
     super.initState();
   }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
-    // This also removes the _printLatestValue listener.
-    usernameController.dispose();
-    passwordController.dispose();
-    fullNameController.dispose();
-    birthdayController.dispose();
-    genderController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -96,7 +82,7 @@ class _LoginState extends State<Login> {
                               child: Column(
                                 children: [
                                   TextFormField(
-                                    controller: usernameController,
+                                    controller: _usernameController,
                                     decoration: InputDecoration(
                                       labelText: "username",
                                     ),
@@ -114,7 +100,7 @@ class _LoginState extends State<Login> {
                                   ),
                                   TextFormField(
                                     obscureText: _passwordVisible,
-                                    controller: passwordController,
+                                    controller: _passwordController,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
                                         onPressed: () {
@@ -155,11 +141,28 @@ class _LoginState extends State<Login> {
                                     const SnackBar(
                                         content: Text('Processing Data')),
                                   );
-                                  context.go('/upcomingSchedule');
+                                  // context.go('/mainscreen');
+                                  // context.go('/doctorscreen');
+                                  context.go('/pharmacistScreen');
                                 }
                               },
                               child: CustomButton(title: "Login"),
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Not register yet ?"),
+                                TextButton(
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      context.go('/signup');
+                                    },
+                                    child: Text(" Create Account")),
+                              ],
+                            )
                           ],
                         ),
                       ),
