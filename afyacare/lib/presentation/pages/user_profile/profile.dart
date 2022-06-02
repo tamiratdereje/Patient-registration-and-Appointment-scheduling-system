@@ -1,17 +1,11 @@
-import 'dart:html';
+// ignore_for_file: unnecessary_import
 
 import 'package:afyacare/presentation/core/afya_theme.dart';
-import 'package:afyacare/presentation/core/widgets/brand_name.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
-import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:regexpattern/regexpattern.dart';
-import 'package:intl/intl.dart';
-
-import '../appointment/appointment_booking.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -26,6 +20,7 @@ class _UserProfileState extends State<UserProfile> {
   late bool isButtonVisible;
   late bool isSaveVisible;
   late bool isPasswordEditable;
+  late bool isPasswordchangeVisible;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
@@ -43,6 +38,7 @@ class _UserProfileState extends State<UserProfile> {
     usernameController.text = "naola";
     isButtonVisible = true;
     isSaveVisible = false;
+    isPasswordchangeVisible = false;
     isPasswordEditable = false;
     _passwordVisible = true;
     _passwordConfirmVisible = true;
@@ -58,7 +54,7 @@ class _UserProfileState extends State<UserProfile> {
           setState(() {
             isButtonVisible = false;
             isSaveVisible = true;
-            isPasswordEditable = true;
+            isPasswordchangeVisible = true;
             _isEnable = true;
           });
         },
@@ -125,6 +121,39 @@ class _UserProfileState extends State<UserProfile> {
                                         labelText: "username",
                                         border: OutlineInputBorder(),
                                       )),
+                                  isPasswordchangeVisible
+                                      ? Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: 25,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                InkWell(
+                                                    child: const Text(
+                                                      'Edit Password',
+                                                      style: TextStyle(
+                                                        color: Colors.green,
+                                                      ),
+                                                    ),
+                                                    onTap: () => {
+                                                          setState(() {
+                                                            isPasswordEditable =
+                                                                true;
+                                                          })
+                                                        }),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(
+                                          height: 0,
+                                        ),
                                   const SizedBox(
                                     height: 25,
                                   ),
@@ -205,7 +234,7 @@ class _UserProfileState extends State<UserProfile> {
                                     controller: fullNameController,
                                     decoration: const InputDecoration(
                                       labelText: "Phone Number",
-                                      border: const OutlineInputBorder(),
+                                      border: OutlineInputBorder(),
                                     ),
                                   ),
                                   const SizedBox(
@@ -252,6 +281,8 @@ class _UserProfileState extends State<UserProfile> {
                                                                 'Saving user Data')),
                                                       );
                                                       _isEnable = false;
+                                                      isPasswordchangeVisible =
+                                                          false;
                                                       isButtonVisible = true;
                                                       isSaveVisible = false;
                                                       isPasswordEditable =
@@ -272,39 +303,42 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  _isEnable = true;
-                                                });
-                                              },
-                                              child: CustomButton(
-                                                title: "Logout",
-                                                width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        2 -
-                                                    60,
-                                                height: 30,
+                                        Visibility(
+                                          visible: isButtonVisible,
+                                          child: Row(
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _isEnable = true;
+                                                  });
+                                                },
+                                                child: CustomButton(
+                                                  title: "Logout",
+                                                  width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2 -
+                                                      60,
+                                                  height: 30,
+                                                ),
                                               ),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {},
-                                              child: CustomButton(
-                                                title: "Delete",
-                                                width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        2 -
-                                                    60,
-                                                height: 30,
-                                                icon: Icons.delete,
-                                                iconVisiblity: true,
+                                              TextButton(
+                                                onPressed: () {},
+                                                child: CustomButton(
+                                                  title: "Delete",
+                                                  width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2 -
+                                                      60,
+                                                  height: 30,
+                                                  icon: Icons.delete,
+                                                  iconVisiblity: true,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         )
                                       ])
                                 ],
