@@ -96,34 +96,7 @@ class _SignupState extends State<Signup> {
                                     height: 25,
                                   ),
                                 
-                                  TextField(
-                                    controller: dateController,
-                                    readOnly: true,
-                                    decoration: InputDecoration(
-                                        suffixIcon: Icon(Icons
-                                            .calendar_today), //icon of text field
-                                        labelText: "Enter Date"),
-                                    onTap: () async {
-                                      final selectedDate = await showDatePicker(
-                                        context: context,
-                                        firstDate: DateTime(1930),
-                                        lastDate: DateTime.now(),
-                                        initialDate: DateTime.now(),
-                                        selectableDayPredicate: (day) =>
-                                            day.isBefore(DateTime.now()),
-                                      );
-                                      String dateString = selectedDate
-                                          .toString()
-                                          .substring(0, 10);
-
-                                      if (selectedDate != null) {
-                                        setState(() {
-                                          dateController.text =
-                                              dateString;
-                                        });
-                                      }
-                                    },
-                                  ),
+                                  
                                   const SizedBox(
                                     height: 25,
                                   ),
