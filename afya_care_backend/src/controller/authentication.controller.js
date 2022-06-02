@@ -27,7 +27,7 @@ const signUp =  async (req, res) => {
         email : req.body.email,
         birth_date: req.body.birth_date,
         roles: req.body.roles,
-        image: req.file.path,
+        // image: req.file.path,
         password: hashedPassword
     })
 
@@ -70,13 +70,17 @@ const logIn = async (req, res) => {
     })
 
     res.header("token",token)
+    console.log(userExist);
 
     return res.json({
         _id: userExist._id,
         name: userExist.name,
+        birth_date: userExist.birth_date,
+        email:userExist.email,
         message: 'Auth Succesful',
         token: token,
-        profileImage: userExist.image
+        roles:userExist.roles
+        // profileImage: userExist.image
     })
 
     
