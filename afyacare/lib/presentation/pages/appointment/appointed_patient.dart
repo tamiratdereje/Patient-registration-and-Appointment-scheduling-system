@@ -17,55 +17,55 @@ class AppointedPatient extends StatefulWidget {
 class _AppointedPatientState extends State<AppointedPatient> {
   List contact = <Widget>[
     EachContact(
-        imageProvider: AssetImage("assetsmag1.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Tamirat Dereje",
         message: "hey where are u at i am looking for you"),
     EachContact(
-        imageProvider: AssetImage("assetsmag2.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Abel class",
         message: "hey"),
     EachContact(
-        imageProvider: AssetImage("assetsmag3.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Eyob Zebene",
         message: "ahh"),
     EachContact(
-        imageProvider: AssetImage("assetsmag4.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Haile sec3",
         message: "xorpina"),
     EachContact(
-        imageProvider: AssetImage("assetsmag1.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Rosa ma",
         message: "yeah "),
     EachContact(
-        imageProvider: AssetImage("assetsmag4.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "bruk mega",
         message: "i am looking for you"),
     EachContact(
-        imageProvider: AssetImage("assetsmag2.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Cala se",
         message: "where are u "),
     EachContact(
-        imageProvider: AssetImage("assetsmag3.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "semere a2sv",
         message: "fondayou"),
     EachContact(
-        imageProvider: AssetImage("assetsmag2.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "mubarek lan",
         message: "hey hey"),
     EachContact(
-        imageProvider: AssetImage("assetsmag3.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "tuna shashe",
         message: "alewu tefak"),
     EachContact(
-        imageProvider: AssetImage("assetsmag1.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Tamirat Dereje",
         message: "hey where are u at i am looking for you"),
     EachContact(
-        imageProvider: AssetImage("assetsmag2.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Abel class",
         message: "hey"),
     EachContact(
-        imageProvider: AssetImage("assetsmag3.png"),
+        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Eyob Zebene",
         message: "ahh"),
   ];
@@ -77,7 +77,7 @@ class _AppointedPatientState extends State<AppointedPatient> {
         children: [
           const circleClip(),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,11 +163,11 @@ class EachContact extends StatelessWidget {
           ),
           Row(
             children: [
-              Text("mar",  style: AfyaTheme.lightTextTheme.bodyText2,),
+              IconButton(onPressed: (){}, icon: Icon(Icons.person_remove),color: Colors.red,),
               SizedBox(
                 width: 5,
               ),
-              Text("27", style: AfyaTheme.lightTextTheme.bodyText2,)
+             
             ],
           )
         ],

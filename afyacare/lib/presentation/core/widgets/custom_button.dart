@@ -28,18 +28,18 @@ class CustomButton extends StatelessWidget {
         // padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: muted ? Colors.green.withOpacity(0.3) : Colors.green,
+          color: muted ? Colors.grey.shade300 : Colors.green,
         ),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
+          if(title!="")   Expanded(
               flex: 3,
               child: Align(
                 alignment:iconVisiblity? Alignment.centerRight: Alignment.center,
                 child: Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(color: muted ? Colors.grey.shade700 : Colors.white, fontSize: 18),
                 ),
               ),
             ),

@@ -33,6 +33,6 @@ const upload = multer({
 });
 
 
-router.post('/signup',upload.single('profileImage'), authCtrl.signUp);
+router.post('/signup',/*upload.single('profileImage'),*/ authCtrl.signUp);
 router.post('/login', authCtrl.logIn);
 module.exports = router;

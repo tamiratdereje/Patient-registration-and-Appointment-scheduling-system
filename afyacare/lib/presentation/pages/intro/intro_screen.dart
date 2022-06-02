@@ -16,58 +16,57 @@ class IntroScreen extends StatelessWidget {
         children: [
           const circleClip(),
           Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Align(
+              alignment: Alignment.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(height: 90,),
+                  const BrandName(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width - 120,
+                      child: const Image(image: AssetImage("assets/Intro.png"))),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const BrandName(),
                       const SizedBox(
                         height: 20,
                       ),
-                      Container(
-                          width: MediaQuery.of(context).size.width - 120,
-                          child: const Image(image: AssetImage("Intro.png"))),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            IntroText().introTitle,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(IntroText().introDetails),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              context.go('/login');
-                            },
-                            child: const CustomButton(
-                              title: "Get Started",
-                              icon: Icons.arrow_forward_outlined,
-                              iconVisiblity: true,
-                            ),
-                          ),
-                        ],
+
+                      Text(
+                        IntroText().introTitle,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
-                        height: 90,
-                      )
+                        height: 10,
+
+                      ),
+                      Text(IntroText().introDetails),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.go('/login');
+                        },
+                        child: const CustomButton(
+                          title: "Get Started",
+                          icon: Icons.arrow_forward_outlined,
+                          icon_visiblity: true,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 90,
+                  )
+                ],
+              ),
             ),
           )
         ],
