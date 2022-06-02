@@ -86,6 +86,7 @@ class _SignupState extends State<Signup> {
                               child: Column(
                                 children: [
                                   TextFormField(
+                                    key: Key("fullname"),
                                     controller: fullNameController,
                                     decoration: InputDecoration(
                                       labelText: "Enter full name",
@@ -104,6 +105,7 @@ class _SignupState extends State<Signup> {
                                     height: 25,
                                   ),
                                   TextFormField(
+                                    key: Key("date"),
                                     controller:
                                         dateinput, //editing controller of this TextField
 
@@ -172,6 +174,7 @@ class _SignupState extends State<Signup> {
                                           contentPadding: EdgeInsets.all(0),
                                           horizontalTitleGap: 0,
                                           leading: Radio<String>(
+                                            key: Key('male'),
                                             value: 'male',
                                             groupValue: _selectedGender,
                                             onChanged: (value) {
@@ -188,6 +191,7 @@ class _SignupState extends State<Signup> {
                                           contentPadding: EdgeInsets.all(0),
                                           horizontalTitleGap: 0,
                                           leading: Radio<String>(
+                                            key: Key("female"),
                                             value: 'female',
                                             groupValue: _selectedGender,
                                             onChanged: (value) {
@@ -206,6 +210,7 @@ class _SignupState extends State<Signup> {
                                   ),
                                   // const SizedBox(height: 25),
                                   TextFormField(
+                                    key: Key("createusername"),
                                     controller: usernameController,
                                     decoration: InputDecoration(
                                       labelText: "Create username",
@@ -223,6 +228,7 @@ class _SignupState extends State<Signup> {
                                     height: 25,
                                   ),
                                   TextFormField(
+                                    key: Key("createpassword"),
                                     obscureText: _passwordVisible,
                                     controller: passwordController,
                                     decoration: InputDecoration(
@@ -253,6 +259,7 @@ class _SignupState extends State<Signup> {
                                     height: 25,
                                   ),
                                   TextFormField(
+                                    key: Key("confirmpassword"),
                                     obscureText: _passwordConfirmVisible,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
@@ -296,7 +303,7 @@ class _SignupState extends State<Signup> {
                                     );
                                   }
                                 },
-                                child: CustomButton(title: "Sign up")),
+                                child: CustomButton(key: Key("signup"),title: "Sign up")),
                           ],
                         ),
                       ),

@@ -96,6 +96,7 @@ class _LoginState extends State<Login> {
                               child: Column(
                                 children: [
                                   TextFormField(
+                                    key: Key('enterusername'),
                                     controller: usernameController,
                                     decoration: InputDecoration(
                                       labelText: "username",
@@ -113,6 +114,7 @@ class _LoginState extends State<Login> {
                                     height: 25,
                                   ),
                                   TextFormField(
+                                    key: Key('enterpassword'),
                                     obscureText: _passwordVisible,
                                     controller: passwordController,
                                     decoration: InputDecoration(
@@ -158,7 +160,7 @@ class _LoginState extends State<Login> {
                                   context.go('/upcomingSchedule');
                                 }
                               },
-                              child: CustomButton(title: "Login"),
+                              child: CustomButton(key:Key("login"),title: "Login"),
                             ),
                           ],
                         ),
