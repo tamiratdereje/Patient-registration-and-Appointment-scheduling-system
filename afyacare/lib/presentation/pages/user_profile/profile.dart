@@ -21,6 +21,7 @@ class _UserProfileState extends State<UserProfile> {
   late bool isSaveVisible;
   late bool isPasswordEditable;
   late bool isPasswordchangeVisible;
+  late bool isFloatVisible;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
@@ -34,7 +35,7 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   void initState() {
-    fullNameController.text = "heloooooooooooooo";
+    fullNameController.text = "hello";
     usernameController.text = "naola";
     isButtonVisible = true;
     isSaveVisible = false;
@@ -42,6 +43,7 @@ class _UserProfileState extends State<UserProfile> {
     isPasswordEditable = false;
     _passwordVisible = true;
     _passwordConfirmVisible = true;
+    isFloatVisible = true;
 
     super.initState();
   }
@@ -49,17 +51,21 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            isButtonVisible = false;
-            isSaveVisible = true;
-            isPasswordchangeVisible = true;
-            _isEnable = true;
-          });
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.edit),
+      floatingActionButton: Visibility(
+        visible: isFloatVisible,
+        child: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              isButtonVisible = false;
+              isSaveVisible = true;
+              isPasswordchangeVisible = true;
+              _isEnable = true;
+              isFloatVisible = false;
+            });
+          },
+          backgroundColor: Colors.green,
+          child: const Icon(Icons.edit),
+        ),
       ),
       body: SafeArea(
         child: Stack(children: [
@@ -257,7 +263,7 @@ class _UserProfileState extends State<UserProfile> {
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                              MainAxisAlignment.end,
                                           children: [
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -287,6 +293,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       isSaveVisible = false;
                                                       isPasswordEditable =
                                                           false;
+                                                      isFloatVisible = true;
                                                     }
                                                   });
                                                 },
