@@ -1,3 +1,4 @@
+
 import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
 import 'package:afyacare/domain/auth/login_user_domain.dart';
 
@@ -6,8 +7,6 @@ import 'package:afyacare/presentation/core/widgets/brand_name.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:afyacare/presentation/pages/record/pateint_details.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +18,7 @@ import 'package:intl/intl.dart';
 import 'package:afyacare/infrastructure/auth/login_repository.dart';
 import 'package:afyacare/infrastructure/auth/login_model.dart';
 
+
 import '../../../application/signin_form/signin_form_event.dart';
 import '../../../application/signin_form/signin_form_state.dart';
 import '../../../infrastructure/auth/login_data_provider.dart';
@@ -28,11 +28,7 @@ import '../appointment/appointment_booking.dart';
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
-  @override
-  State<Login> createState() {
-    return _LoginState();
-  }
-}
+
 
 class _LoginState extends State<Login> {
   late bool passwordVisible;
@@ -40,7 +36,7 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  
   @override
   void initState() {
     passwordVisible = true;
@@ -52,6 +48,9 @@ class _LoginState extends State<Login> {
     usernameController.dispose();
     passwordController.dispose();
     super.dispose();
+
+
+
   }
 
   @override
@@ -59,10 +58,10 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
-          const circleClip(),
+          circleClip(),
           SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.fromLTRB(15, 60, 15, 5),
+              padding: EdgeInsets.fromLTRB(15, 60, 15, 5),
               child: Column(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,10 +72,10 @@ class _LoginState extends State<Login> {
                           "Login Account",
                           style: AfyaTheme.lightTextTheme.headline2,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 8,
                         ),
-                        const Icon(Icons.account_circle_outlined)
+                        Icon(Icons.account_circle_outlined)
                       ],
                     ),
 
@@ -87,7 +86,7 @@ class _LoginState extends State<Login> {
                     const SizedBox(
                       height: 50,
                     ),
-                    const BrandName(),
+                    BrandName(),
                     // Form(child: child)
                     Form(
                       key: _formKey,
@@ -100,9 +99,9 @@ class _LoginState extends State<Login> {
                               child: Column(
                                 children: [
                                   TextFormField(
-                                    key: const Key('enterusername'),
+                                    key: Key('enterusername'),
                                     controller: usernameController,
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       labelText: "username",
                                     ),
                                     validator: (value) {
@@ -117,9 +116,12 @@ class _LoginState extends State<Login> {
                                     height: 25,
                                   ),
                                   TextFormField(
+
                                     obscureText: passwordVisible,
+
                                     controller: passwordController,
-                                    decoration: const InputDecoration(
+
+                                    decoration: InputDecoration(
                                       // suffixIcon: IconButton(
                                       //   onPressed: () {
                                       //     // setState(() {
@@ -152,6 +154,7 @@ class _LoginState extends State<Login> {
                                 ],
                               ),
                             ),
+
                             TextButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
@@ -163,56 +166,56 @@ class _LoginState extends State<Login> {
                                   // context.go('/doctorscreen');
                                   context.go('/pharmacistScreen');
                                 }
+
                               },
-                              // builder: (context, state) {
-                              //   Widget buttonChild = const Text("Log in");
 
-                              //   if (state is LoggingIn) {
-                              //     buttonChild = const SizedBox(
-                              //       height: 10,
-                              //       width: 10,
-                              //       child: const CircularProgressIndicator(
-                              //         color: Colors.white,
-                              //       ),
-                              //     );
-                              //   }
+                              builder: (context, state) {
+                                  Widget buttonChild = Text("Log in");
 
-                              //   if (state is LoginSuccessful) {
-                              //     buttonChild = const Text("Login successful");
-                              //   }
+                                  if (state is LoggingIn) {
+                                    buttonChild = SizedBox(
+                                      height: 10,
+                                      width: 10,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    );
+                                  }
 
-                              //   if (state is LoginFailed) {
-                              //     buttonChild = const Text("Login Failed");
-                              //   }
+                                  if (state is LoginSuccessful) {
+                                    buttonChild = Text("Login successful");
+                                  }
 
-                              //   TextButton(
-                              //     onPressed: () async {
-                              //       final LoginDomain loginDomain = LoginDomain(
-                              //           email: usernameController.text,
-                              //           password: passwordController.text);
+                                  if (state is LoginFailed) {
+                                    buttonChild = Text("Login Failed");
+                                  }
 
-                              //       final loginBloc =
-                              //           BlocProvider.of<AuthBloc>(context);
-                              //       loginBloc.add(LoginEvent(loginDomain));
+                                return TextButton(
+                                  onPressed: () async {
+                                    final LoginDomain loginDomain = LoginDomain(
+                                        email: usernameController.text,
+                                        password: passwordController.text);
 
-                              //       ScaffoldMessenger.of(context).showSnackBar(
-                              //         const SnackBar(
-                              //             content: Text('Processing Data')),
-                              //       );
-                              //       usernameController.clear();
-                              //       passwordController.clear();
-                              //     },
-                              //     child: const CustomButton(title: "Sign in"),
-                              //   );
-                              // },
-                              child: SizedBox(
-                                height: 0,
-                              ),
+                                    final loginBloc =
+                                        BlocProvider.of<AuthBloc>(context);
+                                    loginBloc.add(LoginEvent(loginDomain));
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Data')),
+                                    );
+                                    usernameController.clear();
+                                    passwordController.clear();
+                                  },
+                                  child: CustomButton(title: "Sign in"),
+                                );
+                              },
+
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("Not register yet ?"),
+                                Text("Not register yet ?"),
                                 TextButton(
                                     style: ButtonStyle(
                                       overlayColor: MaterialStateProperty.all(
@@ -221,7 +224,7 @@ class _LoginState extends State<Login> {
                                     onPressed: () {
                                       context.go('/signup');
                                     },
-                                    child: const Text(" Create Account")),
+                                    child: Text(" Create Account")),
                               ],
                             )
                           ],
