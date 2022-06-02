@@ -1,4 +1,3 @@
-
 class MedicineModel {
   String name;
   String descrption;

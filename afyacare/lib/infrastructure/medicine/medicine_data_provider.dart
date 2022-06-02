@@ -20,7 +20,7 @@ class MedicineProvider {
         return MedicineModel.fromJson(jsonDecode(response.body));
       }
       else {
-        throw Exception('Invalid Credential');
+        throw Exception('failed to create medicine');
       }
     }
     

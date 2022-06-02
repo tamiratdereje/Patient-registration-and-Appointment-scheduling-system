@@ -13,7 +13,7 @@ const addSchedule = async (req , res)=>{
     if(error){
         return res.status(400).send({message: "why is it not working"})
     }
-    
+
     const date = req.body.date;
     const patient = req.userId;
     const doctor = await scheduleService.findFreeDoctor(req.body.date);
