@@ -10,7 +10,6 @@ const signupValidation = (data) => {
         birth_date: Joi.date().required(),
         password: Joi.string().required().min(4)
     });
-
     const pass = signUpSchema.validate(data);
     return pass;
 }
