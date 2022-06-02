@@ -1,39 +1,56 @@
+
+import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
+import 'package:afyacare/domain/auth/login_user_domain.dart';
+
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/brand_name.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
+import 'package:afyacare/presentation/pages/record/pateint_details.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:go_router/go_router.dart';
+
 import 'package:regexpattern/regexpattern.dart';
 import 'package:intl/intl.dart';
+import 'package:afyacare/infrastructure/auth/login_repository.dart';
+import 'package:afyacare/infrastructure/auth/login_model.dart';
+
+
+import '../../../application/signin_form/signin_form_event.dart';
+import '../../../application/signin_form/signin_form_state.dart';
+import '../../../infrastructure/auth/login_data_provider.dart';
 
 import '../appointment/appointment_booking.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
-  @override
-  State<Login> createState() => _LoginState();
-}
+
 
 class _LoginState extends State<Login> {
-  late bool _passwordVisible;
+  late bool passwordVisible;
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   
   @override
   void initState() {
-    _passwordVisible = true;
+    passwordVisible = true;
     super.initState();
   }
 
   @override
   void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
     super.dispose();
+
+
+
   }
 
   @override
@@ -82,14 +99,13 @@ class _LoginState extends State<Login> {
                               child: Column(
                                 children: [
                                   TextFormField(
-                                    controller: _usernameController,
+                                    controller: usernameController,
                                     decoration: InputDecoration(
                                       labelText: "username",
                                     ),
                                     validator: (value) {
-                                      if (value!.isEmpty ||
-                                          !value.isUsername()) {
-                                        return "Enter correct username, Eg. Jeb_deju";
+                                      if (value!.isEmpty || !value.isEmail()) {
+                                        return "Enter correct username, Eg. tam34@gmail.com";
                                       } else {
                                         return null;
                                       }
@@ -99,20 +115,21 @@ class _LoginState extends State<Login> {
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    obscureText: _passwordVisible,
-                                    controller: _passwordController,
+                                    obscureText: passwordVisible,
+                                    controller: passwordController,
+
                                     decoration: InputDecoration(
-                                      suffixIcon: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _passwordVisible =
-                                                !_passwordVisible;
-                                          });
-                                        },
-                                        icon: Icon(_passwordVisible
-                                            ? Icons.visibility
-                                            : Icons.visibility_off),
-                                      ),
+                                      // suffixIcon: IconButton(
+                                      //   onPressed: () {
+                                      //     // setState(() {
+                                      //     //   _passwordVisible =
+                                      //    /**    !_passwordVisible;*/
+                                      //     // });
+                                      //   },
+                                      //   icon: Icon(_passwordVisible
+                                      //       ? Icons.visibility
+                                      //       : Icons.visibility_off),
+                                      // ),
                                       // suffixIcon: Icon(Icons.scuba_diving),
                                       labelText: "Enter password",
                                     ),
@@ -134,6 +151,7 @@ class _LoginState extends State<Login> {
                                 ],
                               ),
                             ),
+
                             TextButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
@@ -145,8 +163,51 @@ class _LoginState extends State<Login> {
                                   // context.go('/doctorscreen');
                                   context.go('/pharmacistScreen');
                                 }
+
                               },
-                              child: CustomButton(title: "Login"),
+
+                              builder: (context, state) {
+                                  Widget buttonChild = Text("Log in");
+
+                                  if (state is LoggingIn) {
+                                    buttonChild = SizedBox(
+                                      height: 10,
+                                      width: 10,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    );
+                                  }
+
+                                  if (state is LoginSuccessful) {
+                                    buttonChild = Text("Login successful");
+                                  }
+
+                                  if (state is LoginFailed) {
+                                    buttonChild = Text("Login Failed");
+                                  }
+
+                                return TextButton(
+                                  onPressed: () async {
+                                    final LoginDomain loginDomain = LoginDomain(
+                                        email: usernameController.text,
+                                        password: passwordController.text);
+
+                                    final loginBloc =
+                                        BlocProvider.of<AuthBloc>(context);
+                                    loginBloc.add(LoginEvent(loginDomain));
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Data')),
+                                    );
+                                    usernameController.clear();
+                                    passwordController.clear();
+                                  },
+                                  child: CustomButton(title: "Sign in"),
+                                );
+                              },
+
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
