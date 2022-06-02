@@ -1,5 +1,4 @@
 import '../../core/afya_theme.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:regexpattern/regexpattern.dart';
 import 'package:flutter/material.dart';
@@ -17,17 +16,12 @@ class AppointmentBooking extends StatefulWidget {
 
 class _AppointmentBookingState extends State<AppointmentBooking> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController placeofResidence = TextEditingController();
-  TextEditingController phoneNumber = TextEditingController();
-  TextEditingController birthdayController = TextEditingController();
-  TextEditingController dateinput = TextEditingController();
 
-  TextEditingController genderController = TextEditingController();
-  String _selectedGender = 'male';
+  TextEditingController dateinput = TextEditingController();
 
   @override
   void initState() {
-    dateinput.text = "";
+    // dateinput.text = "";
     super.initState();
   }
 
@@ -35,12 +29,9 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree.
     // This also removes the _printLatestValue listener.
-    placeofResidence.dispose();
+
     dateinput.dispose();
 
-    phoneNumber.dispose();
-    birthdayController.dispose();
-    genderController.dispose();
     super.dispose();
   }
 
@@ -92,98 +83,42 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(12),
-                                child: Column(
-                                  children: [
-                                    TextFormField(
-                                      controller: phoneNumber,
-                                      keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
-                                        labelText: "Phone number",
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty ||
-                                            !value.isPhone()) {
-                                          return "Enter correct Phone number";
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    
-                                    TextFormField(
-                                      controller: placeofResidence,
-                                      decoration: InputDecoration(
-                                        labelText: "Place of residence",
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty ||
-                                            !RegExp(r'^[a-zA-Z 0-9]+$')
-                                                .hasMatch(value)) {
-                                          return "Enter correct place name";
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    TextFormField(
-                                      controller:
-                                          dateinput, //editing controller of this TextField
-                                      decoration: InputDecoration(
-                                          suffixIcon: Icon(Icons
-                                              .calendar_today), //icon of text field
-                                          labelText: "Enter Date"),
-                                      readOnly:
-                                          true, //set it true, so that user will not able to edit text
+                                child: TextField(
+                                  controller: dateinput,
+                                  readOnly: true,
+                                  decoration: InputDecoration(
+                                      suffixIcon: Icon(Icons
+                                          .calendar_today), //icon of text field
+                                      labelText: "Enter Date and time"),
+                                  onTap: () async {
+                                    final selectedDate = await showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime(2025),
+                                      initialDate: DateTime.now(),
+                                      // selectableDayPredicate: (day) =>
+                                      //     day.isAfter(DateTime.now()),
+                                    );
 
-                                      onTap: () {
-                                        DatePicker.showDateTimePicker(
-                                          
-                                          context,
-                                          showTitleActions: true,
-                                          theme: DatePickerTheme(
-                                            cancelStyle: TextStyle(color: Colors.white38,),
-                                              itemStyle: TextStyle(color: Colors.black),
-                                              headerColor: Colors.green,
-                                              backgroundColor: Colors.white,
-                                              doneStyle: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16)),
-                                          
-                                          onConfirm: (date) {
-                                           
-            
-                                              String formattedDate =
-                                                  DateFormat.yMMMMd('en_US')
-                                                      .add_jm()
-                                                      .format(date);
-
-                                              setState(() {
-                                                dateinput.text =
-                                                    formattedDate; //set output date to TextField value.
-                                              });
-                                          },
-                                          currentTime: DateTime.now(),
-                                        );
+                                    final selectedTime = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
                                       
-                                      },
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Pick birthdate";
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                  ],
+                                      initialEntryMode:
+                                          TimePickerEntryMode.dial,
+                                    );
+                                    print(selectedTime);
+                                    String timeString = selectedTime.toString().substring(10, 15);
+                                    String dateString = selectedDate
+                                        .toString()
+                                        .substring(0, 10);
+
+                                    if (selectedDate  != null && selectedTime != null) {
+                                      setState(() {
+                                        dateinput.text = dateString +" at  "+ timeString;
+                                      });
+                                    }
+                                  },
                                 ),
                               ),
                               TextButton(
@@ -196,7 +131,9 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                       );
                                     }
                                   },
-                                  child: CustomButton(title: "Submit",)),
+                                  child: CustomButton(
+                                    title: "Submit",
+                                  )),
                             ],
                           ),
                         ),

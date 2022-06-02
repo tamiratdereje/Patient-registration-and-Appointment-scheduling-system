@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:regexpattern/regexpattern.dart';
 import '../../core/afya_theme.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 import '../../core/widgets/brand_name.dart';
 import '../../core/widgets/circle_clip.dart';
@@ -23,25 +23,21 @@ class _SignupState extends State<Signup> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
-  TextEditingController birthdayController = TextEditingController();
-  TextEditingController dateinput = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   @override
   void initState() {
     _passwordVisible = true;
     _passwordConfirmVisible = true;
-    dateinput.text = "";
+    dateController.text = "";
     super.initState();
   }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
-    // This also removes the _printLatestValue listener.
     usernameController.dispose();
     passwordController.dispose();
     fullNameController.dispose();
-    birthdayController.dispose();
     super.dispose();
   }
 
@@ -99,51 +95,32 @@ class _SignupState extends State<Signup> {
                                   const SizedBox(
                                     height: 25,
                                   ),
-                                  TextFormField(
-                                    controller:
-                                        dateinput, //editing controller of this TextField
-
+                                
+                                  TextField(
+                                    controller: dateController,
+                                    readOnly: true,
                                     decoration: InputDecoration(
                                         suffixIcon: Icon(Icons
                                             .calendar_today), //icon of text field
-                                        labelText:
-                                            "Enter Date" //label text of field
-                                        ),
-
-                                    readOnly:
-                                        true, //set it true, so that user will not able to edit text
+                                        labelText: "Enter Date"),
                                     onTap: () async {
-                                      DateTime? pickedDate =
-                                          await showDatePicker(
-                                              context: context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(
-                                                  1930), //DateTime.now() - not to allow to choose before today.
-                                              lastDate: DateTime.now());
+                                      final selectedDate = await showDatePicker(
+                                        context: context,
+                                        firstDate: DateTime(1930),
+                                        lastDate: DateTime.now(),
+                                        initialDate: DateTime.now(),
+                                        selectableDayPredicate: (day) =>
+                                            day.isBefore(DateTime.now()),
+                                      );
+                                      String dateString = selectedDate
+                                          .toString()
+                                          .substring(0, 10);
 
-                                      if (pickedDate != null) {
-                                        print(
-                                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                        String formattedDate =
-                                            DateFormat('yyyy-MM-dd')
-                                                .format(pickedDate);
-                                        print(
-                                            formattedDate); //formatted date output using intl package =>  2021-03-16
-                                        //you can implement different kind of Date Format here according to your requirement
-
+                                      if (selectedDate != null) {
                                         setState(() {
-                                          dateinput.text =
-                                              formattedDate; //set output date to TextField value.
+                                          dateController.text =
+                                              dateString;
                                         });
-                                      } else {
-                                        print("Date is not selected");
-                                      }
-                                    },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Pick birthdate";
-                                      } else {
-                                        return null;
                                       }
                                     },
                                   ),

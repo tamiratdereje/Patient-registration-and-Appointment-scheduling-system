@@ -36,7 +36,7 @@ class Router extends StatelessWidget {
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) =>
-            const IntroScreen(),
+            const AppointmentBooking(),
       ),
       GoRoute(
         path: '/appointment',
