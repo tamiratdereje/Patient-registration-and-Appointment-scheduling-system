@@ -37,12 +37,14 @@ class IntroScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+
                       Text(
                         IntroText().introTitle,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 10,
+
                       ),
                       Text(IntroText().introDetails),
                       const SizedBox(

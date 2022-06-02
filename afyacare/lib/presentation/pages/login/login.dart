@@ -99,6 +99,7 @@ class _LoginState extends State<Login> {
                               child: Column(
                                 children: [
                                   TextFormField(
+                                    key: Key('enterusername'),
                                     controller: usernameController,
                                     decoration: InputDecoration(
                                       labelText: "username",
@@ -115,7 +116,9 @@ class _LoginState extends State<Login> {
                                     height: 25,
                                   ),
                                   TextFormField(
+
                                     obscureText: passwordVisible,
+
                                     controller: passwordController,
 
                                     decoration: InputDecoration(

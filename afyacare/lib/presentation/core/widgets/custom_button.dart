@@ -7,14 +7,14 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final IconData? icon;
   final bool muted;
-  final bool icon_visiblity;
+  final bool iconVisiblity;
   const CustomButton(
       {Key? key,
       required this.title,
       this.width,
       this.height = 35,
       this.icon,
-      this.icon_visiblity=false,
+      this.iconVisiblity=false,
       this.muted = false})
       : super(key: key);
 
@@ -36,14 +36,14 @@ class CustomButton extends StatelessWidget {
           if(title!="")   Expanded(
               flex: 3,
               child: Align(
-                alignment:icon_visiblity? Alignment.centerRight: Alignment.center,
+                alignment:iconVisiblity? Alignment.centerRight: Alignment.center,
                 child: Text(
                   title,
                   style: TextStyle(color: muted ? Colors.grey.shade700 : Colors.white, fontSize: 18),
                 ),
               ),
             ),
-           if(icon_visiblity) Expanded(flex: 2, child: Icon(icon, color: Colors.white, size: 26))
+           if(iconVisiblity) Expanded(flex: 2, child: Icon(icon, color: Colors.white, size: 26))
           ],
         ));
   }

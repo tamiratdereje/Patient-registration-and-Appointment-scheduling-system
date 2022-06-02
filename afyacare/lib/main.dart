@@ -1,4 +1,3 @@
-
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
 import 'package:afyacare/presentation/pages/intro/intro_screen.dart';
@@ -12,20 +11,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
-
-
-
-
   runApp(BlocProvider<AuthenticationBloc>(
     create: (context) {
       return AuthenticationBloc()..add(AppStarted());
     },
     child: MyApp(),
   ));
+
 }
 
+
 class MyApp extends StatelessWidget {
+
   // final LoginRepo loginRepo;
   MyApp();
 
