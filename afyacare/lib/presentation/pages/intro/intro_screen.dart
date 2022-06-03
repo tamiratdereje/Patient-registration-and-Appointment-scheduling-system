@@ -1,4 +1,6 @@
+import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/widgets/brand_name.dart';
@@ -15,58 +17,63 @@ class IntroScreen extends StatelessWidget {
       body: Stack(
         children: [
           const circleClip(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: 90,
-                  ),
-                  const BrandName(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      width: MediaQuery.of(context).size.width - 120,
-                      child:
-                          const Image(image: AssetImage("assets/Intro.png"))),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        IntroText().introTitle,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(IntroText().introDetails),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          context.go('/login');
-                        },
-                        child: const CustomButton(
-                          title: "Get Started",
-                          icon: Icons.arrow_forward_outlined,
-                          iconVisiblity: true,
+
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Align(
+                alignment: Alignment.center,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      height: 90,
+                    ),
+                    const BrandName(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                        width: MediaQuery.of(context).size.width - 120,
+                        child:
+                            const Image(image: AssetImage("assets/Intro.png"))),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 90,
-                  )
-                ],
+                        Text(
+                          IntroText().introTitle,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(IntroText().introDetails),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            BlocProvider.of<AuthenticationBloc>(context)
+                                .add(BoardingComplete());
+                          },
+                          child: const CustomButton(
+                            title: "Get Started",
+                            icon: Icons.arrow_forward_outlined,
+                            iconVisiblity: true,
+                          ),
+
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 90,
+                    )
+                  ],
+                ),
               ),
             ),
           )

@@ -58,6 +58,11 @@ class Search extends StatelessWidget {
                           iconVisiblity: true,
                           width: 55,
                           height: 55,
+
+
+                          iconVisiblity: true,
+
+
                         ))
                   ],
                 ),
