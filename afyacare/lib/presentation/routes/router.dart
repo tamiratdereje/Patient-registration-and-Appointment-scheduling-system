@@ -21,11 +21,9 @@ class RouterMain extends StatelessWidget {
   late final GoRouter _router;
   static const String title = 'router';
   String? redirector(state) {
-    if (authenticationBloc.state is FirstUse &&
-        state.location != Screen().intro) {
+    if (authenticationBloc.state is FirstUse && state.location == Screen().splashScreen) {
       return Screen().intro;
-    } else if (authenticationBloc.state is BoardingCompleted &&
-        state.location != Screen().login) {
+    } else if (authenticationBloc.state is BoardingCompleted && state.location != Screen().login) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationInitial &&
         state.location != Screen().splashScreen) {

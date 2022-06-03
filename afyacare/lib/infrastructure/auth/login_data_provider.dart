@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class AuthDataProvider {
   Future<LoginResponse> login(LoginUser loginUser) async {
 
-    final response = await http.post(Uri.parse(EndPoint().baseUrl),
+    final response = await http.post(Uri.parse("${EndPoint().baseUrl}${EndPoint().auth}/${EndPoint().login}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
         },
