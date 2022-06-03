@@ -44,16 +44,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Checking if server starts successfully
-app.get('/',(req,res)=>{
+app.get('/api',(req,res)=>{
     res.json({ message: 'server starts successfully '})
 })
 
 // Defining routes
 app.use('/api/auth', authRoutes);
 // app.use('/let', check);
-app.use('/medicine', medicine_route);
-app.use('/record', record_route);
-app.use('/schedule', schedule_route );
+app.use('/api/medicine', medicine_route);
+app.use('/api/record', record_route);
+app.use('/api/schedule', schedule_route );
 
 // assigning port
 app.listen(3000,()=>{
