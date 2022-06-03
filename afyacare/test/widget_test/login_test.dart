@@ -10,7 +10,7 @@ void main() {
     final addPassword = find.byKey(const ValueKey("enterpassword"));
     final signButton = find.byKey(const ValueKey("login"));
 
-    await tester.pumpWidget(const MaterialApp(home: Login()));
+    await tester.pumpWidget(MaterialApp(home: Login()));
     await tester.enterText(addUserName, "libanabduba");
     await tester.enterText(addPassword, "liban@123");
     await tester.tap(signButton);
