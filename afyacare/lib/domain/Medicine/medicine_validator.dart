@@ -18,7 +18,7 @@ class MedicineValidator {
       int.parse(value!);
       return null;
     } catch (e) {
-      return "Quantity should be number!";
+      return "Quantity should be a number!";
     }
   }
 
