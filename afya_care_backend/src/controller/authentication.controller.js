@@ -71,13 +71,17 @@ const logIn = async (req, res) => {
     })
 
     res.header("token",token)
+    console.log(userExist);
 
     return res.json({
         _id: userExist._id,
         name: userExist.name,
+        birth_date: userExist.birth_date,
+        email:userExist.email,
         message: 'Auth Succesful',
         token: token,
-        profileImage: userExist.image
+        roles:userExist.roles
+        // profileImage: userExist.image
     })
 
 

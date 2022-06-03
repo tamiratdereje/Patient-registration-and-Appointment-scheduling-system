@@ -3,6 +3,7 @@ const medicine = require('../controller/medicine.controller');
 const router = express.Router();
 const authToken = require('../middleware/authToken')
 
+
 router.post('/',[authToken.verifyToken], medicine.add_medicine);
 router.get('/',[authToken.verifyToken],medicine.all_medicine);
 router.delete('/:id',[authToken.verifyToken], medicine.delete_medicine);
