@@ -40,10 +40,10 @@ class MedicineProvider {
     }
   }
 
-  Future<MedicineModel> getMedicine(String name) async {
+  Future<MedicineModel> getMedicine(String id) async {
 
     final response = await http
-        .get(Uri.parse('$baseUrl/$name'), headers: {"Access-Control-Allow-Origin": "*"});
+        .get(Uri.parse('$baseUrl/$id'), headers: {"Access-Control-Allow-Origin": "*"});
 
     if (response.statusCode == 200) {
       return MedicineModel.fromJson(jsonDecode(response.body));
