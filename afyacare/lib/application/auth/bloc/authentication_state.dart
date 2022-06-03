@@ -8,15 +8,11 @@ abstract class AuthenticationState extends Equatable {
 
 class AuthenticationInitial extends AuthenticationState {}
 
-class FirstUse extends AuthenticationState{}
+class FirstUse extends AuthenticationState {}
 
-class AuthenticationLoading extends AuthenticationState {}
+class BoardingCompleted extends AuthenticationState {}
 
 class AuthenticationNotAuthenticated extends AuthenticationState {}
 
-class AuthenticationFailure extends AuthenticationState {
-  final String message;
-  AuthenticationFailure({required this.message});
-}
-
 class AuthenticationAuthenticated extends AuthenticationState {}
+
