@@ -57,7 +57,9 @@ class Search extends StatelessWidget {
                           icon: Icons.search,
                           width: 55,
                           height: 55,
+
                           iconVisiblity: true,
+
                         ))
                   ],
                 ),
