@@ -7,7 +7,7 @@ class authValidator {
       Username(username: value);
       return null;
     } catch (e) {
-      return e.toString();
+      return e.toString().substring(10);
     }
   }
 
@@ -16,7 +16,7 @@ class authValidator {
       Password(password: value);
       return null;
     } catch (e) {
-      return e.toString();
+      return e.toString().substring(10);
     }
   }
 }

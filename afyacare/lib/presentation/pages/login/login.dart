@@ -208,7 +208,7 @@ class LoginState extends State<Login> {
                                           Colors.transparent),
                                     ),
                                     onPressed: () {
-                                      context.go(Screen().signup);
+                                      context.push(Screen().signup);
                                     },
                                     child: Text("Create Account")),
                               ],
