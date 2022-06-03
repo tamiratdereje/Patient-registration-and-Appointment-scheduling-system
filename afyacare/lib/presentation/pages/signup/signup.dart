@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:regexpattern/regexpattern.dart';
 import '../../core/afya_theme.dart';
-import 'package:intl/intl.dart';
 
 import '../../core/widgets/brand_name.dart';
 import '../../core/widgets/circle_clip.dart';
@@ -89,7 +87,7 @@ class _SignupState extends State<Signup> {
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty ||
-                                          !RegExp(r'^[a-zA-Z ]+$')
+                                          !RegExp(r'^[a-zA-Z .]+$')
                                               .hasMatch(value)) {
                                         return "Enter correct name";
                                       } else {
@@ -124,21 +122,12 @@ class _SignupState extends State<Signup> {
                                               lastDate: DateTime.now());
 
                                       if (pickedDate != null) {
-                                        print(
-                                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                                         String formattedDate =
-                                            DateFormat('yyyy-MM-dd')
-                                                .format(pickedDate);
-                                        print(
-                                            formattedDate); //formatted date output using intl package =>  2021-03-16
-                                        //you can implement different kind of Date Format here according to your requirement
-
+                                            pickedDate.toString().substring(0,10);
                                         setState(() {
                                           dateinput.text =
                                               formattedDate; //set output date to TextField value.
                                         });
-                                      } else {
-                                        print("Date is not selected");
                                       }
                                     },
                                     validator: (value) {
@@ -162,7 +151,8 @@ class _SignupState extends State<Signup> {
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty ||
-                                          !value.isUsername()) {
+                                          !RegExp(r'^[a-zA-Z _]+$')
+                                              .hasMatch(value)) {
                                         return "Enter correct username, Eg. Jeb_deju";
                                       } else {
                                         return null;
@@ -192,8 +182,7 @@ class _SignupState extends State<Signup> {
                                       labelText: "Enter password",
                                     ),
                                     validator: (value) {
-                                      if (value!.isEmpty ||
-                                          !value.isPasswordEasyWithspace()) {
+                                      if (value!.isEmpty || value.length < 8) {
                                         return "Password should not below 8 character";
                                       } else {
                                         return null;
@@ -222,8 +211,7 @@ class _SignupState extends State<Signup> {
                                       labelText: "confirm password",
                                     ),
                                     validator: (value) {
-                                      if (value!.isEmpty ||
-                                          !value.isPasswordEasyWithspace()) {
+                                      if (value!.isEmpty || value.length < 8) {
                                         return "Password should not below 8 character";
                                       } else if (value !=
                                           passwordController.text) {
@@ -248,7 +236,6 @@ class _SignupState extends State<Signup> {
                                     );
                                   }
                                 },
-
                                 child: CustomButton(title: "Sign up")),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -262,10 +249,9 @@ class _SignupState extends State<Signup> {
                                     onPressed: () {
                                       context.go('/login');
                                     },
-                                    child: Text(" Login")),
+                                    child: Text("Login")),
                               ],
                             )
- 
                           ],
                         ),
                       ),

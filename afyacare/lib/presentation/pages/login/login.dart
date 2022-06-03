@@ -1,5 +1,6 @@
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
+import 'package:afyacare/domain/auth/authValidator.dart';
 import 'package:afyacare/domain/auth/login_user_domain.dart';
 import 'package:afyacare/domain/auth/password_domain.dart';
 import 'package:afyacare/domain/auth/user_name_domain.dart';
@@ -8,7 +9,6 @@ import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/brand_name.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
-import 'package:afyacare/presentation/pages/record/pateint_details.dart';
 import 'package:afyacare/presentation/routes/path.dart';
 import 'package:flutter/material.dart';
 
@@ -16,16 +16,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:regexpattern/regexpattern.dart';
-import 'package:intl/intl.dart';
-import 'package:afyacare/infrastructure/auth/login_repository.dart';
-import 'package:afyacare/infrastructure/auth/login_model.dart';
-
 import '../../../application/signin_form/signin_form_event.dart';
 import '../../../application/signin_form/signin_form_state.dart';
-import '../../../infrastructure/auth/login_data_provider.dart';
-
-import '../appointment/appointment_booking.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -35,14 +27,20 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  // late bool _passwordVisible;
-  // late bool _passwordConfirmVisible;
+  late bool _passwordVisible;
+  late bool _passwordConfirmVisible;
   // final LoginRepo loginRepo;
   LoginState();
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  @override
+  void initState() {
+    _passwordVisible = true;
+    _passwordConfirmVisible = true;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -100,33 +98,34 @@ class LoginState extends State<Login> {
                                   TextFormField(
                                     controller: usernameController,
                                     decoration: const InputDecoration(
-                                      labelText: "username",
+                                      labelText: "Username",
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Enter correct username, Eg. tam34@gmail.com";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    validator: (value) => authValidator()
+                                        .usernameValidater(value),
                                   ),
                                   const SizedBox(
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    obscureText: true,
+                                    obscureText: _passwordVisible,
                                     controller: passwordController,
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _passwordVisible =
+                                                !_passwordVisible;
+                                          });
+                                        },
+                                        icon: Icon(_passwordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                      ),
+                                      // suffixIcon: Icon(Icons.scuba_diving),
                                       labelText: "Enter password",
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty ||
-                                          !value.isPasswordEasyWithspace()) {
-                                        return "Password should not below 8 character";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    validator: (value) => authValidator()
+                                        .passwordValidater(value),
                                   ),
                                   const SizedBox(
                                     height: 25,
@@ -177,23 +176,43 @@ class LoginState extends State<Login> {
                                 }
                                 return TextButton(
                                   onPressed: () async {
-                                    final LoginDomain loginDomain = LoginDomain(
-                                        username: Username(
-                                            username: usernameController.text),
-                                        password: Password(
-                                            password: passwordController.text));
+                                    if (_formKey.currentState!.validate()) {
+                                      final LoginDomain loginDomain =
+                                          LoginDomain(
+                                              username: Username(
+                                                  username:
+                                                      usernameController.text),
+                                              password: Password(
+                                                  password:
+                                                      passwordController.text));
 
-                                    final loginBloc =
-                                        BlocProvider.of<AuthBloc>(context);
-                                    loginBloc.add(LoginEvent(loginDomain));
+                                      final loginBloc =
+                                          BlocProvider.of<AuthBloc>(context);
+                                      loginBloc.add(LoginEvent(loginDomain));
 
-                                    usernameController.clear();
-                                    passwordController.clear();
+                                      usernameController.clear();
+                                      passwordController.clear();
+                                    }
                                   },
-                                  child: CustomButton(title: "Sign in"),
+                                  child: CustomButton(title: "Log in"),
                                 );
                               },
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Not register yet ?"),
+                                TextButton(
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      context.go(Screen().signup);
+                                    },
+                                    child: Text("Create Account")),
+                              ],
+                            )
                           ],
                         ),
                       ),
