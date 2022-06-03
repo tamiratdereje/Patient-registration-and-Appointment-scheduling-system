@@ -57,13 +57,15 @@ class MedicineProvider {
 
       final response = await http.delete(Uri.parse('$baseUrl/$id'),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      );     
+      );
 
       if (response.statusCode != 204){
         print(response.body);
         throw Exception('failed to delete');
-      } 
+      }
+
     }
+
 
   Future<void> editMedicine(MedicineModel medicineModel) async {
         final response = await http.patch(Uri.parse(baseUrl),

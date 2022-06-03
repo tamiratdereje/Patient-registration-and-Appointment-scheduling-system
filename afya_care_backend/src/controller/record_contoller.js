@@ -59,7 +59,7 @@ const edit_record = async (req, res) => {
   // if (error) return res.status(400).send({ message: error.details[0].message });
 
 
-  var rec = await Record.findById(req.params.id);
+  var rec = await Record.findById(req.body.id);
   if (!rec) {
     res.status(401).json({
       message: "no such records",
@@ -69,6 +69,7 @@ const edit_record = async (req, res) => {
 
     rec.descrption = req.body.descrption;
     rec.medicine = req.body.medicine;
+    rec.date = Date.now;
 
     await rec.save(function (err) {
         if (err) {
@@ -79,10 +80,8 @@ const edit_record = async (req, res) => {
     res.status(200).json({
       message: "succesfully edit",
       editedProduct: {
-        date : rec.date,
         descrption : rec.descrption,
         medicine : rec.medicine ,
-        user :  rec.user
       },
     });  
     };

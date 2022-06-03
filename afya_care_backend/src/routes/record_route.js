@@ -9,6 +9,6 @@ const authToken = require('../middleware/authToken')
 router.post('/',[authToken.verifyToken], record.add_record);
 router.get('/:patientId',[authToken.verifyToken], record.get_patients_records);
 router.delete('/:id',[authToken.verifyToken], record.delete_record);
-router.patch('/:id',[authToken.verifyToken], record.edit_record);
+router.patch('/',[authToken.verifyToken], record.edit_record);
 
 module.exports = router

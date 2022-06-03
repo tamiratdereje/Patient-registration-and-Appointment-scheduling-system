@@ -1,30 +1,78 @@
-class RecordModel {
-  DateTime dateTime;
-  List<String> medicine;
-  String descrption;
-  String patientId;
-  String? id;
+class RecordDomain{
+  
+  RecordDate? dateTime;
+  List<RecordMedicine> medicine;
+  RecordDescrption descrption;
+  RecordeId? id;
+  RecordPatientId? patientId;
 
-  RecordModel({
-    required this.dateTime,
+
+  RecordDomain({
+    this.dateTime,
     required this.descrption,
-    required this.patientId,
     required this.medicine,
-    this.id
+    required this.id,
+    this.patientId
+  });
+}
 
-  }); 
+class RecordMedicine {
 
-  factory RecordModel.fromJson(Map<String , dynamic> json) => RecordModel(
+  String medicine;
+  RecordMedicine({required this.medicine});
 
-    patientId:json["patientId"],
-    descrption:json["descrption"],
-    medicine: json["medicine"].toList(),
-    dateTime: DateTime.parse(json["quantity"]) ,
-    id: json["id"]
-    
- );
+  @override
+  String toString() {
+    return medicine;
+  }
+}
 
- Map<String , dynamic> toJson() => {
-   "descrption":  descrption, "patientId": patientId, "medicine": medicine,"date": dateTime, "id":id};
+
+class RecordPatientId {
+
+  String patientId;
+  RecordPatientId({required this.patientId});
+  
+  
+  @override
+  String toString() {
+    return patientId;
+  }
+
+}
+
+
+class RecordDate {
+  DateTime dateTime;
+  RecordDate({required this.dateTime});
+
+  @override
+  String toString() {
+    return dateTime.toString();
+  }
+}
+
+
+
+class RecordDescrption {
+
+  String descrption;
+  RecordDescrption({required this.descrption});
+
+  @override
+  String toString() {
+    return descrption;
+  }
+
+}
+
+class RecordeId {
+  String id;
+  RecordeId({required this.id});
+
+  @override
+  String toString() {
+    return id;
+  }
 
 }
