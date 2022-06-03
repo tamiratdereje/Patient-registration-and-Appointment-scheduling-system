@@ -1,9 +1,9 @@
-class LoginDomain {
-  String email;
-  String password;
+import 'package:afyacare/domain/auth/password_domain.dart';
+import 'package:afyacare/domain/auth/user_name_domain.dart';
 
-  LoginDomain({
-    required this.email,
-    required this.password
-  });
+class LoginDomain {
+  Username username;
+  Password password;
+  LoginDomain({required this.username, required this.password});
 }
+

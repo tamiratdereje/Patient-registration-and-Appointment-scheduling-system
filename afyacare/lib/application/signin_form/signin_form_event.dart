@@ -9,10 +9,6 @@ abstract class AuthEvent extends Equatable {
 
 class LoginEvent extends AuthEvent {
   final LoginDomain loginDomain;
-
   LoginEvent(this.loginDomain);
 }
 
-class LogginLoading extends AuthEvent {
-  LogginLoading();
-}

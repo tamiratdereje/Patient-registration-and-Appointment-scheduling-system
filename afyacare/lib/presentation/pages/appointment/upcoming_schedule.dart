@@ -1,8 +1,4 @@
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
-import 'package:regexpattern/regexpattern.dart';
-import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/afya_theme.dart';
@@ -39,7 +35,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
     return Scaffold(
              floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.push('/appointment');
+          
         },
         child: const Icon(Icons.add),
       ),
@@ -57,7 +53,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       Text(
@@ -68,7 +64,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                         "Schedules",
                         style: AfyaTheme.lightTextTheme.headline2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       Expanded(
