@@ -12,17 +12,15 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List pages = [UpcomingSchedule(), Search(), UserHistory(), Profile()];
+  List pages = [UpcomingSchedule(), Search(), UserHistory(), UserProfile()];
   int current = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
       body: pages[current],
       bottomNavigationBar: BottomNavigationBar(
-        type:BottomNavigationBarType.fixed ,
-        backgroundColor: Colors.grey.shade100,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.grey.shade100,
           currentIndex: current,
           onTap: (index) {
             setState(() {
@@ -37,11 +35,10 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(
                 label: "Home", icon: Icon(Icons.apps_outlined)),
             BottomNavigationBarItem(label: "search", icon: Icon(Icons.search)),
-            BottomNavigationBarItem(label: "history", icon: Icon(Icons.history)),
-            BottomNavigationBarItem(label: "profile", icon: Icon(Icons.person)
-            ),
-          ]
-          ),
+            BottomNavigationBarItem(
+                label: "history", icon: Icon(Icons.history)),
+            BottomNavigationBarItem(label: "profile", icon: Icon(Icons.person)),
+          ]),
     );
   }
 }
