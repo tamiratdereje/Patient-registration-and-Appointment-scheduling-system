@@ -1,4 +1,3 @@
-
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:afyacare/presentation_data/chip_data.dart';
 import 'package:flutter/rendering.dart';
@@ -76,9 +75,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                           "Details",
                           style: AfyaTheme.lightTextTheme.headline2,
                         ),
-                        const SizedBox(
-                          height: 40,
-                        ),
+                    
                       ],
                     ),
                     Expanded(
@@ -152,13 +149,10 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             },
                                           ),
                                           const SizedBox(
-                                            height: 25,
+                                            height:15,
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
                                     ),
                                     TextButton(
                                         onPressed: () {
@@ -172,11 +166,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             );
 
                                             setState(() {
-                                              if (!prescribeMed
-                                                  .text.isNotEmpty) {
-                                                chipsList
-                                                    .add(prescribeMed.text);
-                                              }
+                                              
                                             });
                                           }
                                         },
@@ -189,48 +179,20 @@ class _PatientDetailsState extends State<PatientDetails> {
                             const SizedBox(
                               height: 20,
                             ),
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(TextData().appointmentDetail),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(TextData().appointmentDetail),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(TextData().appointmentDetail),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(TextData().appointmentDetail),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(TextData().appointmentDetail),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(TextData().appointmentDetail),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                child: ListView.builder(
+                                    itemCount: 8,
+                                    itemBuilder: (context, index) {
+                                      return Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Text(
+                                              TextData().appointmentDetail),
+                                        ),
+                                      );
+                                    }))
                           ],
                         ),
                       ),

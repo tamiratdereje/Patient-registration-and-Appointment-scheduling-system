@@ -38,6 +38,10 @@ app.use(session({
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.json());
+
+
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Checking if server starts successfully

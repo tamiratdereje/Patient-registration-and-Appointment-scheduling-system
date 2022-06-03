@@ -1,20 +1,36 @@
+import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
+import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
+import 'package:afyacare/presentation/routes/router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:afyacare/presentation/routes/router.dart' as AfyaRouter;
-import 'package:flutter/widgets.dart';
-
-
-void main() {
-  runApp(const MyApp());
+void main() async {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  // final LoginRepo loginRepo;
+  MyApp();
 
   @override
   Widget build(BuildContext context) {
-
-    
-    return AfyaRouter.Router();
-
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthenticationBloc>(
+            create: (context) => AuthenticationBloc()..add(AppStarted())),
+        BlocProvider<AuthBloc>(create: (context) => AuthBloc())
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+          ),
+          home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) => RouterMain(
+                authenticationBloc:
+                    BlocProvider.of<AuthenticationBloc>(context)),
+          )),
+    );
   }
 }

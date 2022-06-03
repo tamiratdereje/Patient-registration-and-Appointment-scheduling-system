@@ -47,7 +47,7 @@ const edit_medicine = async (req, res) => {
   }
 
   Medicine.findOne(
-    { name: req.body.name, _id: { $ne: req.params.id } },
+    { name: req.body.name, _id: { $ne: req.body.id } },
     async function (err, med) {
       if (med) {
         console.log("woge2");
@@ -56,7 +56,7 @@ const edit_medicine = async (req, res) => {
       }
 
 
-      Medicine.findById(req.params.id, async function (err, existing_med) {
+      Medicine.findById(req.body.id, async function (err, existing_med) {
         if (err) {
           res.status(404).json({ message: "medicine not found" });
           return;

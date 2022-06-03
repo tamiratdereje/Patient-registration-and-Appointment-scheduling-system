@@ -1,7 +1,4 @@
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:regexpattern/regexpattern.dart';
-import 'package:afyacare/presentation_data/text_data.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/afya_theme.dart';
@@ -18,24 +15,35 @@ class UpcomingSchedule extends StatefulWidget {
 class _UpcomingScheduleState extends State<UpcomingSchedule> {
   List schedules = <Widget>[
     Card1(
-        imageProvider: 'profile.jpg',
+        imageProvider: 'assets/profile.jpg',
         name: "Dr.Chaltu Abduba",
         specialization: "Oncologist"),
     Card1(
-        imageProvider:  'profile.jpg',
+        imageProvider: 'assets/profile.jpg',
         name: "Dr.Sameuel kebeto",
         specialization: "Gynecologist"),
     Card1(
-        imageProvider:  'profile.jpg',
+        imageProvider: 'assets/profile.jpg',
         name: "Dr.Husen Boru",
         specialization: "Gynecologist"),
   ];
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+             floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          
+        },
+        child: const Icon(Icons.add),
+      ),
+
       body: Stack(
+        
         children: [
+
           const circleClip(),
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -45,7 +53,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       Text(
@@ -56,7 +64,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                         "Schedules",
                         style: AfyaTheme.lightTextTheme.headline2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       Expanded(
@@ -69,7 +77,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                               height: 10,
                             );
                           },
-                          itemCount: 34,
+                          itemCount: schedules.length,
                         ),
                       )
                     ],
@@ -80,10 +88,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
+     
     );
   }
 }
@@ -125,7 +130,6 @@ class Card1 extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,13 +164,22 @@ class Card1 extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomButton(
-                      title: "Reschedule",
-                      width: MediaQuery.of(context).size.width / 2 - 60),
-                  CustomButton(
-                    title: "Cancel",
-                    width: MediaQuery.of(context).size.width / 2 - 60,
-                    // muted: true
+                  TextButton(
+                    onPressed: () {
+                      context.push('/appointment');
+                    },
+                    child: CustomButton(
+                        title: "Reschedule",
+                        width: MediaQuery.of(context).size.width / 2 - 60),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: CustomButton(
+                      muted: true,
+                      title: "Cancel",
+                      width: MediaQuery.of(context).size.width / 2 - 60,
+                      // muted: true
+                    ),
                   ),
                 ],
               )
