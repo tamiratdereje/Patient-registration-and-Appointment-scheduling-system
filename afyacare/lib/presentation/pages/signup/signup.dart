@@ -1,3 +1,4 @@
+import 'package:afyacare/domain/signup/signup_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/afya_theme.dart';
@@ -20,6 +21,7 @@ class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController birthdayController = TextEditingController();
   TextEditingController dateinput = TextEditingController();
@@ -40,6 +42,7 @@ class _SignupState extends State<Signup> {
     passwordController.dispose();
     fullNameController.dispose();
     birthdayController.dispose();
+    passwordConfirmController.dispose();
     super.dispose();
   }
 
@@ -80,21 +83,13 @@ class _SignupState extends State<Signup> {
                               child: Column(
                                 children: [
                                   TextFormField(
-                                    key: Key("fullname"),
-                                    controller: fullNameController,
-                                    decoration: InputDecoration(
-                                      labelText: "Enter full name",
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty ||
-                                          !RegExp(r'^[a-zA-Z .]+$')
-                                              .hasMatch(value)) {
-                                        return "Enter correct name";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
-                                  ),
+                                      key: Key("fullname"),
+                                      controller: fullNameController,
+                                      decoration: InputDecoration(
+                                        labelText: "Enter full name",
+                                      ),
+                                      validator: (value) => SignupValidator()
+                                          .fullNameValidater(value)),
                                   const SizedBox(
                                     height: 25,
                                   ),
@@ -122,21 +117,17 @@ class _SignupState extends State<Signup> {
                                               lastDate: DateTime.now());
 
                                       if (pickedDate != null) {
-                                        String formattedDate =
-                                            pickedDate.toString().substring(0,10);
+                                        String formattedDate = pickedDate
+                                            .toString()
+                                            .substring(0, 10);
                                         setState(() {
                                           dateinput.text =
                                               formattedDate; //set output date to TextField value.
                                         });
                                       }
                                     },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Pick birthdate";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    validator: (value) => SignupValidator()
+                                        .dateOfBirthValidator(value),
                                   ),
                                   const SizedBox(
                                     height: 25,
@@ -149,15 +140,8 @@ class _SignupState extends State<Signup> {
                                     decoration: InputDecoration(
                                       labelText: "Create username",
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty ||
-                                          !RegExp(r'^[a-zA-Z _]+$')
-                                              .hasMatch(value)) {
-                                        return "Enter correct username, Eg. Jeb_deju";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    validator: (value) => SignupValidator()
+                                        .usernameValidater(value),
                                   ),
                                   const SizedBox(
                                     height: 25,
@@ -181,19 +165,15 @@ class _SignupState extends State<Signup> {
                                       // suffixIcon: Icon(Icons.scuba_diving),
                                       labelText: "Enter password",
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty || value.length < 8) {
-                                        return "Password should not below 8 character";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    validator: (value) => SignupValidator()
+                                        .passwordValidater(value),
                                   ),
                                   const SizedBox(
                                     height: 25,
                                   ),
                                   TextFormField(
                                     key: Key("confirmpassword"),
+                                    controller: passwordConfirmController,
                                     obscureText: _passwordConfirmVisible,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
@@ -210,16 +190,8 @@ class _SignupState extends State<Signup> {
                                       // suffixIcon: Icon(Icons.scuba_diving),
                                       labelText: "confirm password",
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty || value.length < 8) {
-                                        return "Password should not below 8 character";
-                                      } else if (value !=
-                                          passwordController.text) {
-                                        return "Password not matched!";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    validator: (value) => SignupValidator()
+                                        .confrimPasswordValidator(value, passwordController.text),
                                   ),
                                   const SizedBox(
                                     height: 25,

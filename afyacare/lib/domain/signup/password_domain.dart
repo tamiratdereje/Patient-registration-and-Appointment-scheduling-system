@@ -1,8 +1,8 @@
 class Password {
   String? password;
   Password({required this.password}) {
-    if (this.password!.length < 4) {
-      throw Exception("Invalid Password");
+    if (this.password!.length < 8) {
+      throw Exception("Password should not below 8 character");
     }
   }
   @override

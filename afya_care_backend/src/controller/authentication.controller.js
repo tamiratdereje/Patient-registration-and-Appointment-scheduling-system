@@ -7,6 +7,7 @@ const {loginValidation} = require('../validation/loginValidation');
 const signUp =  async (req, res) => {
     
     // validating signup form input
+    
     console.log({
         message:"req body accessed",
         name:req.body.name
