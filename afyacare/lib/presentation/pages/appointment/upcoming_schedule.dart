@@ -28,26 +28,19 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
         specialization: "Gynecologist"),
   ];
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-             floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          
-        },
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
         child: const Icon(Icons.add),
       ),
-
       body: Stack(
-        
         children: [
-
           const circleClip(),
           Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Stack(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
               children: [
                 Expanded(
                   child: Column(
@@ -88,7 +81,6 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
           )
         ],
       ),
-     
     );
   }
 }
