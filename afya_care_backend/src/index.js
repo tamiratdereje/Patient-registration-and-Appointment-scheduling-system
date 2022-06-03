@@ -50,7 +50,7 @@ app.get('/',(req,res)=>{
 })
 
 
-// Defining routes
+// Defining route
 app.use('/api/auth', authRoutes);
 app.use('/medicine', medicine_route);
 app.use('/record', record_route);
