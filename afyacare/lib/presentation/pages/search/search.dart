@@ -52,12 +52,14 @@ class Search extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {},
-                        child: CustomButton(
+                        child: const CustomButton(
                           title: "",
                           icon: Icons.search,
+                          iconVisiblity: true,
                           width: 55,
                           height: 55,
-                          iconVisiblity: true,
+                          // iconVisiblity = true,
+
                         ))
                   ],
                 ),

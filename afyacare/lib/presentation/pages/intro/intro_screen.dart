@@ -17,6 +17,7 @@ class IntroScreen extends StatelessWidget {
       body: Stack(
         children: [
           const circleClip(),
+
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -64,6 +65,7 @@ class IntroScreen extends StatelessWidget {
                             icon: Icons.arrow_forward_outlined,
                             iconVisiblity: true,
                           ),
+
                         ),
                       ],
                     ),

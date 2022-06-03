@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
+
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationBloc>(
@@ -32,5 +35,6 @@ class MyApp extends StatelessWidget {
                     BlocProvider.of<AuthenticationBloc>(context)),
           )),
     );
+
   }
 }

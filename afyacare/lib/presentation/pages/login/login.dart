@@ -35,15 +35,20 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  // late bool _passwordVisible;
-  // late bool _passwordConfirmVisible;
+  late bool _passwordVisible;
+  late bool _passwordConfirmVisible;
   // final LoginRepo loginRepo;
   LoginState();
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+ @override
+  void initState() {
+    _passwordVisible = true;
+    _passwordConfirmVisible = true;
+    super.initState();
+  }
   @override
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree.
@@ -100,8 +105,9 @@ class LoginState extends State<Login> {
                                   TextFormField(
                                     controller: usernameController,
                                     decoration: const InputDecoration(
-                                      labelText: "username",
+                                      labelText: "Username",
                                     ),
+                                    
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return "Enter correct username, Eg. tam34@gmail.com";
@@ -114,9 +120,21 @@ class LoginState extends State<Login> {
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    obscureText: true,
+                                    obscureText: _passwordVisible,
                                     controller: passwordController,
-                                    decoration: const InputDecoration(
+                                     decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _passwordVisible =
+                                                !_passwordVisible;
+                                          });
+                                        },
+                                        icon: Icon(_passwordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                      ),
+                                      // suffixIcon: Icon(Icons.scuba_diving),
                                       labelText: "Enter password",
                                     ),
                                     validator: (value) {
@@ -190,10 +208,26 @@ class LoginState extends State<Login> {
                                     usernameController.clear();
                                     passwordController.clear();
                                   },
-                                  child: CustomButton(title: "Sign in"),
+                                  child: CustomButton(title: "Log in"),
                                 );
                               },
                             ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Not register yet ?"),
+                                TextButton(
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      context.go('/signup');
+                                    },
+                                    child: Text("Create Account")),
+                              ],
+                            )
                           ],
                         ),
                       ),

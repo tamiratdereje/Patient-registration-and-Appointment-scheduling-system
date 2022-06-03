@@ -8,7 +8,8 @@ const authRoutes = require('./routes/authentication.route');
 // const check = require('./routes/check');
 const medicine_route = require('./routes/medicine.route');
 const record_route = require('./routes/record_route');
-const schedule_route = require('./routes/schedule.route')
+const schedule_route = require('./routes/schedule.route');
+const user_route = require('./routes/user.route');
 
 const dotEnv = require('dotenv');
 
@@ -47,6 +48,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/api',(req,res)=>{
     res.json({ message: 'server starts successfully '})
 })
+
 
 // Defining routes
 app.use('/api/auth', authRoutes);
