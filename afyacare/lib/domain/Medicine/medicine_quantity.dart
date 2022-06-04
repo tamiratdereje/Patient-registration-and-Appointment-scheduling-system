@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class MedicineQuantity extends Equatable {
-  String? medicineQuantity;
+  int? medicineQuantity;
   MedicineQuantity({required this.medicineQuantity});
 
   @override
   String toString() {
-    return medicineQuantity!;
+    return medicineQuantity!.toString();
   }
 
   @override

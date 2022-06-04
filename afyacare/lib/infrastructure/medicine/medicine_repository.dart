@@ -1,6 +1,9 @@
 import 'dart:ffi';
 
 import 'package:afyacare/domain/Medicine/medicine_Domain.dart';
+import 'package:afyacare/domain/Medicine/medicine_description.dart';
+import 'package:afyacare/domain/Medicine/medicine_name.dart';
+import 'package:afyacare/domain/Medicine/medicine_quantity.dart';
 import 'package:afyacare/infrastructure/medicine/medicine_data_provider.dart';
 import 'package:afyacare/infrastructure/medicine/medicine_model.dart';
 
@@ -33,10 +36,10 @@ class MedicineRepo {
 
     final mapped = list_of_med
         .map((e) => MedicineDomain(
-            name: MedicineName(name: e.name.toString()),
-            descrption: MedicineDescrption(descrption: e.descrption.toString()),
+            name: MedicineName(medicineName: e.name.toString()),
+            descrption: MedicineDescription(medicineDescription: e.descrption.toString()),
             quantity:
-                MedicineQuantity(quantity: int.parse(e.quantity.toString())),
+                MedicineQuantity(medicineQuantity: int.parse(e.quantity.toString())),
             id: MedicineId(id: e.id.toString())))
         .toList();
 
@@ -47,10 +50,10 @@ class MedicineRepo {
     MedicineModel med = await medicineProvider.getMedicine(id);
     
     final MedicineDomain medicine = MedicineDomain(
-        descrption: MedicineDescrption(descrption: med.descrption.toString()),
-        name: MedicineName(name: med.name.toString()),
+        descrption: MedicineDescription(medicineDescription: med.descrption.toString()),
+        name: MedicineName(medicineName: med.name.toString()),
         quantity:
-            MedicineQuantity(quantity: int.parse(med.quantity.toString())),
+            MedicineQuantity(medicineQuantity: int.parse(med.quantity.toString())),
         id: MedicineId(id: med.id.toString())
             
             );
