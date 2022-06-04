@@ -1,14 +1,8 @@
-
-
 const Record = require("../models/Record");
 const User = require("../models/user");
 const Schedule = require("../models/schedule");
 
-
-
-
 const edit_user = async (req, res) => {
-
   var user = await User.findById(req.userId);
   if (!user) {
     res.status(401).json({
@@ -26,14 +20,13 @@ const edit_user = async (req, res) => {
         return;
       }
 
-
       User.findById(req.userId, async function (err, existing_user) {
         if (err) {
           res.status(404).json({ message: "user not found" });
           return;
         }
 
-          (existing_user.email = req.body.email),
+        (existing_user.email = req.body.email),
           await existing_user.save(function (err) {
             if (err) {
               res.status(404).json({ message: "error occurred during saving" });
@@ -53,11 +46,7 @@ const edit_user = async (req, res) => {
   );
 };
 
-
-
-
 const edit_password = async (req, res) => {
-
   var user = await User.findById(req.userId);
   if (!user) {
     res.status(401).json({
@@ -66,46 +55,48 @@ const edit_password = async (req, res) => {
     return;
   }
 
-  const matchPassword = await User.comparePassword(req.body.old_password, user.password);
+  const matchPassword = await User.comparePassword(
+    req.body.old_password,
+    user.password
+  );
 
-  if (matchPassword){
-
+  if (matchPassword) {
     const hashedPassword = await User.encryptPassword(req.body.new_password);
     user.password = hashedPassword;
-  }
 
-  var existing_user = await User.findById(req.userId);
-    res.status(200).json({
-      message: "succesfully edit",
-      editedProduct: {
-        name: existing_user.name,
-        username: existing_user.username,
-        birth_date: existing_user.birth_date,
-        password : existing_user.password
-      },
+    await user.save(function (err) {
+      if (err) {
+        res.status(404).json({ message: "error occurred during saving" });
+      }
     });
 
   }
 
-
+  var existing_user = await User.findById(req.userId);
+  res.status(200).json({
+    message: "succesfully edit",
+    editedProduct: {
+      name: existing_user.name,
+      username: existing_user.username,
+      birth_date: existing_user.birth_date,
+      password: existing_user.password,
+    },
+  });
+};
 
 const delete_user = async (req, res) => {
-
   try {
-
-    await Record.remove({user : req.userId});
-    await Schedule.remove({patient : req.userId});
-    await Schedule.remove({doctor : req.userId});
+    await Record.remove({ user: req.userId });
+    await Schedule.remove({ patient: req.userId });
+    await Schedule.remove({ doctor: req.userId });
     const user = await User.findByIdAndRemove(req.userId);
-    
+
     res.status(200).json({
       message: "succesfully delete",
       editeduser: {
-
         name: user.name,
         username: user.username,
         birth_date: user.birth_date,
-
       },
     });
   } catch (err) {
@@ -113,10 +104,7 @@ const delete_user = async (req, res) => {
   }
 };
 
-
-
 const user_detail = async (req, res) => {
-
   var user = await User.findById(req.userId);
   if (!user) {
     res.status(401).json({
@@ -126,12 +114,11 @@ const user_detail = async (req, res) => {
   }
 
   res.status(200).json(user);
-
 };
 
 module.exports = {
   delete_user,
   edit_user,
   user_detail,
-  edit_password
+  edit_password,
 };
