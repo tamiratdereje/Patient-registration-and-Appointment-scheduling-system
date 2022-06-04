@@ -2,9 +2,8 @@ const Medicine = require("../models/medicine");
 const { medicineValidation } = require("../validation/medicineValidation");
 
 const add_medicine = async (req, res) => {
-  const { error } = medicineValidation(req.body);
-  if (error) return res.status(400).send({ message: error.details[0].message });
-
+  
+  
   var med = await Medicine.findOne({ name: req.body.name });
   if (med) {
     res.status(401).json({

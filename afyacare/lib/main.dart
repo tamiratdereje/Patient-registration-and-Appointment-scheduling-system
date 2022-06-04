@@ -1,4 +1,7 @@
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
+import 'package:afyacare/application/medicine/medicine_bloc.dart';
+import 'package:afyacare/application/medicine/medicine_event.dart';
+import 'package:afyacare/application/profile/bloc/profile_bloc.dart';
 import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
 import 'package:afyacare/application/signup_form/bloc/signup_bloc.dart';
 import 'package:afyacare/presentation/routes/router.dart';
@@ -23,7 +26,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthenticationBloc>(
             create: (context) => AuthenticationBloc()..add(AppStarted())),
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
-        BlocProvider<SignupBloc>(create: (context) => SignupBloc())
+        BlocProvider<SignupBloc>(create: (context) => SignupBloc()),
+        BlocProvider<ProfileBloc>(create: (context)=> ProfileBloc()),
+        BlocProvider<MedicineBLoc>(create: (context) => MedicineBLoc()..add(MedicineLoadAllEvent())),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -13,9 +13,12 @@ class AuthDataProvider {
           'Content-Type': 'application/json; charset=UTF-8'
         },
         body: jsonEncode(loginUser));
+    print(response);
     if (response.statusCode == 200) {
+      print("provider suceed");
       return LoginResponse.fromJson(jsonDecode(response.body));
     } else {
+      print("provider failed");
       throw Exception("Failed to Login");
     }
   }
