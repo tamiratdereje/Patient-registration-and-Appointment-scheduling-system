@@ -7,15 +7,13 @@ const {loginValidation} = require('../validation/loginValidation');
 const signUp =  async (req, res) => {
     
     // validating signup form input
-    console.log({
-        message:"req body accessed",
-        name:req.body.name
-    })
+    
+   
     const {error} = signupValidation(req.body);
     if(error) return res.status(400).send({message: error.details[0].message});
 
     //check if email is already in use
-    const emailExist = await User.findOne({email: req.body.email});
+    const emailExist = await User.findOne({username: req.body.username});
     
     if(emailExist) return res.status(401).json({message: 'User with this email already exists'});
 
@@ -25,10 +23,9 @@ const signUp =  async (req, res) => {
     //create new user object
     const newUser = new User({
         name : req.body.name,
-        email : req.body.email,
+        username : req.body.username,
         birth_date: req.body.birth_date,
         roles: req.body.roles,
-        // image: req.file.path,
         password: hashedPassword
     })
 
@@ -52,7 +49,7 @@ const logIn = async (req, res) => {
     const {error} =  loginValidation(req.body)
     if(error) return res.status(400).json({message: error.details[0].message})
 
-    const userExist = await User.findOne({ email: req.body.email });
+    const userExist = await User.findOne({ username: req.body.username });
     if (!userExist) return res.status(400).json({
         message: 'Invalid credential'
     })
@@ -67,7 +64,7 @@ const logIn = async (req, res) => {
     console.log(userExist)
 
     const token = jwt.sign({ id: userExist._id }, process.env.SECRET_KEY, {
-        expiresIn: 86400  // one day
+         // one day
     })
 
     res.header("token",token)
@@ -77,7 +74,7 @@ const logIn = async (req, res) => {
         _id: userExist._id,
         name: userExist.name,
         birth_date: userExist.birth_date,
-        email:userExist.email,
+        username:userExist.username,
         message: 'Auth Succesful',
         token: token,
         roles:userExist.roles

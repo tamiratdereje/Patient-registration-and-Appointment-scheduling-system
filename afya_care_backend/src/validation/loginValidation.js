@@ -5,7 +5,7 @@ const pattern = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|
 // validator for user login
 const loginValidation = (value) => {
     const loginSchema = joi.object({
-        email: joi.string().required().email().min(6),
+        username: joi.string().required().min(6),
         password: joi.string().required().min(4)
     });
     return loginSchema.validate(value);

@@ -21,18 +21,29 @@ class RouterMain extends StatelessWidget {
   late final GoRouter _router;
   static const String title = 'router';
   String? redirector(state) {
-    if (authenticationBloc.state is FirstUse && state.location == Screen().splashScreen) {
+    print("*********************");
+    print(state.location);
+    print(authenticationBloc.state);
+
+    if (authenticationBloc.state is FirstUse &&
+        state.location == Screen().splashScreen) {
       return Screen().intro;
-    } else if (authenticationBloc.state is BoardingCompleted && state.location != Screen().login) {
+    } else if (authenticationBloc.state is BoardingCompleted &&
+        state.location != Screen().login &&
+        state.location != Screen().signup) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationInitial &&
-        state.location != Screen().splashScreen) {
+        state.location != Screen().splashScreen &&
+        state.location != Screen().login &&
+        state.location != Screen().mainscreen) {
       return Screen().splashScreen;
     } else if (authenticationBloc.state is AuthenticationNotAuthenticated &&
+        state.location != Screen().signup &&
         state.location != Screen().login) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationAuthenticated) {
-      if (state.location != Screen().upcomingSchedule && state.location != Screen().mainscreen) {
+      if (state.location != Screen().upcomingSchedule &&
+          state.location != Screen().mainscreen) {
         return Screen().mainscreen;
       }
     }
@@ -42,13 +53,13 @@ class RouterMain extends StatelessWidget {
   RouterMain({Key? key, required this.authenticationBloc}) : super(key: key) {
     _router = GoRouter(
       refreshListenable: GoRouterRefreshStream(authenticationBloc.stream),
-      redirect: (state) => redirector(state),
-      initialLocation: Screen().splashScreen,
+      // redirect: (state) => redirector(state),
+      initialLocation: Screen().pharmacistScreen,
       routes: <GoRoute>[
         GoRoute(
-          path: Screen().intro,
+          path: Screen().pharmacistScreen,
           builder: (BuildContext context, GoRouterState state) =>
-              const IntroScreen(),
+              const PharmacistScreen(),
         ),
         GoRoute(
           path: Screen().appointment,
