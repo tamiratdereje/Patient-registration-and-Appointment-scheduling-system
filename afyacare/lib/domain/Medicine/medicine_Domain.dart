@@ -18,39 +18,6 @@ class MedicineDomain {
 
 }
 
-
-// class MedicineName {
-//   String name;
-//   MedicineName({required this.name});
-
-//   @override
-//   String toString() {
-//     return name;
-//   }
-
-// }
-
-// class MedicineDescrption {
-//   String descrption;
-//   MedicineDescrption({required this.descrption});
-
-//   @override
-//   String toString() {
-//     return descrption;
-//   }
-// }
-
-// class MedicineQuantity {
-//   int quantity;
-//   MedicineQuantity({required this.quantity});
-
-//   @override
-//   String toString() {
-//     return quantity.toString();
-//   }
-
-// }
-
 class MedicineId {
   String id;
   MedicineId({required this.id});
