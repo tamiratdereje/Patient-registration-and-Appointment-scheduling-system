@@ -56,6 +56,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/medicine', medicine_route);
 app.use('/api/record', record_route);
 app.use('/api/schedule', schedule_route );
+app.use('/api/profile', user_route );
+
 
 // assigning port
 app.listen(3000,()=>{

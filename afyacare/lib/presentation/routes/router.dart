@@ -61,6 +61,7 @@ class RouterMain extends StatelessWidget {
           builder: (BuildContext context, GoRouterState state) =>
               const PharmacistScreen(),
         ),
+        
         GoRoute(
           path: Screen().appointment,
           builder: (BuildContext context, GoRouterState state) =>

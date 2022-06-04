@@ -11,4 +11,5 @@ class Screen {
   String signup = '/signup';
   String mainscreen = '/mainscreen';
   String medicineList = '/medicineList';
+  
 }
