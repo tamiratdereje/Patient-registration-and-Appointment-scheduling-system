@@ -1,11 +1,11 @@
-// ignore_for_file: unnecessary_import
-
-import 'package:afyacare/presentation/core/afya_theme.dart';
-import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
-import 'package:afyacare/presentation/core/widgets/custom_button.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:afyacare/domain/signup/signup_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:regexpattern/regexpattern.dart';
+import 'package:go_router/go_router.dart';
+import '../../core/afya_theme.dart';
+
+import '../../core/widgets/brand_name.dart';
+import '../../core/widgets/circle_clip.dart';
+import '../../core/widgets/custom_button.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -15,87 +15,107 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  late bool _passwordVisible;
+  late bool _newPasswordVisible;
+  late bool _oldPasswordVisible;
   late bool _passwordConfirmVisible;
-  late bool isButtonVisible;
-  late bool isSaveVisible;
-  late bool isPasswordEditable;
-  late bool isPasswordchangeVisible;
-  late bool isFloatVisible;
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController birthdayController = TextEditingController();
-  TextEditingController dateinput = TextEditingController();
-  bool _isEnable = false;
-  TextEditingController genderController = TextEditingController();
-  String _selectedGender = 'male';
+  TextEditingController _oldPasswordController = TextEditingController();
+  TextEditingController _newPasswordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void initState() {
-    fullNameController.text = "hello";
-    usernameController.text = "naola";
-    isButtonVisible = true;
-    isSaveVisible = false;
-    isPasswordchangeVisible = false;
-    isPasswordEditable = false;
-    _passwordVisible = true;
+    _newPasswordVisible = true;
     _passwordConfirmVisible = true;
-    isFloatVisible = true;
+    _oldPasswordVisible = true;
 
     super.initState();
   }
 
   @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the widget tree.
+    // This also removes the _printLatestValue listener.
+    _confirmPasswordController.dispose();
+    _newPasswordController.dispose();
+    _oldPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Visibility(
-        visible: isFloatVisible,
-        child: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              isButtonVisible = false;
-              isSaveVisible = true;
-              isPasswordchangeVisible = true;
-              _isEnable = true;
-              isFloatVisible = false;
-            });
-          },
-          backgroundColor: Colors.green,
-          child: const Icon(Icons.edit),
-        ),
-      ),
       body: SafeArea(
         child: Stack(children: [
-          const circleClip(),
+          circleClip(),
           SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.fromLTRB(15, 60, 15, 5),
+              padding: EdgeInsets.fromLTRB(15, 60, 15, 5),
               child: Column(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Text(
-                          "Profile",
-                          style: AfyaTheme.lightTextTheme.headline2,
+                        Column(
+                          children: [
+                            Text(
+                              "Profile",
+                              style: AfyaTheme.lightTextTheme.headline2,
+                            ),
+                            Text(
+                              "user",
+                              style: AfyaTheme.lightTextTheme.bodyText1,
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          width: 8,
+                          height: 50,
                         ),
-                        const Icon(Icons.account_circle_outlined)
+                        Expanded(child: Container()),
+                        TextButton.icon(
+                          icon: Icon(Icons.logout, color: Colors.black),
+                          label: Text(
+                            "Logout",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          onPressed: () {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Logout'),
+                                content: const Text(
+                                    'Are you sure you want to logout?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'Cancel'),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          width: 20,
+                        )
                       ],
                     ),
-                    Text(
-                      "User Id",
-                      style: AfyaTheme.lightTextTheme.bodyText1,
-                    ),
-                    const SizedBox(
+                    SizedBox(
                       height: 50,
                     ),
+                    Text(
+                      "change Password",
+                      style: AfyaTheme.lightTextTheme.headline2,
+                    ),
+                    // Form(child: child)
                     Form(
                       key: _formKey,
                       child: Container(
@@ -106,255 +126,141 @@ class _UserProfileState extends State<UserProfile> {
                               padding: const EdgeInsets.all(12),
                               child: Column(
                                 children: [
-                                  const SizedBox(
-                                    height: 25,
-                                  ),
                                   TextFormField(
-                                    enabled: false,
-                                    controller: fullNameController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Full name",
-                                      border: OutlineInputBorder(),
+                                    key: Key("oldpassword"),
+                                    obscureText: _oldPasswordVisible,
+                                    controller: _oldPasswordController,
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _oldPasswordVisible =
+                                                !_oldPasswordVisible;
+                                          });
+                                        },
+                                        icon: Icon(_oldPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                      ),
+                                      // suffixIcon: Icon(Icons.scuba_diving),
+                                      labelText: "Enter old password",
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  ),
-                                  TextFormField(
-                                      controller: usernameController,
-                                      enabled: _isEnable,
-                                      decoration: const InputDecoration(
-                                        labelText: "username",
-                                        border: OutlineInputBorder(),
-                                      )),
-                                  isPasswordchangeVisible
-                                      ? Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 25,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                InkWell(
-                                                    child: const Text(
-                                                      'Edit Password',
-                                                      style: TextStyle(
-                                                        color: Colors.green,
-                                                      ),
-                                                    ),
-                                                    onTap: () => {
-                                                          setState(() {
-                                                            isPasswordEditable =
-                                                                true;
-                                                          })
-                                                        }),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      : const SizedBox(
-                                          height: 0,
-                                        ),
-                                  const SizedBox(
-                                    height: 25,
-                                  ),
-                                  Visibility(
-                                    visible: isPasswordEditable,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          obscureText: _passwordVisible,
-                                          controller: passwordController,
-                                          decoration: InputDecoration(
-                                            suffixIcon: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  _passwordVisible =
-                                                      !_passwordVisible;
-                                                });
-                                              },
-                                              icon: Icon(_passwordVisible
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off),
-                                            ),
-                                            // suffixIcon: Icon(Icons.scuba_diving),
-                                            labelText: "Enter new password",
-                                          ),
-                                          validator: (value) {
-                                            if (value!.isEmpty ||
-                                                !value
-                                                    .isPasswordEasyWithspace()) {
-                                              return "Password should not below 8 character";
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                        ),
-                                        TextFormField(
-                                          obscureText: _passwordConfirmVisible,
-                                          decoration: InputDecoration(
-                                            suffixIcon: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  _passwordConfirmVisible =
-                                                      !_passwordConfirmVisible;
-                                                });
-                                              },
-                                              icon: Icon(_passwordConfirmVisible
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off),
-                                            ),
-                                            // suffixIcon: Icon(Icons.scuba_diving),
-                                            labelText: "confirm new password",
-                                          ),
-                                          validator: (value) {
-                                            if (value!.isEmpty ||
-                                                !value
-                                                    .isPasswordEasyWithspace()) {
-                                              return "Password should not below 8 character";
-                                            } else if (value !=
-                                                passwordController.text) {
-                                              return "Password not matched!";
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  isPasswordEditable
-                                      ? const SizedBox(
-                                          height: 25,
-                                        )
-                                      : const SizedBox(
-                                          height: 0,
-                                        ),
-                                  TextFormField(
-                                    readOnly: true,
-                                    controller: fullNameController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Phone Number",
-                                      border: OutlineInputBorder(),
-                                    ),
+                                    validator: (value) => SignupValidator()
+                                        .passwordValidater(value),
                                   ),
                                   const SizedBox(
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    readOnly: true,
-                                    controller: fullNameController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Birth Day",
-                                      border: OutlineInputBorder(),
+                                    key: Key("newpassword"),
+                                    obscureText: _newPasswordVisible,
+                                    controller: _newPasswordController,
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _newPasswordVisible =
+                                                !_newPasswordVisible;
+                                          });
+                                        },
+                                        icon: Icon(_newPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                      ),
+                                      // suffixIcon: Icon(Icons.scuba_diving),
+                                      labelText: "Enter new password",
                                     ),
+                                    validator: (value) => SignupValidator()
+                                        .passwordValidater(value),
                                   ),
                                   const SizedBox(
                                     height: 25,
                                   ),
-                                  Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      2 -
-                                                  60,
-                                            ),
-                                            Visibility(
-                                              visible: isSaveVisible,
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        const SnackBar(
-                                                            content: Text(
-                                                                'Saving user Data')),
-                                                      );
-                                                      _isEnable = false;
-                                                      isPasswordchangeVisible =
-                                                          false;
-                                                      isButtonVisible = true;
-                                                      isSaveVisible = false;
-                                                      isPasswordEditable =
-                                                          false;
-                                                      isFloatVisible = true;
-                                                    }
-                                                  });
-                                                },
-                                                child: CustomButton(
-                                                  title: "Save",
-                                                  width: MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          3 -
-                                                      60,
-                                                  height: 30,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Visibility(
-                                          visible: isButtonVisible,
-                                          child: Row(
-                                            children: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    _isEnable = true;
-                                                  });
-                                                },
-                                                child: CustomButton(
-                                                  title: "Logout",
-                                                  width: MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          2 -
-                                                      60,
-                                                  height: 30,
-                                                ),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {},
-                                                child: CustomButton(
-                                                  title: "Delete",
-                                                  width: MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          2 -
-                                                      60,
-                                                  height: 30,
-                                                  icon: Icons.delete,
-                                                  iconVisiblity: true,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ])
+                                  TextFormField(
+                                    key: Key("confirmpassword"),
+                                    controller: _confirmPasswordController,
+                                    obscureText: _passwordConfirmVisible,
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _passwordConfirmVisible =
+                                                !_passwordConfirmVisible;
+                                          });
+                                        },
+                                        icon: Icon(_passwordConfirmVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                      ),
+                                      // suffixIcon: Icon(Icons.scuba_diving),
+                                      labelText: "confirm password",
+                                    ),
+                                    validator: (value) => SignupValidator()
+                                        .confrimPasswordValidator(value,
+                                            _confirmPasswordController.text),
+                                  ),
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
                                 ],
                               ),
                             ),
+                            TextButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Data')),
+                                    );
+                                  }
+                                },
+                                child: CustomButton(title: "Change password")),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text("Want delete sn account? "),
+                                TextButton(
+                                  onPressed: () {
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('Delete account'),
+                                        content: const Text(
+                                            'Are you sure you want to delete account?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'Cancel'),
+                                            child: const Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, 'OK'),
+                                            child: const Text(
+                                              'Delete',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    "Delete account",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
-                    ),
+                    )
                   ]),
             ),
           )

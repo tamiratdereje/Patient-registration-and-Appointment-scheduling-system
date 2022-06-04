@@ -114,8 +114,7 @@ class _SignupState extends State<Signup> {
                                             "Enter Date" //label text of field
                                         ),
 
-                                    readOnly:
-                                        true, //set it true, so that user will not able to edit text
+                                    readOnly: true,
                                     onTap: () async {
                                       DateTime? pickedDate =
                                           await showDatePicker(

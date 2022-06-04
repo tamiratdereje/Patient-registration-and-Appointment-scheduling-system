@@ -1,6 +1,10 @@
+import 'package:afyacare/domain/Medicine/medicine_description.dart';
+import 'package:afyacare/domain/Medicine/medicine_name.dart';
+import 'package:afyacare/domain/Medicine/medicine_quantity.dart';
+
 class MedicineDomain {
   MedicineName name;
-  MedicineDescrption descrption;
+  MedicineDescription descrption;
   MedicineQuantity quantity;
   MedicineId? id;
 
@@ -11,39 +15,6 @@ class MedicineDomain {
     required this.quantity,
     this.id
   });
-
-}
-
-
-class MedicineName {
-  String name;
-  MedicineName({required this.name});
-
-  @override
-  String toString() {
-    return name;
-  }
-
-}
-
-class MedicineDescrption {
-  String descrption;
-  MedicineDescrption({required this.descrption});
-
-  @override
-  String toString() {
-    return descrption;
-  }
-}
-
-class MedicineQuantity {
-  int quantity;
-  MedicineQuantity({required this.quantity});
-
-  @override
-  String toString() {
-    return quantity.toString();
-  }
 
 }
 

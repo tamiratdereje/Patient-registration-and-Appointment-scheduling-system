@@ -1,4 +1,3 @@
-// for login
 import 'package:afyacare/domain/auth/authValidator.dart';
 import 'package:flutter_test/flutter_test.dart';
 

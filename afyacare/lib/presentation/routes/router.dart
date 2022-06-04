@@ -26,7 +26,7 @@ class RouterMain extends StatelessWidget {
     print(authenticationBloc.state);
 
     if (authenticationBloc.state is FirstUse &&
-        state.location != Screen().intro) {
+        state.location == Screen().splashScreen) {
       return Screen().intro;
     } else if (authenticationBloc.state is BoardingCompleted &&
         state.location != Screen().login &&
@@ -53,13 +53,13 @@ class RouterMain extends StatelessWidget {
   RouterMain({Key? key, required this.authenticationBloc}) : super(key: key) {
     _router = GoRouter(
       refreshListenable: GoRouterRefreshStream(authenticationBloc.stream),
-      redirect: (state) => redirector(state),
-      initialLocation: Screen().splashScreen,
+      // redirect: (state) => redirector(state),
+      initialLocation: Screen().pharmacistScreen,
       routes: <GoRoute>[
         GoRoute(
-          path: Screen().intro,
+          path: Screen().pharmacistScreen,
           builder: (BuildContext context, GoRouterState state) =>
-              const IntroScreen(),
+              const PharmacistScreen(),
         ),
         GoRoute(
           path: Screen().appointment,
