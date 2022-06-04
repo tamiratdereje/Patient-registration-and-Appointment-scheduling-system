@@ -89,8 +89,7 @@ class _SignupState extends State<Signup> {
                                         labelText: "Enter full name",
                                       ),
                                       validator: (value) => SignupValidator()
-                                          .fullNameValidater(value)
-                                          ),
+                                          .fullNameValidater(value)),
                                   const SizedBox(
                                     height: 25,
                                   ),
@@ -106,8 +105,7 @@ class _SignupState extends State<Signup> {
                                             "Enter Date" //label text of field
                                         ),
 
-                                    readOnly:
-                                        true, //set it true, so that user will not able to edit text
+                                    readOnly: true,
                                     onTap: () async {
                                       DateTime? pickedDate =
                                           await showDatePicker(
@@ -192,7 +190,8 @@ class _SignupState extends State<Signup> {
                                       labelText: "confirm password",
                                     ),
                                     validator: (value) => SignupValidator()
-                                        .confrimPasswordValidator(value, passwordController.text),
+                                        .confrimPasswordValidator(
+                                            value, passwordController.text),
                                   ),
                                   const SizedBox(
                                     height: 25,
