@@ -234,6 +234,7 @@ class _SignupState extends State<Signup> {
                               }
                             }, builder: (context, state) {
                               return TextButton(
+                                key:Key("signup"),
                                   onPressed: () {
                                     String brday = birthdayController.text;
                                     if (_formKey.currentState!.validate()) {
@@ -259,7 +260,7 @@ class _SignupState extends State<Signup> {
                                       blocProv.add(SignUpEvent(signupDomain));
                                     }
                                   },
-                                  child: CustomButton(key:Key("signup"),title: "Sign up"));
+                                  child: CustomButton(title: "Sign up"));
                             }),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,

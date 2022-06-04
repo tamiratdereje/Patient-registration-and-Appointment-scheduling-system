@@ -1,5 +1,7 @@
+import 'package:afyacare/application/signup_form/bloc/signup_bloc.dart';
 import 'package:afyacare/presentation/pages/signup/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,9 +13,15 @@ void main() {
     final createPassword = find.byKey(const ValueKey("password"));
     final confirmPassword = find.byKey(const ValueKey("confirmpassword"));
     final signupButton = find.byKey(const ValueKey("signup"));
-    final signButton = find.byKey(const ValueKey("signin"));
+    final signButton = find.byKey(const ValueKey("login"));
 
-    await tester.pumpWidget(const MaterialApp(home: Signup()));
+  
+    await tester.pumpWidget(MaterialApp(
+      home: BlocProvider<SignupBloc>(
+        create: (context) => SignupBloc(),
+        child: Signup(),
+      ),
+    ));
     await tester.enterText(addFullName, "Liban Abduba");
     await tester.enterText(createUsername, "liban@123");
     await tester.enterText(createPassword, "libanabduba");

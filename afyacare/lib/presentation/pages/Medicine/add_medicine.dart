@@ -74,6 +74,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                 child: Column(
                                   children: [
                                     TextFormField(
+                                      key: Key("name"),
                                         controller: medicineName,
                                         decoration: const InputDecoration(
                                           labelText: "Medicine Name",
@@ -85,6 +86,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                       height: 25,
                                     ),
                                     TextFormField(
+                                      key: Key("quantity"),
                                         controller: quantity,
                                         keyboardType: TextInputType.number,
                                         decoration: const InputDecoration(
@@ -98,6 +100,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                       height: 25,
                                     ),
                                     TextFormField(
+                                      key: Key("description"),
                                         controller: desc,
                                         keyboardType: TextInputType.text,
                                         decoration: const InputDecoration(
@@ -113,6 +116,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                 ),
                               ),
                               TextButton(
+                                key: Key("button"),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       ScaffoldMessenger.of(context)
