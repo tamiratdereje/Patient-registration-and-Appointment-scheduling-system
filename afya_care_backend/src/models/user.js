@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const { bool } = require('joi');
-// const { RecordSchema } = require('../models/record');
+
 
 
 
@@ -14,16 +14,11 @@ const userSchema = new mongoose.Schema({
         trim: true
     },
 
-    email: {
+    username: {
         type: String,
         required: true,
         trim: true
     },
-
-    // image: {
-    //     type: String,
-    //     required: false
-    // },
     password: {
         type: String,
         required: true,

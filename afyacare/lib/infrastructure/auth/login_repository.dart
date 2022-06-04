@@ -12,7 +12,7 @@ class LoginRepo {
 
   Future<LoggedInDomain> login(LoginDomain loginDomain) async {
     LoginUser loginUser = LoginUser(
-        email: loginDomain.username.toString(),
+        username: loginDomain.username.toString(),
         password: loginDomain.password.toString());
     LoginResponse response = await authDataProvider.login(loginUser);
     LoggedInDomain loggedInDomain = LoggedInDomain(

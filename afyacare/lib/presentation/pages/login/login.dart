@@ -165,15 +165,6 @@ class LoginState extends State<Login> {
                               builder: (context, state) {
                                 Widget buttonChild = Text("Log in");
 
-                                if (state is LoggingIn) {
-                                  buttonChild = const SizedBox(
-                                    height: 10,
-                                    width: 10,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                    ),
-                                  );
-                                }
                                 return TextButton(
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {

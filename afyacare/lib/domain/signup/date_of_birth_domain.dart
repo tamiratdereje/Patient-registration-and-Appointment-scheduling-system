@@ -2,8 +2,9 @@ import 'package:equatable/equatable.dart';
 
 class DateOfBirth extends Equatable {
   String? dateOfBirth;
+
   DateOfBirth({required this.dateOfBirth}) {
-    if (this.dateOfBirth!.isEmpty) {
+    if (dateOfBirth!.isEmpty) {
       throw Exception('Pick date of birth');
     }
   }
