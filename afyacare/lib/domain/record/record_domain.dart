@@ -3,7 +3,7 @@ class RecordDomain{
   RecordDate? dateTime;
   List<RecordMedicine> medicine;
   RecordDescrption descrption;
-  RecordeId? id;
+  RecordId? id;
   RecordPatientId? patientId;
 
 
@@ -11,7 +11,7 @@ class RecordDomain{
     this.dateTime,
     required this.descrption,
     required this.medicine,
-    required this.id,
+    this.id,
     this.patientId
   });
 }
@@ -33,7 +33,7 @@ class RecordPatientId {
   String patientId;
   RecordPatientId({required this.patientId});
   
-  
+
   @override
   String toString() {
     return patientId;
@@ -66,9 +66,9 @@ class RecordDescrption {
 
 }
 
-class RecordeId {
+class RecordId {
   String id;
-  RecordeId({required this.id});
+  RecordId({required this.id});
 
   @override
   String toString() {
