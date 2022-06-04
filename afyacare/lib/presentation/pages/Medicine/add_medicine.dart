@@ -1,10 +1,10 @@
+import 'package:afyacare/domain/Medicine/medicine_validator.dart';
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
 import 'package:regexpattern/regexpattern.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-
 
 class AddMedicine extends StatefulWidget {
   const AddMedicine({Key? key}) : super(key: key);
@@ -18,8 +18,6 @@ class _AddMedicineState extends State<AddMedicine> {
   TextEditingController medicineName = TextEditingController();
   TextEditingController quantity = TextEditingController();
   TextEditingController desc = TextEditingController();
-
-
 
   @override
   void dispose() {
@@ -67,7 +65,6 @@ class _AddMedicineState extends State<AddMedicine> {
                       const SizedBox(
                         height: 50,
                       ),
-
                       Form(
                         key: _formKey,
                         child: Container(
@@ -77,57 +74,39 @@ class _AddMedicineState extends State<AddMedicine> {
                                 padding: const EdgeInsets.all(12),
                                 child: Column(
                                   children: [
-
                                     TextFormField(
-                                      controller: medicineName,
-                                      decoration: const InputDecoration(
-                                        labelText: "Medicine Name",
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty ||
-                                            !RegExp(r'^[a-zA-Z 0-9]+$')
-                                                .hasMatch(value)) {
-                                          return "Enter correct medicine name";
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
+                                        controller: medicineName,
+                                        decoration: const InputDecoration(
+                                          labelText: "Medicine Name",
+                                        ),
+                                        validator: (value) =>
+                                            MedicineValidator()
+                                                .medicineNameValidator(value)),
                                     const SizedBox(
                                       height: 25,
                                     ),
                                     TextFormField(
-                                      controller: quantity,
-                                      keyboardType: TextInputType.number,
-                                      decoration: const InputDecoration(
-                                        labelText: "Quantity",
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty ||
-                                            !value.isNumeric()) {
-                                          return "Enter correct quantity in number";
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
+                                        controller: quantity,
+                                        keyboardType: TextInputType.number,
+                                        decoration: const InputDecoration(
+                                          labelText: "Quantity",
+                                        ),
+                                        validator: (value) =>
+                                            MedicineValidator()
+                                                .medicineQuantityValidator(
+                                                    value)),
                                     const SizedBox(
                                       height: 25,
                                     ),
                                     TextFormField(
-                                      controller: desc,
-                                      keyboardType: TextInputType.text,
-                                      decoration: const InputDecoration(
-                                        labelText: "Description",
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter description for the medicine";
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
+                                        controller: desc,
+                                        keyboardType: TextInputType.text,
+                                        decoration: const InputDecoration(
+                                          labelText: "Description",
+                                        ),
+                                        validator: (value) =>
+                                            MedicineValidator()
+                                                .medicineDescriptionValidator(value)),
                                     const SizedBox(
                                       height: 25,
                                     ),
@@ -140,7 +119,8 @@ class _AddMedicineState extends State<AddMedicine> {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
-                                            content: Text('Adding medicine Data')),
+                                            content:
+                                                Text('Adding medicine Data')),
                                       );
                                     }
                                   },

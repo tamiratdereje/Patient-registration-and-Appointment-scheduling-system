@@ -98,7 +98,8 @@ class _SignupState extends State<Signup> {
                                         labelText: "Enter full name",
                                       ),
                                       validator: (value) => SignupValidator()
-                                          .fullNameValidater(value)),
+                                          .fullNameValidater(value)
+                                          ),
                                   const SizedBox(
                                     height: 25,
                                   ),
