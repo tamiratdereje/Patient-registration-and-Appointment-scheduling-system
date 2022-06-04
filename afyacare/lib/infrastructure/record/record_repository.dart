@@ -33,7 +33,7 @@ Future<void> editRecord(RecordDomain recordDomain) async {
 
   }
 
-  Future<RecordDomain> getRecordDetail(String id) async {
+  Future<List<RecordDomain>> getRecordDetail(String id) async {
     RecordModel rec = await recordProvider.getRecord(id);
     final meds = rec.medicine.map((e) => RecordMedicine(medicine: e));
 
@@ -42,7 +42,7 @@ Future<void> editRecord(RecordDomain recordDomain) async {
         medicine: meds.toList(),
         id: RecordId(id: rec.id.toString()));
 
-    return record;
+    return [record];
   }
 
 
