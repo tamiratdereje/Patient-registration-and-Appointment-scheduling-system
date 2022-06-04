@@ -54,7 +54,7 @@ class RouterMain extends StatelessWidget {
     _router = GoRouter(
       refreshListenable: GoRouterRefreshStream(authenticationBloc.stream),
       // redirect: (state) => redirector(state),
-      initialLocation: Screen().pharmacistScreen,
+      initialLocation: Screen().doctorscreen,
       routes: <GoRoute>[
         GoRoute(
           path: Screen().pharmacistScreen,

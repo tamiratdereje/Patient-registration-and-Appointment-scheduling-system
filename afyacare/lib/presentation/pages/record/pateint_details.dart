@@ -95,10 +95,12 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           TextFormField(
+                                            key: Key("medicine"),
                                             controller: prescribeMed,
                                             decoration: InputDecoration(
                                                 labelText: "prescribe medicine",
                                                 suffixIcon: IconButton(
+                                                  key: Key("add"),
                                                     onPressed: (() =>
                                                         setState(() {
                                                           if (prescribeMed.text
@@ -136,6 +138,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             ),
                                           ),
                                           TextFormField(
+                                            key: Key("description"),
                                             controller: recordDescription,
                                             decoration: const InputDecoration(
                                               labelText: "Record Description",
@@ -155,6 +158,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                       ),
                                     ),
                                     TextButton(
+                                      key: Key("button"),
                                         onPressed: () {
                                           if (_recordFormKey.currentState!
                                               .validate()) {
