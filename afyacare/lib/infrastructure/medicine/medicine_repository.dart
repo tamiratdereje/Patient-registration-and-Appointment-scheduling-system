@@ -1,6 +1,5 @@
 
 
-
 import 'package:afyacare/domain/Medicine/medicine_Domain.dart';
 import 'package:afyacare/domain/Medicine/medicine_description.dart';
 import 'package:afyacare/domain/Medicine/medicine_name.dart';
@@ -53,11 +52,9 @@ class MedicineRepo {
       }
 
 
-
   Future<List<MedicineDomain>> getMedicineDetail(String id) async {
     MedicineModel med = await medicineProvider.getMedicine(id);
     
-
 
     final MedicineDomain medicine = MedicineDomain(
         descrption: MedicineDescription(medicineDescription: med.descrption.toString()),
@@ -65,7 +62,6 @@ class MedicineRepo {
         quantity:
             MedicineQuantity(medicineQuantity: int.parse(med.quantity.toString())),
         id: MedicineId(id: med.id.toString())
-
 
             
             );

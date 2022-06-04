@@ -86,6 +86,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                               Padding(
                                 padding: const EdgeInsets.all(12),
                                 child: TextFormField(
+                                  key: Key("date"),
                                   controller: dateinput,
                                   validator: (value) =>
                                       AppointmentBookingValidator()
@@ -130,6 +131,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                 ),
                               ),
                               TextButton(
+                                key: Key("submit"),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       ScaffoldMessenger.of(context)

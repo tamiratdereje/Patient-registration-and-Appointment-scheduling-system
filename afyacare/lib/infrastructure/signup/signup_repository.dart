@@ -15,9 +15,11 @@ class SignupRepo {
         password: signupDomain.password.toString());
 
     try {
-       await signupDataProvider.signup(signupUser);
+      await signupDataProvider.signup(signupUser);
+      print("repo");
       return;
     } catch (e) {
+      print(e);
       throw Exception("Unable to SignIn");
     }
   }
