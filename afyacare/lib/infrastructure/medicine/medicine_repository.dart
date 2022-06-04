@@ -1,64 +1,67 @@
-import 'dart:ffi';
 
-import 'package:afyacare/domain/Medicine/medicine_Domain.dart';
-import 'package:afyacare/infrastructure/medicine/medicine_data_provider.dart';
-import 'package:afyacare/infrastructure/medicine/medicine_model.dart';
 
-class MedicineRepo {
-  MedicineProvider medicineProvider = MedicineProvider();
-  MedicineRepo();
+// import 'package:afyacare/domain/Medicine/medicine_Domain.dart';
+// import 'package:afyacare/domain/Medicine/medicine_description.dart';
+// import 'package:afyacare/domain/Medicine/medicine_name.dart';
+// import 'package:afyacare/domain/Medicine/medicine_quantity.dart';
+// import 'package:afyacare/infrastructure/medicine/medicine_data_provider.dart';
+// import 'package:afyacare/infrastructure/medicine/medicine_model.dart';
 
-  Future<void> createMedicine(MedicineDomain medicineDomain) async {
-    MedicineModel medicineModel = MedicineModel(
-        name: medicineDomain.name.toString(),
-        descrption: medicineDomain.descrption.toString(),
-        quantity: int.parse(medicineDomain.quantity.toString()));
+// class MedicineRepo {
+//   MedicineProvider medicineProvider = MedicineProvider();
+//   MedicineRepo();
 
-    medicineProvider.createMedicine(medicineModel);
-  }
+//   Future<void> createMedicine(MedicineDomain medicineDomain) async {
+//     MedicineModel medicineModel = MedicineModel(
+//         name: medicineDomain.name.toString(),
+//         descrption: medicineDomain.descrption.toString(),
+//         quantity: int.parse(medicineDomain.quantity.toString()));
 
-//  done medicine edit
-  Future<void> editMedicine(MedicineDomain medicineDomain) async {
-    MedicineModel medicineModel = MedicineModel(
-        name: medicineDomain.name.toString(),
-        descrption: medicineDomain.descrption.toString(),
-        quantity: int.parse(medicineDomain.quantity.toString()),
-        id: medicineDomain.id.toString());
+//     medicineProvider.createMedicine(medicineModel);
+//   }
 
-    medicineProvider.editMedicine(medicineModel);
-  }
+// //  done medicine edit
+//   Future<void> editMedicine(MedicineDomain medicineDomain) async {
+//     MedicineModel medicineModel = MedicineModel(
+//         name: medicineDomain.name.toString(),
+//         descrption: medicineDomain.descrption.toString(),
+//         quantity: int.parse(medicineDomain.quantity.toString()),
+//         id: medicineDomain.id.toString());
 
-  Future<List<MedicineDomain>> getAllMedicine() async {
-    List<MedicineModel> list_of_med = await medicineProvider.getAllMedicine();
+//     medicineProvider.editMedicine(medicineModel);
+//   }
 
-    final mapped = list_of_med
-        .map((e) => MedicineDomain(
-            name: MedicineName(name: e.name.toString()),
-            descrption: MedicineDescrption(descrption: e.descrption.toString()),
-            quantity:
-                MedicineQuantity(quantity: int.parse(e.quantity.toString())),
-            id: MedicineId(id: e.id.toString())))
-        .toList();
+//   Future<List<MedicineDomain>> getAllMedicine() async {
+//     List<MedicineModel> list_of_med = await medicineProvider.getAllMedicine();
 
-    return mapped;
-  }
+//     final mapped = list_of_med
+//         .map((e) => MedicineDomain(
+//             name: MedicineName(medicineName: e.name.toString()),
+//             descrption: MedicineDescription(medicineDescription: e.descrption.toString()),
+//             quantity:
+//                 MedicineQuantity(medicineQuantity: int.parse(e.quantity.toString())),
+//             id: MedicineId(id: e.id.toString())))
+//         .toList();
 
-  Future<List<MedicineDomain>> getMedicineDetail(String id) async {
-    MedicineModel med = await medicineProvider.getMedicine(id);
+//     return mapped;
+//   }
+
+//   Future<List<MedicineDomain>> getMedicineDetail(String id) async {
+//     MedicineModel med = await medicineProvider.getMedicine(id);
     
-    final MedicineDomain medicine = MedicineDomain(
-        descrption: MedicineDescrption(descrption: med.descrption.toString()),
-        name: MedicineName(name: med.name.toString()),
-        quantity:
-            MedicineQuantity(quantity: int.parse(med.quantity.toString())),
-        id: MedicineId(id: med.id.toString())
+//     final MedicineDomain medicine = MedicineDomain(
+//         descrption: MedicineDescrption(medicinedes: med.descrption.toString()),
+//         name: MedicineName(medicineName: med.name.toString()),
+//         quantity:
+//             MedicineQuantity(quantity: int.parse(med.quantity.toString())),
+//         id: MedicineId(id: med.id.toString())
             
-            );
+//             );
     
-    return [medicine];
-  }
+//     return [medicine];
+//   }
 
-  Future<void> deleteMedicine(MedicineId id) async {
-    await medicineProvider.deleteMedicine(id.toString());
-  }
-}
+//   Future<void> deleteMedicine(MedicineId id) async {
+//     await medicineProvider.deleteMedicine(id.toString());
+//   }
+// }
