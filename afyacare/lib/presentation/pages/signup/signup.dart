@@ -1,5 +1,14 @@
+import 'package:afyacare/application/signup_form/bloc/signup_bloc.dart';
+import 'package:afyacare/domain/signup/confirm_password_validator.dart';
+import 'package:afyacare/domain/signup/date_of_birth_domain.dart';
+import 'package:afyacare/domain/signup/fullname_domain.dart';
+import 'package:afyacare/domain/signup/password_domain.dart';
+import 'package:afyacare/domain/signup/signup_user_domain.dart';
 import 'package:afyacare/domain/signup/signup_validator.dart';
+import 'package:afyacare/domain/signup/username_domain.dart';
+import 'package:afyacare/presentation/routes/path.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/afya_theme.dart';
 
@@ -25,7 +34,7 @@ class _SignupState extends State<Signup> {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController birthdayController = TextEditingController();
   TextEditingController dateinput = TextEditingController();
-
+  late String formattedDate;
   @override
   void initState() {
     _passwordVisible = true;
@@ -85,7 +94,7 @@ class _SignupState extends State<Signup> {
                                   TextFormField(
                                       key: Key("fullname"),
                                       controller: fullNameController,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         labelText: "Enter full name",
                                       ),
                                       validator: (value) => SignupValidator()
@@ -99,7 +108,7 @@ class _SignupState extends State<Signup> {
                                     controller:
                                         dateinput, //editing controller of this TextField
 
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         suffixIcon: Icon(Icons
                                             .calendar_today), //icon of text field
                                         labelText:
@@ -118,7 +127,7 @@ class _SignupState extends State<Signup> {
                                               lastDate: DateTime.now());
 
                                       if (pickedDate != null) {
-                                        String formattedDate = pickedDate
+                                        formattedDate = pickedDate
                                             .toString()
                                             .substring(0, 10);
                                         setState(() {
@@ -127,8 +136,10 @@ class _SignupState extends State<Signup> {
                                         });
                                       }
                                     },
-                                    validator: (value) => SignupValidator()
-                                        .dateOfBirthValidator(value),
+                                    validator: (value) {
+                                      SignupValidator()
+                                          .dateOfBirthValidator(value);
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 25,
@@ -138,7 +149,7 @@ class _SignupState extends State<Signup> {
                                   TextFormField(
                                     key: Key("createusername"),
                                     controller: usernameController,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       labelText: "Create username",
                                     ),
                                     validator: (value) => SignupValidator()
@@ -192,7 +203,8 @@ class _SignupState extends State<Signup> {
                                       labelText: "confirm password",
                                     ),
                                     validator: (value) => SignupValidator()
-                                        .confrimPasswordValidator(value, passwordController.text),
+                                        .confrimPasswordValidator(
+                                            value, passwordController.text),
                                   ),
                                   const SizedBox(
                                     height: 25,
@@ -200,16 +212,57 @@ class _SignupState extends State<Signup> {
                                 ],
                               ),
                             ),
-                            TextButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text('Processing Data')),
-                                    );
-                                  }
-                                },
-                                child: CustomButton(title: "Sign up")),
+                            BlocConsumer<SignupBloc, SignupState>(
+                                listener: (context, state) {
+                              if (state is SignupSuccessful) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor:
+                                          Color.fromARGB(108, 25, 221, 31),
+                                      content: Text('Signup Successful')),
+                                );
+                                context.go(Screen().login);
+                              } else if (state is SignupLoading) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Processing Data')),
+                                );
+                              } else if (state is SignupFailed) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.redAccent,
+                                      content: Text('Signup Failed Try again')),
+                                );
+                              }
+                            }, builder: (context, state) {
+                              return TextButton(
+                                  onPressed: () {
+                                    String brday = birthdayController.text;
+                                    if (_formKey.currentState!.validate()) {
+                                      final blocProv =
+                                          BlocProvider.of<SignupBloc>(context);
+                                      final SignupDomain signupDomain =
+                                          SignupDomain(
+                                              username: Username(
+                                                  username:
+                                                      usernameController.text),
+                                              fullName: FullName(
+                                                  fullName:
+                                                      fullNameController.text),
+                                              dateOfBirth: DateOfBirth(
+                                                  dateOfBirth: formattedDate),
+                                              password: Password(
+                                                  password:
+                                                      passwordController.text),
+                                              confirmPassword: Password(
+                                                  password:
+                                                      passwordConfirmController
+                                                          .text));
+                                      blocProv.add(SignUpEvent(signupDomain));
+                                    }
+                                  },
+                                  child: CustomButton(title: "Sign up"));
+                            }),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -220,7 +273,7 @@ class _SignupState extends State<Signup> {
                                           Colors.transparent),
                                     ),
                                     onPressed: () {
-                                      context.go('/login');
+                                      context.go(Screen().login);
                                     },
                                     child: Text("Login")),
                               ],

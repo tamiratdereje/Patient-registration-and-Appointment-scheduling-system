@@ -21,18 +21,24 @@ class RouterMain extends StatelessWidget {
   late final GoRouter _router;
   static const String title = 'router';
   String? redirector(state) {
+    print("*********************");
     print(state.location);
     print(authenticationBloc.state);
+
     if (authenticationBloc.state is FirstUse &&
         state.location == Screen().splashScreen) {
       return Screen().intro;
     } else if (authenticationBloc.state is BoardingCompleted &&
-        state.location != Screen().login) {
+        state.location != Screen().login &&
+        state.location != Screen().signup) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationInitial &&
-        state.location != Screen().splashScreen) {
+        state.location != Screen().splashScreen &&
+        state.location != Screen().login &&
+        state.location != Screen().mainscreen) {
       return Screen().splashScreen;
     } else if (authenticationBloc.state is AuthenticationNotAuthenticated &&
+        state.location != Screen().signup &&
         state.location != Screen().login) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationAuthenticated) {
@@ -55,62 +61,62 @@ class RouterMain extends StatelessWidget {
           builder: (BuildContext context, GoRouterState state) =>
               const PharmacistScreen(),
         ),
-        // GoRoute(
-        //   path: Screen().appointment,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const AppointmentBooking(),
-        // ),
-        // GoRoute(
-        //   path: Screen().login,
-        //   builder: (BuildContext context, GoRouterState state) => Login(),
-        // ),
-        // GoRoute(
-        //   path: Screen().upcomingSchedule,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const UpcomingSchedule(),
-        // ),
-        // GoRoute(
-        //   path: '${Screen().medicineDetail}',
-        //   builder: (BuildContext context, GoRouterState state) {
-        //     final medicineId = int.parse(state.params["id"]!);
-        //     return MedicineDetail(medicineId);
-        //   },
-        // ),
-        // GoRoute(
-        //   path: Screen().patientDetails,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const PatientDetails(),
-        // ),
-        // GoRoute(
-        //   path: Screen().doctorscreen,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const DoctorScreen(),
-        // ),
-        // GoRoute(
-        //   path: Screen().pharmacistScreen,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const PharmacistScreen(),
-        // ),
-        // GoRoute(
-        //   path: Screen().signup,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const Signup(),
-        // ),
-        // GoRoute(
-        //   path: Screen().mainscreen,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const MainScreen(),
-        // ),
-        // GoRoute(
-        //   path: Screen().medicineList,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const ListOfMedicine(),
-        // ),
-        // GoRoute(
-        //   path: Screen().splashScreen,
-        //   builder: (BuildContext context, GoRouterState state) =>
-        //       const SplashScreen(),
-        // )
+        GoRoute(
+          path: Screen().appointment,
+          builder: (BuildContext context, GoRouterState state) =>
+              const AppointmentBooking(),
+        ),
+        GoRoute(
+          path: Screen().login,
+          builder: (BuildContext context, GoRouterState state) => Login(),
+        ),
+        GoRoute(
+          path: Screen().upcomingSchedule,
+          builder: (BuildContext context, GoRouterState state) =>
+              const UpcomingSchedule(),
+        ),
+        GoRoute(
+          path: '${Screen().medicineDetail}',
+          builder: (BuildContext context, GoRouterState state) {
+            final medicineId = int.parse(state.params["id"]!);
+            return MedicineDetail(medicineId);
+          },
+        ),
+        GoRoute(
+          path: Screen().patientDetails,
+          builder: (BuildContext context, GoRouterState state) =>
+              const PatientDetails(),
+        ),
+        GoRoute(
+          path: Screen().doctorscreen,
+          builder: (BuildContext context, GoRouterState state) =>
+              const DoctorScreen(),
+        ),
+        GoRoute(
+          path: Screen().pharmacistScreen,
+          builder: (BuildContext context, GoRouterState state) =>
+              const PharmacistScreen(),
+        ),
+        GoRoute(
+          path: Screen().signup,
+          builder: (BuildContext context, GoRouterState state) =>
+              const Signup(),
+        ),
+        GoRoute(
+          path: Screen().mainscreen,
+          builder: (BuildContext context, GoRouterState state) =>
+              const MainScreen(),
+        ),
+        GoRoute(
+          path: Screen().medicineList,
+          builder: (BuildContext context, GoRouterState state) =>
+              const ListOfMedicine(),
+        ),
+        GoRoute(
+          path: Screen().splashScreen,
+          builder: (BuildContext context, GoRouterState state) =>
+              const SplashScreen(),
+        )
       ],
     );
   }

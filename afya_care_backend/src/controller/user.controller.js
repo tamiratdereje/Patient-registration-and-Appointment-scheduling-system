@@ -5,13 +5,9 @@ const User = require("../models/user");
 const Schedule = require("../models/schedule");
 
 
-const { profileValidation } = require("../validation/signupValidation");
 
 
 const edit_user = async (req, res) => {
-
-  // const { error } = profileValidation(req.body);
-  // if (error) return res.status(400).send({ message: error.details[0].message });
 
   var user = await User.findById(req.userId);
   if (!user) {
@@ -83,7 +79,7 @@ const edit_password = async (req, res) => {
       message: "succesfully edit",
       editedProduct: {
         name: existing_user.name,
-        email: existing_user.email,
+        username: existing_user.username,
         birth_date: existing_user.birth_date,
         password : existing_user.password
       },
@@ -104,10 +100,10 @@ const delete_user = async (req, res) => {
     
     res.status(200).json({
       message: "succesfully delete",
-      editedProduct: {
+      editeduser: {
 
         name: user.name,
-        email: user.email,
+        username: user.username,
         birth_date: user.birth_date,
 
       },

@@ -34,6 +34,7 @@ class SignupValidator {
 
   String? dateOfBirthValidator(String? value) {
     try {
+      print("here");
       DateOfBirth(dateOfBirth: value);
       return null;
     } catch (e) {

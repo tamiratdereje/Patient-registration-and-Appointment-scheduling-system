@@ -1,5 +1,6 @@
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
+import 'package:afyacare/application/signup_form/bloc/signup_bloc.dart';
 import 'package:afyacare/presentation/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthenticationBloc>(
             create: (context) => AuthenticationBloc()..add(AppStarted())),
-        BlocProvider<AuthBloc>(create: (context) => AuthBloc())
+        BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
+        BlocProvider<SignupBloc>(create: (context) => SignupBloc())
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -1,17 +1,10 @@
-
 class LoginUser {
-  String email;
+  String username;
   String password;
 
-  LoginUser({
-    required this.email,
-    required this.password
+  LoginUser({required this.username, required this.password});
+  factory LoginUser.fromJson(Map<String, dynamic> json) =>
+      LoginUser(username: json["username"], password: json["password"]);
 
-  });      
-  factory LoginUser.fromJson(Map<String , dynamic> json) => LoginUser(email:
- json["email"], password:json["password"]);
-
- Map<String , dynamic> toJson() => {
-   "email": email , "password": password };
-
+  Map<String, dynamic> toJson() => {"username": username, "password": password};
 }
