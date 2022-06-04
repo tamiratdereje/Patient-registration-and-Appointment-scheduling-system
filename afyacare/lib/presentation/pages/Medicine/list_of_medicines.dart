@@ -7,16 +7,16 @@ class ListOfMedicine extends StatelessWidget {
   const ListOfMedicine({Key? key}) : super(key: key);
 
   final data = const [
-    ["Ethiopia", "land of origin"],
-    ["Kenya", "land of kenya"],
-    ["Poland", "land of Poland"],
-    ["Ukraine", "land of Ukraine"],
-    ["Russia", "land of russia"],
-    ["Brazil", "land of brasil"],
-    ["Australia", "land of australia"],
-    ["GreenLand", "land of greenland"],
-    ["Iceland", "land of iceland"],
-    ["Italy", "land of italy"],
+    ["Ethiopia", "land of origin","12"],
+    ["Kenya", "land of kenya","42"],
+    ["Poland", "land of Poland","52"],
+    ["Ukraine", "land of Ukraine","2"],
+    ["Russia", "land of russia","14"],
+    ["Brazil", "land of brasil","15"],
+    ["Australia", "land of australia","16"],
+    ["GreenLand", "land of greenland","13"],
+    ["Iceland", "land of iceland","120"],
+    ["Italy", "land of italy","33"],
   ];
 
   @override
@@ -33,12 +33,13 @@ class ListOfMedicine extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 20),
                 Text(
-                  "List of medicine",
+                  "List of medicines",
                   style: AfyaTheme.lightTextTheme.headline2,
                 ),
                 SizedBox(
-                  height: 55,
+                  height: 30,
                 ),
                 Text(
                   "Medicines",
@@ -61,6 +62,40 @@ class ListOfMedicine extends StatelessWidget {
                             child: Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
+
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: IconButton(
+                                    onPressed: (){
+                                      showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('Delete medicine'),
+                                        content: const Text(
+                                            'Are you sure you want to delete medicine?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'Cancel'),
+                                            child: const Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, 'OK'),
+                                            child: const Text(
+                                              'Delete',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+
+                                    },
+                                    icon: Icon (Icons.highlight_remove_sharp),color: Colors.red,),
+                                ),
                                 Container(
                                     width: double.infinity,
                                     padding: EdgeInsets.symmetric(
@@ -87,7 +122,7 @@ class ListOfMedicine extends StatelessWidget {
                                                     fontSize: 15)),
                                           ],
                                         ),
-                                        Text("10")
+                                        Text("${data[index][2]}",style: TextStyle(color: Colors.white, fontSize: 20),)
                                       ],
                                     ))
                               ],

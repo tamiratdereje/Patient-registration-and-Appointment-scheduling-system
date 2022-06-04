@@ -1,9 +1,7 @@
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:afyacare/presentation_data/chip_data.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:regexpattern/regexpattern.dart';
 import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
 
