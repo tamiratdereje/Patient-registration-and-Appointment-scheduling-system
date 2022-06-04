@@ -3,6 +3,7 @@ const Schedule = require("../models/schedule");
 const { scheduleValidation } = require("../validation/scheduleValidation");
 const scheduleService = require("../service/schedule.service");
 const userService = require("../service/user.service");
+const user = require("../models/user");
 
 // setting schedule  granted for  patients
 const addSchedule = async (req, res) => {
@@ -28,6 +29,8 @@ const addSchedule = async (req, res) => {
     patient,
     doctor
   );
+
+  
   return res.json(savedSchedule);
 };
 
@@ -43,20 +46,25 @@ const getSchedule = async (req, res) => {
 
   if (role === "patient") {
     const schedules = await scheduleService.findUserSchedules(req.userId);
+
+    // await user.findById(schedules[0].patient)
+
+    // res.status(200).json({
+    //   schedules: {      
+    //     }});
+
+
     return res.json(schedules);
 
-    
+        
   } else if (role === "doctor") {
     const schedules = await scheduleService.findDoctorSchedules(req.userId);
     return res.json(schedules);
   }
+
 };
 
-// get all existing schedules
-const getAllSchedules = async (req, res) => {
-  const schedules = await Schedule.find();
-  res.json(schedules);
-};
+
 
 // update existing schedules
 const updateSchedule = async (req, res) => {
@@ -68,7 +76,7 @@ const updateSchedule = async (req, res) => {
   } catch (error) {
     return res.json(error);
   }
-  
+
   try {
     await scheduleService.deleteSchedule(schedule);
   } catch (error) {
@@ -78,6 +86,7 @@ const updateSchedule = async (req, res) => {
 };
 
 // delete existing schedule
+
 const deleteSchedule = async (req, res) => {
   const schedule = req.params.id;
   try {
@@ -93,7 +102,7 @@ const deleteSchedule = async (req, res) => {
 
 module.exports = {
   addSchedule,
-  getAllSchedules,
+  // getAllSchedules,
   getSchedule,
   updateSchedule,
   deleteSchedule,

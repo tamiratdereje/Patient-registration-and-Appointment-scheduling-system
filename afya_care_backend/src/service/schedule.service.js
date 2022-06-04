@@ -1,10 +1,7 @@
-
 const Schedule = require('../models/schedule');
 const { findByIdAndDelete } = require('../models/user');
 const User = require('../models/user');
 const userService = require('./user.service');
-
-
 
 const doctorCounter = async ()=>{
     try {
@@ -51,11 +48,12 @@ const findFreeDoctor = async (time)=>{
 
 }
 
+/*, date: {$gte: new Date(Date.now())}*/
 
 const findUserSchedules = async (id)=>{
     try {
-    const schedules = await Schedule.find({patient:id/*, date: {$gte: new Date(Date.now())}*/});
-        return schedules;
+    var schedules = await Schedule.find({patient:id}).populate("doctor");
+    return schedules;
         
     } catch (error) {
         console.log(error);
@@ -66,7 +64,7 @@ const findUserSchedules = async (id)=>{
 const findDoctorSchedules = async (id)=>{
     try {
         // {patient:id, date: {$gte: new Date(Date.now())}}
-        const schedules = await Schedule.find({doctor:id /*, date: {$gte: new Date(Date.now())}*/});
+        const schedules = await Schedule.find({doctor:id /*, date: {$gte: new Date(Date.now())}*/}).populate("patient");
         return schedules;
         
     } catch (error) {
@@ -98,7 +96,6 @@ const deleteSchedule = async (id)=>{
         return
     }
 }
-
 
 
 
