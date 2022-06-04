@@ -1,3 +1,4 @@
+import 'package:afyacare/domain/patient_detail/patient_detail_validator.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:afyacare/presentation_data/chip_data.dart';
 import 'package:flutter/rendering.dart';
@@ -108,15 +109,10 @@ class _PatientDetailsState extends State<PatientDetails> {
                                                           prescribeMed.clear();
                                                         })),
                                                     icon:
+                                                  
                                                         const Icon(Icons.add))),
-                                            validator: (value) {
-                                              if (value!.isEmpty &&
-                                                  chipsList.isEmpty) {
-                                                return "Enter correct medicine name ";
-                                              } else {
-                                                return null;
-                                              }
-                                            },
+                                                                                           validator: (value) =>PatientDetailChipsListValidator().patientDetailChipsListValidator(chipsList),
+
                                           ),
                                           const SizedBox(
                                             height: 10,
@@ -138,13 +134,8 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             decoration: const InputDecoration(
                                               labelText: "Record Description",
                                             ),
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return "Enter correct Record Description";
-                                              } else {
-                                                return null;
-                                              }
-                                            },
+                                            validator: (value) =>PatientDetailDescriptionValidator().patientDetailDescriptionValidator(value),
+
                                           ),
                                           const SizedBox(
                                             height:15,
