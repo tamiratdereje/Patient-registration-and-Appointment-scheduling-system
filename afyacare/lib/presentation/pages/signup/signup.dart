@@ -147,7 +147,7 @@ class _SignupState extends State<Signup> {
 
                                   // const SizedBox(height: 25),
                                   TextFormField(
-                                    key: Key("createusername"),
+                                    key: Key("username"),
                                     controller: usernameController,
                                     decoration: const InputDecoration(
                                       labelText: "Create username",
@@ -159,7 +159,7 @@ class _SignupState extends State<Signup> {
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    key: Key("createpassword"),
+                                    key: Key("password"),
                                     obscureText: _passwordVisible,
                                     controller: passwordController,
                                     decoration: InputDecoration(
@@ -261,13 +261,14 @@ class _SignupState extends State<Signup> {
                                       blocProv.add(SignUpEvent(signupDomain));
                                     }
                                   },
-                                  child: CustomButton(title: "Sign up"));
+                                  child: CustomButton(key:Key("signup"),title: "Sign up"));
                             }),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text("Have an account? "),
                                 TextButton(
+                                  key: Key("login"),
                                     style: ButtonStyle(
                                       overlayColor: MaterialStateProperty.all(
                                           Colors.transparent),

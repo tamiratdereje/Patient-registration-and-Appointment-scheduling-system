@@ -96,6 +96,7 @@ class LoginState extends State<Login> {
                               child: Column(
                                 children: [
                                   TextFormField(
+                                    key: Key("enterusername"),
                                     controller: usernameController,
                                     decoration: const InputDecoration(
                                       labelText: "Username",
@@ -107,6 +108,7 @@ class LoginState extends State<Login> {
                                     height: 25,
                                   ),
                                   TextFormField(
+                                    key: Key("enterpassword"),
                                     obscureText: _passwordVisible,
                                     controller: passwordController,
                                     decoration: InputDecoration(
@@ -185,7 +187,7 @@ class LoginState extends State<Login> {
                                       passwordController.clear();
                                     }
                                   },
-                                  child: CustomButton(title: "Log in"),
+                                  child: CustomButton(key: Key("signin"),title: "Log in"),
                                 );
                               },
                             ),
