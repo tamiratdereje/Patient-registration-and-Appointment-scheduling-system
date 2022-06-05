@@ -1,5 +1,14 @@
+import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
+import 'package:afyacare/application/medicine/medicine_bloc.dart';
+import 'package:afyacare/application/medicine/medicine_state.dart';
+import 'package:afyacare/application/profile/bloc/profile_bloc.dart';
+import 'package:afyacare/domain/auth/password_domain.dart';
+import 'package:afyacare/domain/profile/profile_domain.dart';
 import 'package:afyacare/domain/signup/signup_validator.dart';
+import 'package:afyacare/infrastructure/profile/profile_model.dart';
+import 'package:afyacare/presentation/routes/path.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/afya_theme.dart';
 
@@ -94,8 +103,12 @@ class _UserProfileState extends State<UserProfile> {
                                     child: const Text('Cancel'),
                                   ),
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () async {
+                                      BlocProvider.of<ProfileBloc>(context)
+                                          .add(Logout());
+
+                                      return Navigator.pop(context, 'Cancel');
+                                    },
                                     child: const Text('OK'),
                                   ),
                                 ],
@@ -205,17 +218,96 @@ class _UserProfileState extends State<UserProfile> {
                                 ],
                               ),
                             ),
-                            TextButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text('Processing Data')),
-                                    );
-                                  }
-                                },
-                                child: CustomButton(title: "Change password")),
-                            SizedBox(
+                            BlocConsumer<ProfileBloc, ProfileState>(
+                                builder: (context, state) {
+                              return (TextButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      ProfileDomain profileDomain =
+                                          ProfileDomain(
+                                              old_password: Password(
+                                                  password:
+                                                      _oldPasswordController
+                                                          .text),
+                                              new_password: Password(
+                                                  password:
+                                                      _newPasswordController
+                                                          .text));
+
+                                      BlocProvider.of<ProfileBloc>(context).add(
+                                          EditPassword(
+                                              profileDomain: profileDomain));
+                                      _oldPasswordController.clear();
+                                      _newPasswordController.clear();
+                                      _confirmPasswordController.clear();
+                                    }
+                                  },
+                                  child:
+                                      CustomButton(title: "Change password")));
+                            }, listener: (context, state) async {
+                              print(state);
+                              if (state is ProfileChanged) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor:
+                                          Color.fromARGB(108, 25, 221, 31),
+                                      content:
+                                          Text('Profile Successfully Edited')),
+                                );
+                              }
+                              if (state is LoggedOut) {
+                                print(
+                                    "loggout _____________________________________");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor:
+                                          Color.fromARGB(108, 25, 221, 31),
+                                      content: Text(' Successfully Loggedout')),
+                                );
+                                BlocProvider.of<AuthenticationBloc>(context)
+                                    .add(UserLoggedout());
+
+                                context.go(Screen().login);
+                              }
+                              if (state is AccountDeleted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor:
+                                          Color.fromARGB(108, 25, 221, 31),
+                                      content:
+                                          Text('Account Deleted Successfully')),
+                                );
+                                BlocProvider.of<AuthenticationBloc>(context)
+                                    .add(UserLoggedout());
+
+                                context.go(Screen().login);
+                              } else if (state is LoggingOut ||
+                                  state is ChangingProfile ||
+                                  state is DeletingAccount) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Loading.....')),
+                                );
+                              } else if (state is LoggoutFailed) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.redAccent,
+                                      content: Text('Logout Failed Try again')),
+                                );
+                              } else if (state is DeletingAccoutnFailed) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.redAccent,
+                                      content: Text('Delete Account Failed')),
+                                );
+                              } else if (state is ProfileChangeFailed) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.redAccent,
+                                      content: Text('Changing Profile Failed')),
+                                );
+                              }
+                            }),
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
@@ -238,8 +330,13 @@ class _UserProfileState extends State<UserProfile> {
                                             child: const Text('Cancel'),
                                           ),
                                           TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, 'OK'),
+                                            onPressed: () {
+                                              BlocProvider.of<ProfileBloc>(
+                                                      context)
+                                                  .add(DeleteAccount());
+                                              return Navigator.pop(
+                                                  context, 'Cancel');
+                                            },
                                             child: const Text(
                                               'Delete',
                                               style:

@@ -6,7 +6,15 @@ class SharedPref {
     await pref.setString('token', token);
     print(token);
   }
+  Future<void> deleteToken() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.remove('token');
+  }
 
+   Future<void> deleteName() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.remove('name');
+  }
   Future<String?> getToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
@@ -32,5 +40,17 @@ class SharedPref {
       return true;
     }
     return false;
+  }
+
+  Future<void> saveRole(String role) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('role', role);
+    return;
+  }
+
+  Future<String?> getrole() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? role = pref.getString('role');
+    return role;
   }
 }

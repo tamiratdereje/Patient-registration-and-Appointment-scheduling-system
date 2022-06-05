@@ -6,4 +6,6 @@ class EndPoint {
   String medicine = 'medicine';
   String record = 'record';
   String schedule = 'schedule';
+  String profile = 'profile';
+  String logout = 'logout';
 }

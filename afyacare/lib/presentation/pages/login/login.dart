@@ -4,6 +4,7 @@ import 'package:afyacare/domain/auth/authValidator.dart';
 import 'package:afyacare/domain/auth/login_user_domain.dart';
 import 'package:afyacare/domain/auth/password_domain.dart';
 import 'package:afyacare/domain/auth/user_name_domain.dart';
+import 'package:afyacare/infrastructure/core/sharedPref.dart';
 
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/brand_name.dart';
@@ -29,7 +30,7 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> {
   late bool _passwordVisible;
   late bool _passwordConfirmVisible;
-  // final LoginRepo loginRepo;
+  SharedPref pref = SharedPref();
   LoginState();
 
   final _formKey = GlobalKey<FormState>();
@@ -139,7 +140,7 @@ class LoginState extends State<Login> {
                               ),
                             ),
                             BlocConsumer<AuthBloc, AuthState>(
-                              listener: (context, state) {
+                              listener: (context, state) async {
                                 if (state is LoginSuccessful) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -149,7 +150,14 @@ class LoginState extends State<Login> {
                                   );
                                   BlocProvider.of<AuthenticationBloc>(context)
                                       .add(LoggedIn());
-                                  context.go(Screen().mainscreen);
+                                  if (await pref.getrole() == 'patient') {
+                                    context.go(Screen().mainscreen);
+                                  } else if (await pref.getrole() == 'doctor') {
+                                    context.go(Screen().doctorscreen);
+                                  } else if (await pref.getrole() ==
+                                      'pharmacist') {
+                                    context.go(Screen().pharmacistScreen);
+                                  }
                                 } else if (state is LoggingIn) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(

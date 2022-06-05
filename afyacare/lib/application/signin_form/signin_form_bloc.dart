@@ -21,7 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final response = await loginRepo.login(event.loginDomain);
       await pref.saveName(response.username.toString());
       await pref.saveToken(response.token.toString());
-      
+      await pref.saveRole(response.role.toString());
       emit(LoginSuccessful());
     } catch (error) {
       emit(LoginFailed());

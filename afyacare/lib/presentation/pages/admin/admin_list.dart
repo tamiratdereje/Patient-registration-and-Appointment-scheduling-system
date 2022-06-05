@@ -1,18 +1,19 @@
-
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
+import 'package:afyacare/presentation/pages/admin/admin.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
 
-class AppointedPatient extends StatefulWidget {
-  const AppointedPatient({Key? key}) : super(key: key);
+class AdminList extends StatefulWidget {
+  const AdminList({Key? key}) : super(key: key);
 
   @override
-  State<AppointedPatient> createState() => _AppointedPatientState();
+  State<AdminList> createState() => _AppointedPatientState();
 }
 
-class _AppointedPatientState extends State<AppointedPatient> {
+class _AppointedPatientState extends State<AdminList> {
   List contact = <Widget>[
     EachContact(
         imageProvider: AssetImage("assets/profile.jpg"),
@@ -71,6 +72,13 @@ class _AppointedPatientState extends State<AppointedPatient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push("/addmedicine");
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add_outlined),
+      ),
       body: Stack(
         children: [
           const circleClip(),
@@ -83,11 +91,11 @@ class _AppointedPatientState extends State<AppointedPatient> {
                   height: 50,
                 ),
                 Text(
-                  "Appointed",
+                  "Authorized",
                   style: AfyaTheme.lightTextTheme.headline2,
                 ),
                 Text(
-                  "Patient",
+                  "Users",
                   style: AfyaTheme.lightTextTheme.headline2,
                 ),
 
@@ -137,20 +145,24 @@ class EachContact extends StatelessWidget {
                   image: imageProvider,
                 )),
           ),
-        
           SizedBox(
             width: 8,
           ),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: AfyaTheme.lightTextTheme.headline3,),
+                Text(
+                  name,
+                  style: AfyaTheme.lightTextTheme.headline3,
+                ),
                 SizedBox(
                   height: 5,
                 ),
-                Text(message, style: AfyaTheme.lightTextTheme.bodyText2,),
+                Text(
+                  message,
+                  style: AfyaTheme.lightTextTheme.bodyText2,
+                ),
               ],
             ),
           ),
@@ -159,37 +171,36 @@ class EachContact extends StatelessWidget {
           ),
           Row(
             children: [
-              IconButton(onPressed: (){
-                showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        title: const Text('Remove patient'),
-                                        content: const Text(
-                                            'Are you sure you want to remove patient?'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                context, 'Cancel'),
-                                            child: const Text('Cancel'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, 'OK'),
-                                            child: const Text(
-                                              'Delete',
-                                              style:
-                                                  TextStyle(color: Colors.red),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-              }, icon: Icon(Icons.person_remove),color: Colors.red,),
+              IconButton(
+                onPressed: () {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Remove patient'),
+                      content: const Text(
+                          'Are you sure you want to remove patient?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                icon: Icon(Icons.person_remove),
+                color: Colors.red,
+              ),
               SizedBox(
                 width: 5,
               ),
-             
             ],
           )
         ],
