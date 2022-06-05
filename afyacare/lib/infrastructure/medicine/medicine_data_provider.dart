@@ -86,15 +86,15 @@ class MedicineProvider {
   }
 
   Future<MedicineModel> searchMedicine(String name) async {
+    print("parahere");
     SharedPref pref = SharedPref();
     final token = await pref.getToken();
     final response = await http.get(
-        Uri.parse(
-          '${EndPoint().baseUrl}${EndPoint().medicine}/${name}',
-        ),
+        Uri.parse(EndPoint().baseUrl + EndPoint().medicine + "/med"),
         headers: {
           "Access-Control-Allow-Origin": "*",
           "token": token!,
+          "name": name
         });
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -103,6 +103,7 @@ class MedicineProvider {
       final med = MedicineModel.fromJson(json);
       return med;
     } else {
+      print("throwed");
       throw Exception("error fetching medicine");
     }
   }

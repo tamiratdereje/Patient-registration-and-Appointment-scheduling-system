@@ -9,7 +9,6 @@ part 'record_state.dart';
 
 class RecordBloc extends Bloc<RecordEvent, RecordState> {
   RecordRepository recordRepo = RecordRepository();
-
   RecordBloc() : super(RecordLoading()) {
     on<RecordCreateEvent>((event, emit) async {
       await _onRecordCreate(event, emit);
@@ -18,9 +17,9 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     on<RecordUpdateEvent>((event, emit) async {
       await _onRecordUpdate(event, emit);
     });
-    on<RecordDeleteEvent>((event, emit) async {
-      await _onRecordDelete(event, emit);
-    });
+    // on<RecordDeleteEvent>((event, emit) async {
+    //   await _onRecordDelete(event, emit);
+    // });
 
     on<RecordLoadAllEvent>((event, emit) async {
       await _onRecordLoadAll(event, emit);
@@ -63,17 +62,17 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
   }
 
 // done with record delete
-  Future<void> _onRecordDelete(event, emit) async {
-    try {
-      await recordRepo.deleteRecord(event.id);
-      emit(RecordOperationSuccess());
-    } catch (error) {
-      emit(RecordOperationFailure(error: error));
-    }
-  }
+  // Future<void> _onRecordDelete(event, emit) async {
+  //   try {
+  //     await recordRepo.deleteRecord(event.id);
+  //     emit(RecordOperationSuccess());
+  //   } catch (error) {
+  //     emit(RecordOperationFailure(error: error));
+  //   }
+  // }
 
   //
-  //  load all med
+   
   Future<void> _onRecordLoadAll(event, emit) async {
     emit(RecordLoading());
     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");

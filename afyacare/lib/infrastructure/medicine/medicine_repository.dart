@@ -67,7 +67,8 @@ class MedicineRepo {
   }
 
   Future<MedicineModel> searchMedicine(String medicineName) async {
-    print("bonssssssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaa");
+    print(medicineName);
+    print("endepata");
     final response = await medicineProvider.searchMedicine(medicineName);
     return response;
   }

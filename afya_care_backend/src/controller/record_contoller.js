@@ -47,6 +47,7 @@ const get_patients_records = async (req, res) => {
     var records = await Record.find({user: id});
     return res.json({"records" : records});
 
+
   } catch (error) {
     res.status(401).json({
       message: "internal server error",

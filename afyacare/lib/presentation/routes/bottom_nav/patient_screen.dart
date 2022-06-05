@@ -1,6 +1,6 @@
-
 import 'package:afyacare/application/medicine/medicine_bloc.dart';
 import 'package:afyacare/application/medicine/medicine_event.dart';
+import 'package:afyacare/application/profile/bloc/profile_bloc.dart';
 import 'package:afyacare/application/record/bloc/record_bloc.dart';
 import 'package:afyacare/domain/record/record_domain.dart';
 
@@ -15,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 
-
 import '../../pages/appointment/upcoming_schedule.dart';
 
 class MainScreen extends StatefulWidget {
@@ -26,7 +25,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List pages = [UpcomingSchedule(), Search(), UserHistory(), UserProfile()];
+  List pages = [UpcomingSchedule(), UserHistory(), UserProfile()];
   int current = 0;
   @override
   Widget build(BuildContext context) {
@@ -37,21 +36,17 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.grey.shade100,
           currentIndex: current,
           onTap: (index) {
-
-            if (index == 1) {
-              BlocProvider.of<MedicineBLoc>(context).add(medIdle());
-              context.go(Screen().search);
-            }
-            if (index == 2) {
-              BlocProvider.of<RecordBloc>(context).add(RecordLoadAllEvent());
-
-            if(index == 0){
-              BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
-
-            }
             setState(() {
               current = index;
             });
+
+            if (index == 2) {
+              BlocProvider.of<RecordBloc>(context).add(RecordLoadAllEvent());
+
+              if (index == 0) {
+                BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
+              }
+            }
           },
           selectedItemColor: Colors.green,
           showSelectedLabels: false,
@@ -60,7 +55,6 @@ class _MainScreenState extends State<MainScreen> {
           items: const [
             BottomNavigationBarItem(
                 label: "Home", icon: Icon(Icons.apps_outlined)),
-            BottomNavigationBarItem(label: "search", icon: Icon(Icons.search)),
             BottomNavigationBarItem(
                 label: "history", icon: Icon(Icons.history)),
             BottomNavigationBarItem(label: "profile", icon: Icon(Icons.person)),

@@ -129,7 +129,7 @@ const medicine_detail = async (req, res) => {
 
 const get_medicines = async (req , res) =>{
 
-  var  name  = req.params.name; 
+  var  name  = req.headers["name"]; 
   console.log(name);
   
   var meds = await Medicine.find({name: name});

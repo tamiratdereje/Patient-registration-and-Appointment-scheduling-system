@@ -10,15 +10,12 @@ import 'package:equatable/equatable.dart';
 part 'schedule_event.dart';
 part 'schedule_state.dart';
 
-
 class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
-
-    ScheduleRepoistory scheduleRepo = ScheduleRepoistory();
+  ScheduleRepoistory scheduleRepo = ScheduleRepoistory();
 
   ScheduleBloc() : super(ScheduleLoading()) {
     on<ScheduleCreateEvent>((event, emit) async {
       await _onScheduleCreate(event, emit);
-
     });
 
     on<ScheduleUpdateEvent>((event, emit) async {
@@ -32,9 +29,6 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     on<ScheduleDeleteEvent>((event, emit) async {
       await _onScheduleDelete(event, emit);
     });
-
-
-    
   }
 
   //  done with medicine delete
@@ -46,9 +40,9 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       emit(ScheduleOperationFailure(error: error));
     }
   }
-    // _onScheduleCreate
+  // _onScheduleCreate
 
-    Future<void> _onScheduleCreate(event, emit) async {
+  Future<void> _onScheduleCreate(event, emit) async {
     emit(ScheduleAdding());
     try {
       await scheduleRepo.createSchedule(event.scheduleDate);
@@ -68,36 +62,28 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     }
   }
 
-  Future<void> _onScheduleLoad(event, emit) async{
-      SharedPref pref = SharedPref();
-      String? cur_role = await pref.getrole();
+  Future<void> _onScheduleLoad(event, emit) async {
+    SharedPref pref = SharedPref();
+    String? cur_role = await pref.getrole();
 
-      emit(ScheduleLoading());
-        try {
-          // if (cur_role == "doctor"){
-          //   final schedules  = await scheduleRepo.getDoctorSchedules();
-          //   print("21111134566666666666wooowoooooooooooooooooooooooohahaaaaaaaa6666");
-          //   print(schedules);
-          //   // if (schedules.length){
-
-          //   // }
-          //   emit(SchedulesOperationSuccess(schedules));
-          // }
-           if(cur_role == "patient"){
-            print("noooooooooooooooooooooooooooooooo");
-            final schedules = await scheduleRepo.getPatientSchedules();
-            emit(SchedulesOperationSuccess(schedules));
-          }
-
-        } catch (error) {
-          print(error);
-          emit(ScheduleOperationFailure(error: error));      
-        }
+    emit(ScheduleLoading());
+    try {
+      if (cur_role == "doctor") {
+        print("777777777777777777777777777777");
+        final schedules = await scheduleRepo.getDoctorSchedules();
+        print(
+            "21111134566666666666wooowoooooooooooooooooooooooohahaaaaaaaa6666");
+        print(schedules);
+        emit(SchedulesOperationSuccess(schedules));
+      }
+      if (cur_role == "patient") {
+        print("noooooooooooooooooooooooooooooooo");
+        final schedules = await scheduleRepo.getPatientSchedules();
+        emit(SchedulesOperationSuccess(schedules));
+      }
+    } catch (error) {
+      print(error);
+      emit(ScheduleOperationFailure(error: error));
+    }
   }
-
-
-
-
-
 }
-

@@ -1,7 +1,9 @@
+import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
 import 'package:afyacare/presentation/pages/appointment/appointed_patient.dart';
 import 'package:afyacare/presentation/pages/search/search.dart';
 import 'package:afyacare/presentation/pages/user_profile/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DoctorScreen extends StatefulWidget {
   const DoctorScreen({Key? key}) : super(key: key);
@@ -22,6 +24,9 @@ class _DoctorScreenState extends State<DoctorScreen> {
           backgroundColor: Colors.grey.shade100,
           currentIndex: current,
           onTap: (index) {
+            if (index == 0) {
+              BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
+            }
             setState(() {
               current = index;
             });

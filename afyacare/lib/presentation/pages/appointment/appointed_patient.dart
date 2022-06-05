@@ -1,6 +1,7 @@
-
+import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
@@ -15,57 +16,22 @@ class AppointedPatient extends StatefulWidget {
 class _AppointedPatientState extends State<AppointedPatient> {
   List contact = <Widget>[
     EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Tamirat Dereje",
         message: "hey where are u at i am looking for you"),
+    EachContact(name: "Abel class", message: "hey"),
+    EachContact(name: "Eyob Zebene", message: "ahh"),
+    EachContact(name: "Haile sec3", message: "xorpina"),
+    EachContact(name: "Rosa ma", message: "yeah "),
+    EachContact(name: "bruk mega", message: "i am looking for you"),
+    EachContact(name: "Cala se", message: "where are u "),
+    EachContact(name: "semere a2sv", message: "fondayou"),
+    EachContact(name: "mubarek lan", message: "hey hey"),
+    EachContact(name: "tuna shashe", message: "alewu tefak"),
     EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "Abel class",
-        message: "hey"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "Eyob Zebene",
-        message: "ahh"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "Haile sec3",
-        message: "xorpina"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "Rosa ma",
-        message: "yeah "),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "bruk mega",
-        message: "i am looking for you"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "Cala se",
-        message: "where are u "),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "semere a2sv",
-        message: "fondayou"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "mubarek lan",
-        message: "hey hey"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "tuna shashe",
-        message: "alewu tefak"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
         name: "Tamirat Dereje",
         message: "hey where are u at i am looking for you"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "Abel class",
-        message: "hey"),
-    EachContact(
-        imageProvider: AssetImage("assets/profile.jpg"),
-        name: "Eyob Zebene",
-        message: "ahh"),
+    EachContact(name: "Abel class", message: "hey"),
+    EachContact(name: "Eyob Zebene", message: "ahh"),
   ];
 
   @override
@@ -98,14 +64,33 @@ class _AppointedPatientState extends State<AppointedPatient> {
                 // Expanded(
                 //   child: ,
                 // ),
-                Expanded(
-                  child: ListView.builder(
-                      padding: const EdgeInsets.all(10),
-                      itemCount: contact.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return contact[index];
-                      }),
-                )
+                BlocBuilder<ScheduleBloc, ScheduleState>(
+                    builder: (context, state) {
+                  if (state is SchedulesOperationSuccess) {
+                    return Expanded(
+                      child: ListView.builder(
+                          padding: const EdgeInsets.all(10),
+                          itemCount: state.schedules.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return EachContact(
+                                name: state.schedules[index].userHelper.name,
+                                message: state
+                                    .schedules[index].dateTime.dateTime
+                                    .toString());
+                          }),
+                    );
+                  } else if (state is ScheduleLoading) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Center(child: CircularProgressIndicator())
+                      ],
+                    );
+                  }
+                  return Container(
+                    child: Center(child: Text("No Result")),
+                  );
+                })
               ],
             ),
           )
@@ -116,11 +101,10 @@ class _AppointedPatientState extends State<AppointedPatient> {
 }
 
 class EachContact extends StatelessWidget {
-  ImageProvider imageProvider;
+  ImageProvider imageProvider = AssetImage("assets/profile.jpg");
   String name;
   String message;
-  EachContact(
-      {required this.imageProvider, required this.name, required this.message});
+  EachContact({required this.name, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -137,20 +121,24 @@ class EachContact extends StatelessWidget {
                   image: imageProvider,
                 )),
           ),
-        
           SizedBox(
             width: 8,
           ),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: AfyaTheme.lightTextTheme.headline3,),
+                Text(
+                  name,
+                  style: AfyaTheme.lightTextTheme.headline3,
+                ),
                 SizedBox(
                   height: 5,
                 ),
-                Text(message, style: AfyaTheme.lightTextTheme.bodyText2,),
+                Text(
+                  message,
+                  style: AfyaTheme.lightTextTheme.bodyText2,
+                ),
               ],
             ),
           ),
@@ -159,37 +147,36 @@ class EachContact extends StatelessWidget {
           ),
           Row(
             children: [
-              IconButton(onPressed: (){
-                showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        title: const Text('Remove patient'),
-                                        content: const Text(
-                                            'Are you sure you want to remove patient?'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                context, 'Cancel'),
-                                            child: const Text('Cancel'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, 'OK'),
-                                            child: const Text(
-                                              'Delete',
-                                              style:
-                                                  TextStyle(color: Colors.red),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-              }, icon: Icon(Icons.person_remove),color: Colors.red,),
+              IconButton(
+                onPressed: () {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Remove patient'),
+                      content: const Text(
+                          'Are you sure you want to remove patient?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                icon: Icon(Icons.person_remove),
+                color: Colors.red,
+              ),
               SizedBox(
                 width: 5,
               ),
-             
             ],
           )
         ],

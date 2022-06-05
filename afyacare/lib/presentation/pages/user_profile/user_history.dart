@@ -51,8 +51,16 @@ class UserHistory extends StatelessWidget {
                               return Card(
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
-                                  child: Text(state
-                                      .records[index].descrption.descrption),
+                                  child: ListTile(
+                                    title: Text(state
+                                        .records[index].descrption.descrption),
+                                    subtitle: Text(state
+                                            .records[index].dateTime.dateTime
+                                            .substring(0, 10) +
+                                        " at " +
+                                        state.records[index].dateTime.dateTime
+                                            .substring(10, 15)),
+                                  ),
                                 ),
                               );
                             }));

@@ -65,7 +65,7 @@ class ScheduleProvider {
 
 //  for doctor
 
-    Future<List<DoctorScheduleModel>> getDoctorSchedules() async {
+    Future<List<PatientScheduleModel>> getDoctorSchedules() async {
 
 
         final token = await pref.getToken();
@@ -80,15 +80,18 @@ class ScheduleProvider {
           
           
           List<dynamic> list = json["schedules"];
+          print(list.map((e) => PatientScheduleModel.fromJson(e)).runtimeType);
+          print(list[0].runtimeType);
           PatientScheduleModel ll =PatientScheduleModel.fromJson(list[0]) ;
-          List<DoctorScheduleModel> ps = [];
+          print("77777777777777777777777777777777");
+          // print(ll);
+          List<PatientScheduleModel> ps = [];
           for(int i = 0 ; i < list.length; i++ ){
-            ps.add(DoctorScheduleModel.fromJson(list[i]));
+            ps.add(PatientScheduleModel.fromJson(list[i]));
           }
-          print(ps[0].user.patient_name.toString());
+          print(ps[0].user.doctor_name.toString());
           return ps;
-          
-        } else {
+          } else {
           throw Exception("error fetching record");
         }
 

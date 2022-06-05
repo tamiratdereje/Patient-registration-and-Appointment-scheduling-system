@@ -92,8 +92,8 @@ class MedicineBLoc extends Bloc<MedicineEvent, MedicineState> {
   Future<void> _onMedicineSearch(event, emit) async {
     emit(SearchingMed());
     try {
-      print("ere abeleeeeeeeeeeeeeeeeeeeeeeeeeee  event.name)");
       print(event.name);
+      print("eriiiiiiiiiiiiiiiiii");
       final response = await medicineRepo.searchMedicine(event.name.toString());
       emit(MedicinesSearchSuccess(medicineModel: response));
     } catch (error) {
