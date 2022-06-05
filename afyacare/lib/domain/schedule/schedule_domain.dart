@@ -1,10 +1,18 @@
-class ScheduleDomain {
+import 'package:afyacare/domain/schedule/schedule_date_time.dart';
+import 'package:afyacare/domain/schedule/schedule_domain_helper.dart';
+import 'package:afyacare/domain/schedule/schedule_id.dart';
 
-  String token;
-  DateTime dateTime;
+class ScheduleDomain {
+  ScheduleDate dateTime;
+  UserHelper userHelper;
+  ScheduleId id;
 
   ScheduleDomain({
-    required this.token,
     required this.dateTime,
+    required this.userHelper,
+    required this.id
   });
+    
 }
+
+

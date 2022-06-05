@@ -56,7 +56,6 @@ const logIn = async (req, res) => {
 
 
     const matchPassword = await User.comparePassword(req.body.password, userExist.password);
-    print(!matchPassword);
     if (!matchPassword) return res.status(401).json({
         token: null,
         message: 'Invalid credential'
@@ -91,7 +90,6 @@ const logout = async (req, res) => {
         message : "you are logged out"
     })
 
-    // res.redirect('/');
 }
 
 

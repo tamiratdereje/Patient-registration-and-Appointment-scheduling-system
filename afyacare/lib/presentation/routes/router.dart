@@ -1,10 +1,15 @@
+
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 
 import 'package:afyacare/presentation/pages/Medicine/add_medicine.dart';
 
 import 'package:afyacare/infrastructure/core/sharedPref.dart';
+
+import 'package:afyacare/presentation/pages/appointment/editappointment.dart';
+
 import 'package:afyacare/presentation/pages/admin/admin.dart';
 import 'package:afyacare/presentation/pages/admin/admin_list.dart';
+
 
 import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
 import 'package:afyacare/presentation/pages/intro/intro_screen.dart';
@@ -57,7 +62,9 @@ class RouterMain extends StatelessWidget {
         state.location != Screen().login) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationAuthenticated) {
-      if (state.location != Screen().upcomingSchedule &&
+      if (state.location != Screen().appointment && 
+      (state.location == Screen().login || state.location == Screen().splashScreen) &&
+        state.location != Screen().upcomingSchedule &&
           state.location != Screen().mainscreen) {
         return Screen().mainscreen;
 
@@ -88,6 +95,7 @@ class RouterMain extends StatelessWidget {
           builder: (BuildContext context, GoRouterState state) =>
               const PharmacistScreen(),
         ),
+        
          GoRoute(
           path: Screen().profile,
           builder: (BuildContext context, GoRouterState state) =>
@@ -114,13 +122,20 @@ class RouterMain extends StatelessWidget {
               const IntroScreen(),
         ),
         GoRoute(
-          path: Screen().appointment,
-          builder: (BuildContext context, GoRouterState state) =>
-              const AppointmentBooking(),
+          path: '${Screen().editAppointment}/:id',
+          builder: (BuildContext context, GoRouterState state){
+            final id = (state.params['id']);
+            return EditAppointment(id: id!,);
+          }
+               
         ),
         GoRoute(
           path: Screen().login,
           builder: (BuildContext context, GoRouterState state) => Login(),
+        ),
+        GoRoute(
+          path: Screen().appointment,
+          builder: (BuildContext context, GoRouterState state) => AppointmentBooking(),
         ),
         GoRoute(
           path: Screen().upcomingSchedule,

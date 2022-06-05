@@ -8,7 +8,6 @@ router.get("/" ,[authToken.verifyToken],scheduleController.getSchedule);
 router.delete("/:id" , scheduleController.deleteSchedule);
 router.put("/:id" ,[authToken.verifyToken] ,scheduleController.updateSchedule)
 router.post("/" , [authToken.verifyToken],scheduleController.addSchedule);
-router.get("/taken" , [authToken.verifyToken], scheduleController.takenSchedules);
 
 
 
@@ -19,4 +18,3 @@ module.exports = router;
 //                       getSchedule,
 //                       updateSchedule,
 //                         deleteSchedule,
-//                          takenSchedules

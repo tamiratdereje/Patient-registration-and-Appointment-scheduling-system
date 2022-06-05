@@ -6,8 +6,7 @@ const scheduleValidation = (value) => {
     const scheduleSchema = joi.object({
         date: joi.date().required(),
     });
-    const pass = scheduleSchema.validate(value);
-    return pass;
+    return scheduleSchema.validate(value);
 }
 
 
