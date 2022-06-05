@@ -8,8 +8,10 @@ import 'package:afyacare/domain/Medicine/medicine_quantity.dart';
 import 'package:afyacare/domain/Medicine/medicine_validator.dart';
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:regexpattern/regexpattern.dart';
+
+
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';

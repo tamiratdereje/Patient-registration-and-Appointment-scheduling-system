@@ -48,6 +48,7 @@ class MedicineRepo {
     }
   }
 
+
   Future<List<MedicineDomain>> getMedicineDetail(String id) async {
     MedicineModel med = await medicineProvider.getMedicine(id);
 

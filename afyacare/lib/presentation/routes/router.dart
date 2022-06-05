@@ -93,7 +93,7 @@ class RouterMain extends StatelessWidget {
           path: '${Screen().medicineDetail}',
           builder: (BuildContext context, GoRouterState state) {
             final medicineId = int.parse(state.params["id"]!);
-            return MedicineDetail(medicineId);
+            return MedicineDetail(medicineId: medicineId);
           },
         ),
         GoRoute(

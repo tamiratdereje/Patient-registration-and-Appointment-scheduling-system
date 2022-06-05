@@ -11,9 +11,7 @@ import 'package:go_router/go_router.dart';
 
 class ListOfMedicine extends StatelessWidget {
   const ListOfMedicine({Key? key}) : super(key: key);
-
   final data = const [];
-
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -96,6 +94,7 @@ class ListOfMedicine extends StatelessWidget {
                                                     .toString())
                                               ],
                                             ))
+
                                       ],
                                     ),
                                     decoration: BoxDecoration(

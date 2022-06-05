@@ -206,7 +206,7 @@ class _UserProfileState extends State<UserProfile> {
                                             : Icons.visibility_off),
                                       ),
                                       // suffixIcon: Icon(Icons.scuba_diving),
-                                      labelText: "confirm password",
+                                      labelText: "Confirm password",
                                     ),
                                     validator: (value) => SignupValidator()
                                         .confrimPasswordValidator(value,
@@ -313,7 +313,7 @@ class _UserProfileState extends State<UserProfile> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text("Want delete sn account? "),
+                                Text("Want delete an account? "),
                                 TextButton(
                                   onPressed: () {
                                     showDialog<String>(

@@ -157,6 +157,7 @@ class Card1 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
+                    key: Key("reschedule"),
                     onPressed: () {
                       context.push('/appointment');
                     },
@@ -165,6 +166,7 @@ class Card1 extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 2 - 60),
                   ),
                   TextButton(
+                   key: Key("cancel"),
                     onPressed: () {},
                     child: CustomButton(
                       muted: true,

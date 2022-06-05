@@ -1,9 +1,8 @@
+import 'package:afyacare/domain/patient_detail/patient_detail_validator.dart';
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:afyacare/presentation_data/chip_data.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:regexpattern/regexpattern.dart';
 import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
 
@@ -95,10 +94,12 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           TextFormField(
+                                            key: Key("medicine"),
                                             controller: prescribeMed,
                                             decoration: InputDecoration(
                                                 labelText: "prescribe medicine",
                                                 suffixIcon: IconButton(
+                                                  key: Key("add"),
                                                     onPressed: (() =>
                                                         setState(() {
                                                           if (prescribeMed.text
@@ -110,15 +111,10 @@ class _PatientDetailsState extends State<PatientDetails> {
                                                           prescribeMed.clear();
                                                         })),
                                                     icon:
+                                                  
                                                         const Icon(Icons.add))),
-                                            validator: (value) {
-                                              if (value!.isEmpty &&
-                                                  chipsList.isEmpty) {
-                                                return "Enter correct medicine name ";
-                                              } else {
-                                                return null;
-                                              }
-                                            },
+                                                                                           validator: (value) =>PatientDetailChipsListValidator().patientDetailChipsListValidator(chipsList),
+
                                           ),
                                           const SizedBox(
                                             height: 10,
@@ -136,17 +132,13 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             ),
                                           ),
                                           TextFormField(
+                                            key: Key("description"),
                                             controller: recordDescription,
                                             decoration: const InputDecoration(
                                               labelText: "Record Description",
                                             ),
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return "Enter correct Record Description";
-                                              } else {
-                                                return null;
-                                              }
-                                            },
+                                            validator: (value) =>PatientDetailDescriptionValidator().patientDetailDescriptionValidator(value),
+
                                           ),
                                           const SizedBox(
                                             height:15,
@@ -155,6 +147,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                       ),
                                     ),
                                     TextButton(
+                                      key: Key("button"),
                                         onPressed: () {
                                           if (_recordFormKey.currentState!
                                               .validate()) {

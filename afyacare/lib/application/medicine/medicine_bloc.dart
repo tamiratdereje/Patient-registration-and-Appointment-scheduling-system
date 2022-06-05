@@ -9,11 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MedicineBLoc extends Bloc<MedicineEvent, MedicineState> {
   MedicineRepo medicineRepo = MedicineRepo();
 
+
   MedicineBLoc() : super(MedicineLoading()) {
     on<MedicineCreateEvent>((event, emit) async {
       await _onMedicineCreate(event, emit);
     });
-
     on<MedicineUpdateEvent>((event, emit) async {
       await _onMedicineUpdate(event, emit);
     });
@@ -21,6 +21,7 @@ class MedicineBLoc extends Bloc<MedicineEvent, MedicineState> {
     on<MedicineDeleteEvent>((event, emit) async {
       await _onMedicineDelete(event, emit);
     });
+
 
     on<MedicineLoadAllEvent>((event, emit) async {
       await _onMedicineLoadAll(event, emit);

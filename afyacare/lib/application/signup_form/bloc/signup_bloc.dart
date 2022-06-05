@@ -11,16 +11,17 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupRepo signupRepo = SignupRepo();
 
   SignupBloc() : super(SignupInitial()) {
-    on<SignUpEvent>((event, emit) async{
-       emit(SignupLoading());
-    try {
-      await signupRepo.signup(event.signupDomain);
-      emit(SignupSuccessful());
-    } catch (e) {
-      emit(SignupFailed());
-    }
-    },);
+    on<SignUpEvent>(
+      (event, emit) async {
+        emit(SignupLoading());
+        try {
+          await signupRepo.signup(event.signupDomain);
+          emit(SignupSuccessful());
+        } catch (e) {
+          print("failedd kkkkkkkkkkkkkkkkkk");
+          emit(SignupFailed());
+        }
+      },
+    );
   }
-
- 
 }
