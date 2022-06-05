@@ -14,10 +14,10 @@ const recordSchema = new mongoose.Schema({
         required: false
     },
     
-    medicine : [{
+    medicine : {
         type: String,
         required: false
-    }],
+    },
 
     user : {
         type: mongoose.Schema.Types.ObjectId,

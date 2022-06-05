@@ -1,33 +1,29 @@
-class RecordModel{
-  
-  DateTime? dateTime;
-  List<String> medicine;
+class RecordModel {
+  String dateTime;
+  String medicine;
   String descrption;
-  String? id;
-  String? patientId;
+  String id;
+  String patientId;
 
-  RecordModel({
-    
-    this.dateTime,
-    required this.descrption,
-    required this.medicine,
-    this.id,
-    this.patientId
+  RecordModel(
+      {required this.dateTime,
+      required this.descrption,
+      required this.medicine,
+      required this.id,
+      required this.patientId});
 
-  });
-  
-  factory RecordModel.fromJson(Map<String , dynamic> json) => RecordModel(
+  factory RecordModel.fromJson(Map<String, dynamic> json) => RecordModel(
+      descrption: json["descrption"],
+      medicine: json["medicine"],
+      dateTime: json["date"],
+      id: json["_id"],
+      patientId: json["user"]);
 
-    descrption:json["descrption"],
-    medicine: json["medicine"].toList(),
-    dateTime: DateTime.parse(json["date"]),
-    id: json["id"],
-    patientId: json["patientId"]
-
- );
-
- Map<String , dynamic> toJson() => {
-   "descrption":  descrption, "medicine": medicine, "id":id, "patientId": patientId,
-   };
-
+  Map<String, dynamic> toJson() => {
+        "descrption": descrption,
+        "medicine": medicine,
+        "id": id,
+        "patientId": patientId,
+        "dateTime": dateTime.toString()
+      };
 }

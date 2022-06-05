@@ -20,7 +20,7 @@ class RecordLoading extends RecordState {
 
 class RecordOperationSuccess extends RecordState {
 
-  final Iterable<RecordDomain> records;
+  final List<RecordDomain> records;
   RecordOperationSuccess([this.records = const []]);
 
   @override

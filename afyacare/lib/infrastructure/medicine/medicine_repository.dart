@@ -48,7 +48,6 @@ class MedicineRepo {
     }
   }
 
-
   Future<List<MedicineDomain>> getMedicineDetail(String id) async {
     MedicineModel med = await medicineProvider.getMedicine(id);
 
@@ -65,5 +64,11 @@ class MedicineRepo {
 
   Future<void> deleteMedicine(MedicineId id) async {
     await medicineProvider.deleteMedicine(id.toString());
+  }
+
+  Future<MedicineModel> searchMedicine(String medicineName) async {
+    print("bonssssssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaa");
+    final response = await medicineProvider.searchMedicine(medicineName);
+    return response;
   }
 }

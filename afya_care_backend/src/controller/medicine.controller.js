@@ -127,7 +127,25 @@ const medicine_detail = async (req, res) => {
   res.status(200).json(med);
 };
 
+const get_medicines = async (req , res) =>{
+
+  var  name  = req.params.name; 
+  console.log(name);
+  
+  var meds = await Medicine.find({name: name});
+  if(!med){
+    res.status(401).json({
+      message: "no such medicine"
+    });
+    console.log("search failed");
+    return ;
+  }
+  console.log(meds);
+  res.status(200).json(meds);
+}
+
 module.exports = {
+  get_medicines,
   add_medicine,
   all_medicine,
   delete_medicine,

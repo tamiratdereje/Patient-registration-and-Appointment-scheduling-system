@@ -30,11 +30,10 @@ class MedicineProvider {
   Future<List<MedicineModel>> getAllMedicine() async {
     SharedPref pref = SharedPref();
     final token = await pref.getToken();
-    print(token);
+
     final response = await http.get(
         Uri.parse('${EndPoint().baseUrl}${EndPoint().medicine}'),
         headers: {"Access-Control-Allow-Origin": "*", "token": token!});
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
@@ -68,7 +67,7 @@ class MedicineProvider {
       },
     );
 
-    if (response.statusCode != 204) {
+    if (response.statusCode != 200) {
       print(response.body);
       throw Exception('failed to delete');
     }
@@ -83,6 +82,28 @@ class MedicineProvider {
         body: jsonEncode(medicineModel));
     if (response.statusCode != 204) {
       throw Exception('failed to to edit');
+    }
+  }
+
+  Future<MedicineModel> searchMedicine(String name) async {
+    SharedPref pref = SharedPref();
+    final token = await pref.getToken();
+    final response = await http.get(
+        Uri.parse(
+          '${EndPoint().baseUrl}${EndPoint().medicine}/${name}',
+        ),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "token": token!,
+        });
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+      final json = jsonDecode(response.body);
+      final med = MedicineModel.fromJson(json);
+      return med;
+    } else {
+      throw Exception("error fetching medicine");
     }
   }
 }

@@ -6,8 +6,8 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
+    return Container(
+      child: Stack(
         children: [
           const circleClip(),
           Column(

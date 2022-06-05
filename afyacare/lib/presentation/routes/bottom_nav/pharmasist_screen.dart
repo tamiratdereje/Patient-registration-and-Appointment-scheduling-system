@@ -51,3 +51,4 @@ class _PharmacistScreenState extends State<PharmacistScreen> {
     );
   }
 }
+
