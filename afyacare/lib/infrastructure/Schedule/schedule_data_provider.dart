@@ -80,14 +80,20 @@ class ScheduleProvider {
 
 //  for patient
     Future<List<PatientScheduleModel>> getPatientSchedules() async {
+
         final token = await pref.getToken();
         final response = await http
             .get(Uri.parse("${EndPoint().baseUrl}${EndPoint().schedule}"), headers: {"Access-Control-Allow-Origin": "*",  "token": token!});
 
         if (response.statusCode == 200) {
+
           final json =jsonDecode(response.body);
+          print("************111111***********************");
+          print(json);
           final List list = json["schedules"];
           final li = list.map((e) => PatientScheduleModel.fromJson(e)).toList();
+          print("1111111111111sbbbbbbbbbbbsbsbsb11111111111111111111111111111111111111111");
+          print(li, );
           return li;
 
         } else {

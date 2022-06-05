@@ -9,7 +9,7 @@ void main() {
     
     final submitButton = find.byKey(const ValueKey("submit"));
 
-    await tester.pumpWidget(const MaterialApp(home: AppointmentBooking()));
+    await tester.pumpWidget(MaterialApp(home: AppointmentBooking()));
 
     await tester.tap(submitButton);
 

@@ -53,7 +53,7 @@ const getSchedule = async (req, res) => {
     //   schedules: {      
     //     }});
 
-
+    console.log(schedules);
     return res.json(schedules);
 
         

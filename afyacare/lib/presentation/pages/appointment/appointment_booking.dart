@@ -1,4 +1,6 @@
+import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
 import 'package:afyacare/domain/appointment_booking/appointment_booking_validator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/afya_theme.dart';
 import 'package:intl/intl.dart';
@@ -9,13 +11,16 @@ import '../../core/widgets/custom_button.dart';
 import 'appointment_text.dart';
 
 class AppointmentBooking extends StatefulWidget {
-  const AppointmentBooking({Key? key}) : super(key: key);
+  String? id;
+   AppointmentBooking({ this.id ,Key? key}) : super(key: key);
 
   @override
-  State<AppointmentBooking> createState() => _AppointmentBookingState();
+  State<AppointmentBooking> createState() => _AppointmentBookingState(id:id);
 }
 
 class _AppointmentBookingState extends State<AppointmentBooking> {
+ String? id ;
+  _AppointmentBookingState({id});
   final _formKey = GlobalKey<FormState>();
   late String result = "";
 
@@ -86,6 +91,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                               Padding(
                                 padding: const EdgeInsets.all(12),
                                 child: TextFormField(
+                                
                                   key: Key("date"),
                                   controller: dateinput,
                                   validator: (value) =>
@@ -130,20 +136,40 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                   },
                                 ),
                               ),
-                              TextButton(
-                                key: Key("submit"),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content: Text('Processing Data')),
-                                      );
-                                    }
-                                  },
-                                  child: CustomButton(
-                                    title: "Submit",
-                                  )),
+                              BlocConsumer<ScheduleBloc, ScheduleState>(
+                                listener: (context, state) {
+                                  if (state is ScheduleAddSuccessful){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor:
+                                          Color.fromARGB(108, 25, 221, 31),
+                                      content: Text('Schedul added Successful')),
+                                );
+
+                                  }
+
+                                },
+                                builder: (context, state) {
+                                  return TextButton(
+                                      key: Key("submit"),
+                                      onPressed: () {
+                                        DateTime scheDate =
+                                            DateTime.parse(result);
+
+                                        if (_formKey.currentState!.validate()) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content:
+                                                    Text('Processing Data')),
+                                          );
+                                        }
+                                      },
+                                      child: CustomButton(
+                                        title: "Submit",
+                                      ));
+                                },
+                              ),
                             ],
                           ),
                         ),

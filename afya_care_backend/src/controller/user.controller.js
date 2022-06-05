@@ -3,8 +3,6 @@ const User = require("../models/user");
 const Schedule = require("../models/schedule");
 
 
-
-
 const edit_password = async (req, res) => {
   var user = await User.findById(req.userId);
   if (!user) {
@@ -24,34 +22,8 @@ const edit_password = async (req, res) => {
      res.status(404).json({ message: "error occurred during saving" });
         }
      });
-  
   }
-
-  var existing_user = await User.findById(req.userId);
-
-    res.status(200).json({
-      message: "succesfully edit",
-      editedProduct: {
-        name: existing_user.name,
-        username: existing_user.username,
-        birth_date: existing_user.birth_date,
-        password : existing_user.password
-      },
-    });
-
-  }
-
-  var existing_user = await User.findById(req.userId);
-  res.status(200).json({
-    message: "succesfully edit",
-    editedProduct: {
-      name: existing_user.name,
-      username: existing_user.username,
-      birth_date: existing_user.birth_date,
-      password: existing_user.password,
-    },
-  });
-;
+};
 
 const delete_user = async (req, res) => {
   try {

@@ -26,13 +26,17 @@ class ScheduleRepoistory {
 
 
   Future<List<ScheduleDomain>> getDoctorSchedules() async {
+
     final schedules = await scheduleProvider.getDoctorSchedules();
 
     final sche = schedules.map((e) => ScheduleDomain(dateTime: ScheduleDate(dateTime: e.dateTime),
     userHelper: UserHelper(name: e.user!.patient_name, userId: e.user!.patientId)
     
     )).toList();
+    print("111111111111111111111111111111111111111111111111111111");
+    print(sche);
 
+    
     return sche;
   }
 
@@ -42,6 +46,8 @@ class ScheduleRepoistory {
     final sche = schedules.map((e) => ScheduleDomain(dateTime: ScheduleDate(dateTime: e.dateTime),
     userHelper: UserHelper(name: e.user!.doctor_name, userId: e.user!.doctorId)
     )).toList();
+    print("111111111111111111111111111111111111111111111111111111");
+    print(sche);
     return sche;
   }
 }

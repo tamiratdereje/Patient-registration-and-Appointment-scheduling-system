@@ -1,3 +1,6 @@
+import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
+import 'package:afyacare/presentation/routes/path.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
@@ -15,15 +18,14 @@ class UpcomingSchedule extends StatefulWidget {
 class _UpcomingScheduleState extends State<UpcomingSchedule> {
   List schedules = <Widget>[
     Card1(
-        imageProvider: 'assets/profile.jpg',
+    
         name: "Dr.Chaltu Abduba",
         specialization: "Oncologist"),
     Card1(
-        imageProvider: 'assets/profile.jpg',
+    
         name: "Dr.Sameuel kebeto",
         specialization: "Gynecologist"),
     Card1(
-        imageProvider: 'assets/profile.jpg',
         name: "Dr.Husen Boru",
         specialization: "Gynecologist"),
   ];
@@ -60,19 +62,35 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                       const SizedBox(
                         height: 35,
                       ),
-                      Expanded(
+                      BlocConsumer<ScheduleBloc,ScheduleState>(builder: (context, state) {
+                        if(state is ScheduleLoading){
+                         return   Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [Center(child: CircularProgressIndicator())],
+                                );
+                        }
+                        else if(state is SchedulesOperationSuccess){
+                           return  Expanded(
                         child: ListView.separated(
                           itemBuilder: (context, index) {
-                            return schedules[index % schedules.length];
+                            return Card1(name: state.schedules[index].userHelper!.name, specialization: state.schedules[index].dateTime.toString() , id: state.schedules[index].id!.schedule_id,);
                           },
                           separatorBuilder: (context, index) {
                             return const SizedBox(
                               height: 10,
                             );
                           },
-                          itemCount: schedules.length,
+                          itemCount: state.schedules.length,
                         ),
-                      )
+                      );
+                        }
+                        return   Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:  [Center(child: Text("No Result"),)],
+                                );
+                       
+                      }, listener: (context , state){}),
+                     
                     ],
                   ),
                 ),
@@ -86,13 +104,14 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
 }
 
 class Card1 extends StatelessWidget {
-  String imageProvider;
+  String imageProvider = 'assets/profile.jpg';
+  String? id ;
   String name;
   String specialization;
 
   Card1(
       {Key? key,
-      required this.imageProvider,
+      this.id,
       required this.name,
       required this.specialization})
       : super(key: key);
@@ -148,7 +167,7 @@ class Card1 extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text('Friday,08:00-09:00 Am')
+                Text('08:00-09:00 Am')
               ]),
               const SizedBox(
                 height: 10,
@@ -159,7 +178,7 @@ class Card1 extends StatelessWidget {
                   TextButton(
                     key: Key("reschedule"),
                     onPressed: () {
-                      context.push('/appointment');
+                      context.push(Screen().appointment , extra: "adfasdf");
                     },
                     child: CustomButton(
                         title: "Reschedule",

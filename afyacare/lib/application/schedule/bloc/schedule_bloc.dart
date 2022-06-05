@@ -1,3 +1,4 @@
+import 'package:afyacare/application/medicine/medicine_state.dart';
 import 'package:afyacare/domain/schedule/schedule_date_time.dart';
 import 'package:afyacare/domain/schedule/schedule_domain.dart';
 import 'package:afyacare/domain/schedule/schedule_id.dart';
@@ -16,38 +17,84 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     ScheduleRepoistory scheduleRepo = ScheduleRepoistory();
 
   ScheduleBloc() : super(ScheduleLoading()) {
-    // on<ScheduleCreateEvent>((event, emit) {
-    //   await _onMedicineCreate(event, emit);
-      
-    // });
-    // on<ScheduleUpdateEvent>((event, emit) async {
-    //   await _onMedicineUpdate(event, emit);
-    // });
+    on<ScheduleCreateEvent>((event, emit) async {
+      await _onScheduleCreate(event, emit);
 
-    // on<ScheduleLoadEvent>((event, emit) async {
-    //   await _onScheduleLoad(event, emit);
-    // });
+    });
 
-    // on<ScheduleDeleteEvent>((event, emit) async {
-    //   await _onMedicineUpdate(event, emit);
-    // });
-  }
+    on<ScheduleUpdateEvent>((event, emit) async {
+      await _onScheduleUpdate(event, emit);
+    });
+
+    on<ScheduleLoadEvent>((event, emit) async {
+      await _onScheduleLoad(event, emit);
+    });
+
+    on<ScheduleDeleteEvent>((event, emit) async {
+      await _onScheduleDelete(event, emit);
+    });
+
+
     
+  }
 
-  // Future<void> _onScheduleLoad(event, emit) async{
-  //     SharedPref pref = SharedPref();
+  //  done with medicine delete
+  Future<void> _onScheduleDelete(event, emit) async {
+    try {
+      await scheduleRepo.deleteSchedule(event.id);
+      emit(SchedulesOperationSuccess());
+    } catch (error) {
+      emit(ScheduleOperationFailure(error: error));
+    }
+  }
+    // _onScheduleCreate
 
-      
-  //     emit(ScheduleLoading());
-  //       try {
-          
-  //         final medicines  = await scheduleRepo.getDoctorSchedules();
+    Future<void> _onScheduleCreate(event, emit) async {
+    emit(ScheduleAdding());
+    try {
+      await scheduleRepo.createSchedule(event.scheduleDate);
+      emit(ScheduleAddSuccessful());
+    } catch (error) {
+      emit(ScheduleAddFailed());
+    }
+  }
 
-  //         emit(MedicinesOperationSuccess(medicines));
-  //       } catch (error) {
-  //         emit(MedicineOperationFailure(error: error));      
-  //       }
-  // }
+  Future<void> _onScheduleUpdate(event, emit) async {
+    emit(ScheduleAdding());
+    try {
+      await scheduleRepo.editSchedule(event.scheduleDomain);
+      emit(ScheduleAddSuccessful());
+    } catch (error) {
+      emit(ScheduleAddFailed());
+    }
+  }
+
+  Future<void> _onScheduleLoad(event, emit) async{
+      SharedPref pref = SharedPref();
+      String? cur_role = await pref.getrole();
+
+      emit(ScheduleLoading());
+        try {
+          if (cur_role == "doctor"){
+            final schedules  = await scheduleRepo.getDoctorSchedules();
+            print("211111345666666666666666");
+            print(schedules);
+            // if (schedules.length){
+
+            // }
+            emit(SchedulesOperationSuccess(schedules));
+          }
+          else if(cur_role == "patient"){
+            final schedules = await scheduleRepo.getPatientSchedules();
+            emit(SchedulesOperationSuccess(schedules));
+          }
+        } catch (error) {
+          emit(MedicineOperationFailure(error: error));      
+        }
+  }
+
+
+
 
 
 }

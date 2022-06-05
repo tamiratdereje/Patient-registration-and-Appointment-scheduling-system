@@ -10,6 +10,12 @@ abstract class ScheduleState extends Equatable{
 
 class ScheduleLoading extends ScheduleState {}
 
+class ScheduleAdding extends ScheduleState{}
+
+class ScheduleAddSuccessful extends ScheduleState{}
+
+class ScheduleAddFailed extends ScheduleState{}
+
 class SchedulesOperationSuccess extends ScheduleState {
   final List<ScheduleDomain> schedules;
 

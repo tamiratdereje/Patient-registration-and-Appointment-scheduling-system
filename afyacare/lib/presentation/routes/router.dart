@@ -53,7 +53,8 @@ class RouterMain extends StatelessWidget {
         state.location != Screen().login) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationAuthenticated) {
-      if (state.location != Screen().upcomingSchedule &&
+      if (state.location != Screen().appointment &&
+        state.location != Screen().upcomingSchedule &&
           state.location != Screen().mainscreen) {
         return Screen().mainscreen;
       }
@@ -101,7 +102,7 @@ class RouterMain extends StatelessWidget {
         GoRoute(
           path: Screen().appointment,
           builder: (BuildContext context, GoRouterState state) =>
-              const AppointmentBooking(),
+               AppointmentBooking(id: state.extra as String?,),
         ),
         GoRoute(
           path: Screen().login,
