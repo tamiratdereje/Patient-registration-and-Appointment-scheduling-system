@@ -5,7 +5,7 @@ import 'package:afyacare/infrastructure/profile/profile_model.dart';
 class ProfileRepo {
   ProfileRepo();
   ProfileDataProvider profileDataProvider = ProfileDataProvider();
-
+  
   Future<void> editPassword(ProfileDomain profileDomain) async {
     try {
       ProfileModel profileModel = ProfileModel(
@@ -19,15 +19,17 @@ class ProfileRepo {
 
   Future<void> deleteAccount() async {
     try {
+
       await profileDataProvider.delete();
+      
     } catch (e) {
       print(e);
     }
   }
 
-    Future<void> logout(String? token) async {
+    Future<void> logout() async {
       try {
-        await profileDataProvider.logout( token);
+        await profileDataProvider.logout();
       } catch (e) {
         print(e);
       }

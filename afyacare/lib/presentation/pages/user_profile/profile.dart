@@ -103,9 +103,11 @@ class _UserProfileState extends State<UserProfile> {
                                     child: const Text('Cancel'),
                                   ),
                                   TextButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       BlocProvider.of<ProfileBloc>(context)
                                           .add(Logout());
+
+                                      return Navigator.pop(context, 'Cancel');
                                     },
                                     child: const Text('OK'),
                                   ),
@@ -216,7 +218,7 @@ class _UserProfileState extends State<UserProfile> {
                                 ],
                               ),
                             ),
-                            BlocConsumer<MedicineBLoc, MedicineState>(
+                            BlocConsumer<ProfileBloc, ProfileState>(
                                 builder: (context, state) {
                               return (TextButton(
                                   onPressed: () {
@@ -237,11 +239,13 @@ class _UserProfileState extends State<UserProfile> {
                                               profileDomain: profileDomain));
                                       _oldPasswordController.clear();
                                       _newPasswordController.clear();
+                                      _confirmPasswordController.clear();
                                     }
                                   },
                                   child:
                                       CustomButton(title: "Change password")));
                             }, listener: (context, state) async {
+                              print(state);
                               if (state is ProfileChanged) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -252,6 +256,8 @@ class _UserProfileState extends State<UserProfile> {
                                 );
                               }
                               if (state is LoggedOut) {
+                                print(
+                                    "loggout _____________________________________");
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       backgroundColor:
@@ -328,6 +334,8 @@ class _UserProfileState extends State<UserProfile> {
                                               BlocProvider.of<ProfileBloc>(
                                                       context)
                                                   .add(DeleteAccount());
+                                              return Navigator.pop(
+                                                  context, 'Cancel');
                                             },
                                             child: const Text(
                                               'Delete',

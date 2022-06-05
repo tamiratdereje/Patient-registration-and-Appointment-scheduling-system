@@ -14,6 +14,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(ChangingProfile());
       try {
         await profileRepo.editPassword(event.profileDomain);
+        emit(ProfileChanged());
       } catch (e) {
         emit(ProfileChangeFailed());
       }
@@ -21,8 +22,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<Logout>(((event, emit) async {
       emit(LoggingOut());
       try {
-        final token =await  (sharedPref.getToken());
-        await profileRepo.logout( token);
+        final token = await (sharedPref.getToken());
+        await profileRepo.logout();
         await sharedPref.deleteToken();
         await sharedPref.deleteName();
         emit(LoggedOut());
@@ -37,6 +38,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         await profileRepo.deleteAccount();
         await sharedPref.deleteToken();
         await sharedPref.deleteName();
+        emit(AccountDeleted());
       } catch (e) {
         emit(DeletingAccoutnFailed());
       }

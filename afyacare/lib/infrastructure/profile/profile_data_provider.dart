@@ -42,10 +42,10 @@ class ProfileDataProvider {
     }
   }
 
-  Future<void> logout(String? token) async {
-    
-    print("++++++++++++++++++++++++++++++++++++++");
-    print(token);
+  Future<void> logout() async {
+    SharedPref pref = SharedPref();
+    String? token = await pref.getToken();
+  
     final response = await http.post(
         Uri.parse(
             '${EndPoint().baseUrl}${EndPoint().auth}/${EndPoint().logout}'),
