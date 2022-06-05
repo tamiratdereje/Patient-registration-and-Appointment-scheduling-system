@@ -9,28 +9,35 @@ import 'package:http/http.dart' as http;
 import 'package:afyacare/infrastructure/endpoints/endpoint.dart';
 
 class RecordProvider {
-  SharedPref pref = SharedPref();
-  Future<void> createRecord(RecordModel recordModel) async {
-    final response = await http.post(
+
+   SharedPref pref = new SharedPref();
+    
+    Future<void> createRecord(RecordModel recordModel) async {
+      final token = await pref.getToken();
+
+      final response = await http.post(
         Uri.parse("${EndPoint().baseUrl}${EndPoint().record}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        body: jsonEncode(recordModel));
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "token": token!},
+        body: jsonEncode(recordModel)
+      );
 
-    if (response.statusCode == 200) {
-      print(response.body);
-      // return RecordModel.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('failed to create record');
-    }
-  }
+      if (response.statusCode == 201){
+        print(response.body);
+        // return RecordModel.fromJson(jsonDecode(response.body));
+      }
+      else {
+        throw Exception('failed to create record');
+      }
 
-  // get specific record
-  Future<RecordModel> getRecord(String id) async {
-    final response = await http.get(
-        Uri.parse("${EndPoint().baseUrl}${EndPoint().record}/$id"),
-        headers: {"Access-Control-Allow-Origin": "*"});
+
+
+    
+    // get specific record
+   Future<RecordModel> getRecord(String id) async {
+    final token = await pref.getToken();
+    final response = await http
+        .get(Uri.parse("${EndPoint().baseUrl}${EndPoint().record}/$id"), headers: {"Access-Control-Allow-Origin": "*",  "token": token!});
+
 
     if (response.statusCode == 200) {
       return RecordModel.fromJson(jsonDecode(response.body));
@@ -38,6 +45,7 @@ class RecordProvider {
       throw Exception("error fetching medicine");
     }
   }
+
 
   // Future<List<RecordModel>> getAllRecord(String? patientId) async {
   //   final token = await pref.getToken();
@@ -88,6 +96,7 @@ class RecordProvider {
         });
     print(response.statusCode);
 
+
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       print(json);
@@ -106,6 +115,7 @@ class RecordProvider {
 
   // deleteRecord
   Future<void> deleteRecord(String id) async {
+
     final response = await http.delete(
       Uri.parse("${EndPoint().baseUrl}${EndPoint().record}/$id"),
       headers: <String, String>{
@@ -127,11 +137,29 @@ class RecordProvider {
         },
         body: jsonEncode(recordModel));
 
+      final token = await pref.getToken();
+      final response = await http.delete(Uri.parse("${EndPoint().baseUrl}${EndPoint().record}/$id"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8',  "token": token!},
+      );     
+
+
     if (response.statusCode != 204) {
       throw Exception('failed to to edit');
     }
   }
 
+
+  Future<void> editRecord(RecordModel recordModel) async {
+        final token = await pref.getToken();
+        final response = await http.patch(
+          Uri.parse("${EndPoint().baseUrl}${EndPoint().record}"),
+          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8',  "token": token!},
+          body: jsonEncode(recordModel)
+      );
+
+      if (response.statusCode != 200){
+        throw Exception('failed to to edit');
+      }
 
 
 

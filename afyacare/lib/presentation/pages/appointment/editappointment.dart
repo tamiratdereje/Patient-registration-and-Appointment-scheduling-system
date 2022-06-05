@@ -1,6 +1,7 @@
 import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
 import 'package:afyacare/domain/appointment_booking/appointment_booking_validator.dart';
 import 'package:afyacare/domain/schedule/schedule_date_time.dart';
+import 'package:afyacare/domain/schedule/schedule_domain.dart';
 import 'package:afyacare/presentation/routes/path.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,20 +14,20 @@ import '../../core/widgets/circle_clip.dart';
 import '../../core/widgets/custom_button.dart';
 import 'appointment_text.dart';
 
-class AppointmentBooking extends StatefulWidget {
-  String? id;
-   AppointmentBooking({ this.id ,Key? key}) : super(key: key);
+class EditAppointment extends StatefulWidget {
+  String id;
+   EditAppointment({required this.id ,Key? key}) : super(key: key);
 
   @override
-  State<AppointmentBooking> createState() => _AppointmentBookingState(id:id);
+  State<EditAppointment> createState() => _EditAppointmentState(id:id);
 }
 
-class _AppointmentBookingState extends State<AppointmentBooking> {
+class _EditAppointmentState extends State<EditAppointment> {
  
- String? id ;
+ String id ;
  
  
-  _AppointmentBookingState({id});
+  _EditAppointmentState({required this.id});
   final _formKey = GlobalKey<FormState>();
   late String result = "";
 
@@ -133,7 +134,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                     String dateString = selectedDate
                                         .toString()
                                         .substring(0, 10);
-                                    result = dateString + " " + timeString;
+                                    result = dateString +" " + timeString;
                                     if (selectedDate != null &&
                                         selectedTime != null) {
                                       setState(() {
@@ -155,10 +156,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                             Color.fromARGB(108, 25, 221, 31),
                                         content: Text('scheduled Successful')),
                                   );
-                                   
-
-
-                                  
+                                 
                                 } else if (state is ScheduleAdding) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -174,7 +172,18 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                 }
 
 
+                                // },
+                                // if (_formKey.currentState!.validate()) {
+                                //           DateTime scheDate =
+                                //             DateTime.parse(result);
+                                            
+
+                                //           BlocProvider.of<ScheduleBloc>(context).add(ScheduleUpdateEvent(time: scheDate, id: id));
+
+                                //         }
+                                
                                 },
+
                                 builder: (context, state) {
                                   return TextButton(
                                       key: Key("submit"),
@@ -182,13 +191,11 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                         
 
                                         if (_formKey.currentState!.validate()) {
-                                          
                                           DateTime scheDate =
                                             DateTime.parse(result);
-                                          
-                                          ScheduleDate given_date = ScheduleDate(dateTime: scheDate);
+                                            
 
-                                          BlocProvider.of<ScheduleBloc>(context).add(ScheduleCreateEvent(given_date));
+                                          BlocProvider.of<ScheduleBloc>(context).add(ScheduleUpdateEvent(time: scheDate, id: id));
 
                                         }
                                       },
@@ -196,8 +203,9 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                         title: "Submit",
                                       ));
                                 },
-                              ),
-                            ],
+                          )
+                          
+                          ],
                           ),
                         ),
                       ),
