@@ -34,8 +34,9 @@ class ScheduleProvider {
   Future<void> editSchedule(UpdateScheduleDomain updateScheduleDomain) async {
 
     final token = await pref.getToken();
+    String id = updateScheduleDomain.id;
 
-    final response = await http.patch(Uri.parse("${EndPoint().baseUrl}${EndPoint().schedule}"),
+    final response = await http.put(Uri.parse("${EndPoint().baseUrl}${EndPoint().schedule}/$id"),
     headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8',  "token": token!},
     body: jsonEncode(updateScheduleDomain)
     );

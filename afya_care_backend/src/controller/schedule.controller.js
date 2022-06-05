@@ -68,6 +68,7 @@ const getSchedule = async (req, res) => {
 
 // update existing schedules
 const updateSchedule = async (req, res) => {
+  
   console.log("here is  schedule :" + typeof req.params.id);
   const schedule = req.params.id;
 

@@ -18,6 +18,7 @@ class ScheduleRepoistory {
   Future<void> deleteSchedule(ScheduleId scheduleId) async {
     await scheduleProvider.deleteSchedule(scheduleId.schedule_id.toString());
   }
+  
   Future<void> editSchedule(ScheduleDomain scheduleDomain) async {
     UpdateScheduleDomain updateSchedule =  UpdateScheduleDomain(dateTime: scheduleDomain.dateTime.dateTime, id: scheduleDomain.id!.schedule_id.toString());
     await scheduleProvider.editSchedule(updateSchedule);
