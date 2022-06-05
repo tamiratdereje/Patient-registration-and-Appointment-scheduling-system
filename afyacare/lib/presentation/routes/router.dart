@@ -1,11 +1,16 @@
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
+
+import 'package:afyacare/presentation/pages/Medicine/add_medicine.dart';
+
 import 'package:afyacare/infrastructure/core/sharedPref.dart';
+
 import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
 import 'package:afyacare/presentation/pages/intro/intro_screen.dart';
 import 'package:afyacare/presentation/pages/login/login.dart';
 import 'package:afyacare/presentation/pages/medicine/list_of_medicines.dart';
 import 'package:afyacare/presentation/pages/medicine/medicine_detail.dart';
 import 'package:afyacare/presentation/pages/record/pateint_details.dart';
+import 'package:afyacare/presentation/pages/search/search.dart';
 import 'package:afyacare/presentation/pages/splash/splash_screen.dart';
 import 'package:afyacare/presentation/routes/bottom_nav/patient_screen.dart';
 import 'package:afyacare/presentation/routes/bottom_nav/doctor_screen.dart';
@@ -67,13 +72,30 @@ class RouterMain extends StatelessWidget {
   RouterMain({Key? key, required this.authenticationBloc}) : super(key: key) {
     _router = GoRouter(
       refreshListenable: GoRouterRefreshStream(authenticationBloc.stream),
+
       redirect: (state) => redirector(state),
       initialLocation: Screen().splashScreen,
+
       routes: <GoRoute>[
         GoRoute(
           path: Screen().pharmacistScreen,
           builder: (BuildContext context, GoRouterState state) =>
               const PharmacistScreen(),
+        ),
+         GoRoute(
+          path: Screen().search,
+          builder: (BuildContext context, GoRouterState state) =>
+               Search(),
+        ),
+        GoRoute(
+          path: Screen().addMedicine,
+          builder: (BuildContext context, GoRouterState state) =>
+              const AddMedicine(),
+        ),
+        GoRoute(
+          path: Screen().intro,
+          builder: (BuildContext context, GoRouterState state) =>
+              const IntroScreen(),
         ),
         GoRoute(
           path: Screen().appointment,

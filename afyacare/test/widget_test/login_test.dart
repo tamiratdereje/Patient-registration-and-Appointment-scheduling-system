@@ -1,5 +1,8 @@
+import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
+import 'package:afyacare/application/signin_form/signin_form_bloc.dart';
 import 'package:afyacare/presentation/pages/login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,11 +13,16 @@ void main() {
     final addPassword = find.byKey(const ValueKey("enterpassword"));
     final signButton = find.byKey(const ValueKey("login"));
 
-    await tester.pumpWidget(MaterialApp(home: Login()));
+    await tester.pumpWidget(MaterialApp(
+      home: BlocProvider<AuthBloc>(
+        create: (context) => AuthBloc(),
+        child: Login(),
+      ),
+    ));
     await tester.enterText(addUserName, "libanabduba");
     await tester.enterText(addPassword, "liban@123");
     await tester.tap(signButton);
-
+    await tester.pump();
     expect(find.text("libanabduba"), findsOneWidget);
     expect(find.text("liban@123"), findsOneWidget);
   });

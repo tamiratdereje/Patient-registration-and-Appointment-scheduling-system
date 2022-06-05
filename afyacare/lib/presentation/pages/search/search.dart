@@ -35,6 +35,7 @@ class Search extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        key: Key("search"),
                         controller: _searchController,
                         decoration: InputDecoration(
                             labelText: "Search",
@@ -51,6 +52,7 @@ class Search extends StatelessWidget {
                       ),
                     ),
                     TextButton(
+                      key: Key("button"),
                         onPressed: () {},
                         child: const CustomButton(
                           title: "",
@@ -59,7 +61,7 @@ class Search extends StatelessWidget {
                           width: 55,
                           height: 55,
                           // iconVisiblity = true,
-
+        
                         ))
                   ],
                 ),

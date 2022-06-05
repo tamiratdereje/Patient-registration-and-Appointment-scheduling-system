@@ -176,6 +176,7 @@ class LoginState extends State<Login> {
                                 Widget buttonChild = Text("Log in");
 
                                 return TextButton(
+                                  key: Key("login"),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
                                       final LoginDomain loginDomain =
@@ -195,7 +196,7 @@ class LoginState extends State<Login> {
                                       passwordController.clear();
                                     }
                                   },
-                                  child: CustomButton(key: Key("signin"),title: "Log in"),
+                                  child: CustomButton(title: "Log in"),
                                 );
                               },
                             ),

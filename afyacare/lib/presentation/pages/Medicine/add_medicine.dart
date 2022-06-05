@@ -41,6 +41,7 @@ class _AddMedicineState extends State<AddMedicine> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider<MedicineBLoc>(
         create: (context) => MedicineBLoc(),
         child: Scaffold(
@@ -123,9 +124,11 @@ class _AddMedicineState extends State<AddMedicine> {
                                                         value)),
                                         const SizedBox(
                                           height: 25,
+
                                         ),
                                       ],
                                     ),
+
                                   ),
                                   BlocConsumer<MedicineBLoc, MedicineState>(
                                       listener: (context, state) async {
@@ -138,6 +141,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                             content: Text('Login Successful')),
                                       );
                                     } else if (state is MedicineAdding) {
+
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
@@ -155,6 +159,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                   }, builder: (context, state) {
                                     return TextButton(
                                         onPressed: () {
+                                        
                                           MedicineDomain medicineDomain =
                                               MedicineDomain(
                                                   name: MedicineName(
