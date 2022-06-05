@@ -1,9 +1,21 @@
+
+import 'package:afyacare/application/medicine/medicine_bloc.dart';
+import 'package:afyacare/application/medicine/medicine_event.dart';
+import 'package:afyacare/application/record/bloc/record_bloc.dart';
+import 'package:afyacare/domain/record/record_domain.dart';
+
 import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
+
 import 'package:afyacare/presentation/pages/search/search.dart';
 import 'package:afyacare/presentation/pages/user_profile/profile.dart';
 import 'package:afyacare/presentation/pages/user_profile/user_history.dart';
+import 'package:afyacare/presentation/routes/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:go_router/go_router.dart';
+
+
 import '../../pages/appointment/upcoming_schedule.dart';
 
 class MainScreen extends StatefulWidget {
@@ -25,8 +37,17 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.grey.shade100,
           currentIndex: current,
           onTap: (index) {
+
+            if (index == 1) {
+              BlocProvider.of<MedicineBLoc>(context).add(medIdle());
+              context.go(Screen().search);
+            }
+            if (index == 2) {
+              BlocProvider.of<RecordBloc>(context).add(RecordLoadAllEvent());
+
             if(index == 0){
               BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
+
             }
             setState(() {
               current = index;

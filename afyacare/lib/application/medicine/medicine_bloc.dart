@@ -4,11 +4,11 @@ import 'package:afyacare/application/medicine/medicine_event.dart';
 import 'package:afyacare/application/medicine/medicine_state.dart';
 import 'package:afyacare/domain/Medicine/medicine_Domain.dart';
 import 'package:afyacare/infrastructure/medicine/medicine_repository.dart';
+import 'package:afyacare/presentation/core/loading.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MedicineBLoc extends Bloc<MedicineEvent, MedicineState> {
   MedicineRepo medicineRepo = MedicineRepo();
-
 
   MedicineBLoc() : super(MedicineLoading()) {
     on<MedicineCreateEvent>((event, emit) async {
@@ -17,11 +17,15 @@ class MedicineBLoc extends Bloc<MedicineEvent, MedicineState> {
     on<MedicineUpdateEvent>((event, emit) async {
       await _onMedicineUpdate(event, emit);
     });
-
+    on<SearchMedicine>((event, emit) async {
+      await _onMedicineSearch(event, emit);
+    });
     on<MedicineDeleteEvent>((event, emit) async {
       await _onMedicineDelete(event, emit);
     });
-
+    on<medIdle>((event, emit) async {
+      emit(Idle());
+    });
 
     on<MedicineLoadAllEvent>((event, emit) async {
       await _onMedicineLoadAll(event, emit);
@@ -81,6 +85,19 @@ class MedicineBLoc extends Bloc<MedicineEvent, MedicineState> {
       await medicineRepo.deleteMedicine(event.id);
       emit(MedicinesOperationSuccess());
     } catch (error) {
+      emit(MedicineOperationFailure(error: error));
+    }
+  }
+
+  Future<void> _onMedicineSearch(event, emit) async {
+    emit(SearchingMed());
+    try {
+      print("ere abeleeeeeeeeeeeeeeeeeeeeeeeeeee  event.name)");
+      print(event.name);
+      final response = await medicineRepo.searchMedicine(event.name.toString());
+      emit(MedicinesSearchSuccess(medicineModel: response));
+    } catch (error) {
+      print(error);
       emit(MedicineOperationFailure(error: error));
     }
   }

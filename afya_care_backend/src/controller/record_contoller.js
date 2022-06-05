@@ -41,9 +41,11 @@ const add_record = async (req, res) => {
 
 const get_patients_records = async (req, res) => {
   
+  const id = req.userId;
   try {
-    var records = await Record.find({user: req.params.patientId});
-    return res.status(200).json(records);
+    console.log(id);
+    var records = await Record.find({user: id});
+    return res.json({"records" : records});
 
   } catch (error) {
     res.status(401).json({

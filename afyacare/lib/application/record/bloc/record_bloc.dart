@@ -29,77 +29,60 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     on<RecordDetailLoadEvent>((event, emit) async {
       await _onRecordDetailLoad(event, emit);
     });
-
-
   }
 
 // done with record detail
-  Future<void> _onRecordDetailLoad(event, emit) async{
-
+  Future<void> _onRecordDetailLoad(event, emit) async {
     try {
-      final record = await recordRepo.getRecordDetail(event.id);
-      emit(RecordOperationSuccess(record));
+      // final record = await recordRepo.getRecordDetail(event.id);
+      // emit(RecordOperationSuccess(record));
 
     } catch (error) {
-      emit(RecordOperationFailure(error: error));      
+      emit(RecordOperationFailure(error: error));
     }
-
   }
 
 // record create
   Future<void> _onRecordCreate(event, emit) async {
     try {
-      await recordRepo.createRecord(event.recordDomain);
+      // await recordRepo.createRecord(event.recordDomain);
       emit(RecordOperationSuccess());
-
     } catch (error) {
-      emit(RecordOperationFailure(error: error));      
+      emit(RecordOperationFailure(error: error));
     }
   }
 
 // record update
-    Future<void> _onRecordUpdate(event, emit) async{
+  Future<void> _onRecordUpdate(event, emit) async {
     try {
-      await recordRepo.editRecord(event.recordDomain);
+      // await recordRepo.editRecord(event.recordDomain);
       emit(RecordOperationSuccess());
-
     } catch (error) {
-      emit(RecordOperationFailure(error: error));      
+      emit(RecordOperationFailure(error: error));
     }
-
-
   }
 
 // done with record delete
-   Future<void> _onRecordDelete(event, emit) async{
-
+  Future<void> _onRecordDelete(event, emit) async {
     try {
       await recordRepo.deleteRecord(event.id);
       emit(RecordOperationSuccess());
     } catch (error) {
-      emit(RecordOperationFailure(error: error));      
+      emit(RecordOperationFailure(error: error));
     }
-
   }
 
-  // 
+  //
   //  load all med
-Future<void> _onRecordLoadAll(event, emit) async{
-
-   emit(RecordLoading());
+  Future<void> _onRecordLoadAll(event, emit) async {
+    emit(RecordLoading());
+    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     try {
-      final records  = await recordRepo.getAllRecord(event.patientId);
+      final records = await recordRepo.getAllRecord();
       emit(RecordOperationSuccess(records));
     } catch (error) {
-      emit(RecordOperationFailure(error: error));      
+      print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      emit(RecordOperationFailure(error: error));
     }
   }
-
-
-
-
-
-
-
-
 }

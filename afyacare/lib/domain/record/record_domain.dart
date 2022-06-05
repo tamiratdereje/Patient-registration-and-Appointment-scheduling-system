@@ -1,18 +1,18 @@
 class RecordDomain{
   
-  RecordDate? dateTime;
-  List<RecordMedicine> medicine;
+  RecordDate dateTime;
+  RecordMedicine medicine;
   RecordDescrption descrption;
-  RecordId? id;
-  RecordPatientId? patientId;
+  RecordId id;
+  RecordPatientId patientId;
 
 
   RecordDomain({
-    this.dateTime,
+    required this.dateTime,
     required this.descrption,
     required this.medicine,
-    this.id,
-    this.patientId
+    required this.id,
+    required this.patientId
   });
 }
 
@@ -34,16 +34,13 @@ class RecordPatientId {
   RecordPatientId({required this.patientId});
   
 
-  @override
-  String toString() {
-    return patientId;
-  }
+  
 
 }
 
 
 class RecordDate {
-  DateTime dateTime;
+  String dateTime;
   RecordDate({required this.dateTime});
 
   @override

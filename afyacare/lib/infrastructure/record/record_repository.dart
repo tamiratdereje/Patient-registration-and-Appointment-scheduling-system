@@ -6,63 +6,65 @@ class RecordRepository {
   RecordRepository();
   RecordProvider recordProvider = RecordProvider();
 
-  Future<void> createRecord(RecordDomain recordDomain) async {
-    final meds = recordDomain.medicine
-        .map((e) => RecordMedicine(medicine: e.medicine))
+  // Future<void> createRecord(RecordDomain recordDomain) async {
+  //   final meds = recordDomain.medicine
+  //       .map((e) => RecordMedicine(medicine: e.medicine))
+  //       .toList();
+
+  //   RecordModel recordModel = RecordModel(
+  //       descrption: recordDomain.descrption.toString(),
+  //       medicine: meds.map((e) => recordDomain.medicine.toString()).toList(),
+  //       patientId: recordDomain.patientId.toString());
+  //   await recordProvider.createRecord(recordModel);
+  // }
+
+// Future<void> editRecord(RecordDomain recordDomain) async {
+//     final meds = recordDomain.medicine
+//         .map((e) => RecordMedicine(medicine: e.medicine))
+//         .toList();
+
+//     RecordModel recordModel = RecordModel(
+
+//         descrption: recordDomain.descrption.toString(),
+//         medicine: meds.map((e) => recordDomain.medicine.toString()).toList(),
+//         id: recordDomain.id.toString());
+
+//     await recordProvider.editRecord(recordModel);
+
+//   }
+
+  // Future<List<RecordDomain>> getRecordDetail(String id) async {
+  //   RecordModel rec = await recordProvider.getRecord(id);
+  //   final meds = rec.medicine.map((e) => RecordMedicine(medicine: e));
+
+  //   final RecordDomain record = RecordDomain(
+  //       descrption: RecordDescrption(descrption: rec.descrption.toString()),
+  //       medicine: meds.toList(),
+  //       id: RecordId(id: rec.id.toString()));
+
+  //   return [record];
+  // }
+
+  Future<List<RecordDomain>> getAllRecord() async {
+    print("llllllllll2222222222222222222222222222222222222222222aaaaaaallla");
+    List<RecordModel> list_of_record = await recordProvider.getAllRecord();
+
+    final mapped = list_of_record
+        .map((e) => RecordDomain(
+            patientId: RecordPatientId(patientId: e.patientId),
+            descrption: RecordDescrption(descrption: e.descrption.toString()),
+            dateTime: RecordDate(dateTime: e.dateTime),
+            medicine: RecordMedicine(medicine: e.medicine),
+            id: RecordId(id: e.id.toString())))
         .toList();
 
-    RecordModel recordModel = RecordModel(
-        descrption: recordDomain.descrption.toString(),
-        medicine: meds.map((e) => recordDomain.medicine.toString()).toList(),
-        patientId: recordDomain.patientId.toString());
-    await recordProvider.createRecord(recordModel);
+    print("llllllllllllllalalalalalaaaaaaaaaaaaallla");
+    print(mapped);
+
+    return mapped;
   }
 
-Future<void> editRecord(RecordDomain recordDomain) async {
-    final meds = recordDomain.medicine
-        .map((e) => RecordMedicine(medicine: e.medicine))
-        .toList();
-
-    RecordModel recordModel = RecordModel(
-
-        descrption: recordDomain.descrption.toString(),
-        medicine: meds.map((e) => recordDomain.medicine.toString()).toList(),
-        id: recordDomain.id.toString());
-
-    await recordProvider.editRecord(recordModel);
-
-  }
-
-  Future<List<RecordDomain>> getRecordDetail(String id) async {
-    RecordModel rec = await recordProvider.getRecord(id);
-    final meds = rec.medicine.map((e) => RecordMedicine(medicine: e));
-
-    final RecordDomain record = RecordDomain(
-        descrption: RecordDescrption(descrption: rec.descrption.toString()),
-        medicine: meds.toList(),
-        id: RecordId(id: rec.id.toString()));
-
-    return [record];
-  }
-
-
-  Future<List<RecordDomain>> getAllRecord(String patientId) async {
-      List<RecordModel> list_of_record = await recordProvider.getAllRecord(patientId);
-
-      final mapped = list_of_record.map((e) => RecordDomain(
-
-        descrption: RecordDescrption(descrption: e.descrption.toString()),
-
-        medicine: e.medicine.map((strmed) => RecordMedicine(medicine: strmed)).toList(),
-        id: RecordId(id: e.id.toString())
-        )).toList();
-
-  
-      return mapped;
-    }
-
-    Future<void> deleteRecord(RecordId id) async {
+  Future<void> deleteRecord(RecordId id) async {
     await recordProvider.deleteRecord(id.toString());
   }
-  
 }

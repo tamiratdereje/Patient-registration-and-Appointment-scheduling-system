@@ -159,7 +159,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                   }, builder: (context, state) {
                                     return TextButton(
                                         onPressed: () {
-                                        
+                                        if(_formKey.currentState!.validate()){
                                           MedicineDomain medicineDomain =
                                               MedicineDomain(
                                                   name: MedicineName(
@@ -180,7 +180,7 @@ class _AddMedicineState extends State<AddMedicine> {
                                           desc.clear();
                                           quantity.clear();
                                           medicineName.clear();
-                                        },
+                                        }},
                                         child: CustomButton(title: "Add"));
                                   }),
                                 ],
