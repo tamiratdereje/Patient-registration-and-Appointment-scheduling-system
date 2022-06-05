@@ -14,9 +14,19 @@ class AuthenticationBloc
       await startApp(emit);
     });
     on<LoggedIn>(((event, emit) async {
-      emit(AuthenticationAuthenticated());
+      String? role = await pref.getrole();
+      if (role == 'patient') {
+        emit(AuthenticationAuthenticated());
+      } else if (role == 'doctor') {
+        emit(AuthenticationAuthenticatedDoct());
+      } else if (role == 'pharmacist') {
+        emit(AuthenticationAuthenticatedPharm());
+      } else {
+        emit(AuthenticationAuthenticated());
+      }
     }));
-    on<LoggedOut>((event, emit) async {
+
+    on<UserLoggedout>((event, emit) async {
       emit(AuthenticationNotAuthenticated());
     });
     on<UserDeleted>((event, emit) async {
@@ -38,9 +48,19 @@ class AuthenticationBloc
   }
 
   Future<void> startAuth(emit) async {
+    final role = await pref.getrole();
+   
     final token = await pref.getToken();
     if (token != null) {
-      emit(AuthenticationAuthenticated());
+      if (role == 'patient') {
+        emit(AuthenticationAuthenticated());
+      } else if (role == 'doctor') {
+        emit(AuthenticationAuthenticatedDoct());
+      } else if (role == 'pharmacist') {
+        emit(AuthenticationAuthenticatedPharm());
+      } else {
+        emit(AuthenticationAuthenticated());
+      }
     } else {
       emit(AuthenticationNotAuthenticated());
     }

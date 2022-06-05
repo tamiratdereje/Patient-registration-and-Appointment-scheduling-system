@@ -1,4 +1,5 @@
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
+import 'package:afyacare/infrastructure/core/sharedPref.dart';
 import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
 import 'package:afyacare/presentation/pages/intro/intro_screen.dart';
 import 'package:afyacare/presentation/pages/login/login.dart';
@@ -18,6 +19,7 @@ import 'package:go_router/go_router.dart';
 
 class RouterMain extends StatelessWidget {
   final AuthenticationBloc authenticationBloc;
+  SharedPref pref = SharedPref();
   late final GoRouter _router;
   static const String title = 'router';
   String? redirector(state) {
@@ -26,16 +28,20 @@ class RouterMain extends StatelessWidget {
     print(authenticationBloc.state);
 
     if (authenticationBloc.state is FirstUse &&
-        state.location == Screen().splashScreen) {
+        state.location == Screen().splashScreen &&
+        state.location != Screen().intro) {
       return Screen().intro;
     } else if (authenticationBloc.state is BoardingCompleted &&
         state.location != Screen().login &&
-        state.location != Screen().signup) {
+        state.location != Screen().signup &&
+        state.location != Screen().pharmacistScreen) {
       return Screen().login;
     } else if (authenticationBloc.state is AuthenticationInitial &&
         state.location != Screen().splashScreen &&
         state.location != Screen().login &&
-        state.location != Screen().mainscreen) {
+        state.location != Screen().mainscreen &&
+        state.location != Screen().doctorscreen &&
+        state.location != Screen().pharmacistScreen) {
       return Screen().splashScreen;
     } else if (authenticationBloc.state is AuthenticationNotAuthenticated &&
         state.location != Screen().signup &&
@@ -46,15 +52,23 @@ class RouterMain extends StatelessWidget {
           state.location != Screen().mainscreen) {
         return Screen().mainscreen;
       }
+    } else if (authenticationBloc.state is AuthenticationAuthenticatedDoct &&
+        state.location != Screen().doctorscreen) {
+      return Screen().doctorscreen;
+    } else if (authenticationBloc.state is AuthenticationAuthenticatedPharm &&
+        state.location != Screen().medicineDetail &&
+        state.location != Screen().pharmacistScreen) {
+      return Screen().pharmacistScreen;
     }
+
     return null;
   }
 
   RouterMain({Key? key, required this.authenticationBloc}) : super(key: key) {
     _router = GoRouter(
       refreshListenable: GoRouterRefreshStream(authenticationBloc.stream),
-      // redirect: (state) => redirector(state),
-      initialLocation: Screen().pharmacistScreen,
+      redirect: (state) => redirector(state),
+      initialLocation: Screen().splashScreen,
       routes: <GoRoute>[
         GoRoute(
           path: Screen().pharmacistScreen,
@@ -106,6 +120,11 @@ class RouterMain extends StatelessWidget {
           path: Screen().mainscreen,
           builder: (BuildContext context, GoRouterState state) =>
               const MainScreen(),
+        ),
+        GoRoute(
+          path: Screen().intro,
+          builder: (BuildContext context, GoRouterState state) =>
+              const IntroScreen(),
         ),
         GoRoute(
           path: Screen().medicineList,
