@@ -70,6 +70,9 @@ class RouterMain extends StatelessWidget {
     } else if (authenticationBloc.state is AuthenticationAuthenticatedDoct &&
         state.location != Screen().doctorscreen) {
       return Screen().doctorscreen;
+    } else if (authenticationBloc.state is AuthenticationAuthenticatedadmin &&
+        state.location != Screen().admin) {
+      return Screen().admin;
     } else if (authenticationBloc.state is AuthenticationAuthenticatedPharm &&
         state.location != Screen().medicineDetail &&
         state.location != Screen().pharmacistScreen) {

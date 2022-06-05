@@ -21,7 +21,10 @@ class AuthenticationBloc
         emit(AuthenticationAuthenticatedDoct());
       } else if (role == 'pharmacist') {
         emit(AuthenticationAuthenticatedPharm());
-      } else {
+      }else if (role == 'admin') {
+        emit(AuthenticationAuthenticatedadmin());
+      }
+      else {
         emit(AuthenticationAuthenticated());
       }
     }));

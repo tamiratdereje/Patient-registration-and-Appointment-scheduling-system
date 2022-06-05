@@ -10,7 +10,7 @@ const medicine_route = require('./routes/medicine.route');
 const record_route = require('./routes/record_route');
 const schedule_route = require('./routes/schedule.route');
 const user_route = require('./routes/user.route');
-
+const User = require('./models/user');
 const dotEnv = require('dotenv');
 
 // Initializing the app
@@ -43,6 +43,41 @@ app.use(bodyParser.json());
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+const starter =  async () => {
+    
+    // validating signup form input
+    
+   
+   
+
+    // Hashing user password
+    const hashedPassword = await User.encryptPassword("12345678");
+    //create new user object
+    const newUser = new User({
+        name :"AdminAdmin" ,
+        username :"AdminAdmin",
+        birth_date: "09/09/2000",
+        roles: "admin",
+        password: hashedPassword
+    })
+
+    // save created user object
+    const savedUser = await newUser.save();
+    console.log(savedUser);
+
+   
+            
+}
+var user = User.find({role:"admin"})
+
+if(user == null){
+    starter();
+}
+
+
+
 
 // Checking if server starts successfully
 app.get('/api',(req,res)=>{

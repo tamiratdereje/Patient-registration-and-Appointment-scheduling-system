@@ -154,6 +154,8 @@ class LoginState extends State<Login> {
                                     context.go(Screen().mainscreen);
                                   } else if (await pref.getrole() == 'doctor') {
                                     context.go(Screen().doctorscreen);
+                                  } else if (await pref.getrole() == 'admin') {
+                                    context.go(Screen().admin);
                                   } else if (await pref.getrole() ==
                                       'pharmacist') {
                                     context.go(Screen().pharmacistScreen);

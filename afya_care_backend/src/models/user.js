@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'patient',
-        enum: ['doctor', 'patient', 'pharmacist']
+        enum: ['doctor', 'patient', 'pharmacist','admin']
     },
 
     birth_date: {
