@@ -10,10 +10,10 @@ class AppStarted extends AuthenticationEvent {}
 
 class LoggedIn extends AuthenticationEvent {}
 
+class UserLoggedout extends AuthenticationEvent{}
+
 class BoardingComplete extends AuthenticationEvent {}
 
 class OnBoardingComplete extends AuthenticationEvent {}
-
-class LoggedOut extends AuthenticationEvent {}
 
 class UserDeleted extends AuthenticationEvent {}

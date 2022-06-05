@@ -2,7 +2,6 @@ import 'package:afyacare/domain/appointment_booking/appointment_booking_validato
 
 import '../../core/afya_theme.dart';
 import 'package:intl/intl.dart';
-import 'package:regexpattern/regexpattern.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/widgets/circle_clip.dart';
@@ -18,6 +17,7 @@ class AppointmentBooking extends StatefulWidget {
 
 class _AppointmentBookingState extends State<AppointmentBooking> {
   final _formKey = GlobalKey<FormState>();
+  late String result = "";
 
   TextEditingController dateinput = TextEditingController();
 
@@ -86,18 +86,16 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                               Padding(
                                 padding: const EdgeInsets.all(12),
                                 child: TextFormField(
+                                  key: Key("date"),
                                   controller: dateinput,
-                                  validator: (value) => AppointmentBookingValidator()
-                                        .appointmentBookingValidator(value),
+                                  validator: (value) =>
+                                      AppointmentBookingValidator()
+                                          .appointmentBookingValidator(value),
                                   readOnly: true,
-                                  
                                   decoration: InputDecoration(
                                       suffixIcon: Icon(Icons
                                           .calendar_today), //icon of text field
-                                      labelText: "Enter Date and time"
-                                      
-                                      ),
-                                  
+                                      labelText: "Enter Date and time"),
                                   onTap: () async {
                                     final selectedDate = await showDatePicker(
                                       context: context,
@@ -121,8 +119,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                     String dateString = selectedDate
                                         .toString()
                                         .substring(0, 10);
-                                    
-
+                                    result = dateString + timeString;
                                     if (selectedDate != null &&
                                         selectedTime != null) {
                                       setState(() {
@@ -134,6 +131,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                 ),
                               ),
                               TextButton(
+                                key: Key("submit"),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       ScaffoldMessenger.of(context)

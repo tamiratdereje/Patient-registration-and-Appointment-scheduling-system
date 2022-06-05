@@ -56,11 +56,13 @@ class IntroScreen extends StatelessWidget {
                           height: 30,
                         ),
                         TextButton(
+                          key: Key("button"),
                           onPressed: () {
                             BlocProvider.of<AuthenticationBloc>(context)
                                 .add(BoardingComplete());
                           },
                           child: const CustomButton(
+                            
                             title: "Get Started",
                             icon: Icons.arrow_forward_outlined,
                             iconVisiblity: true,

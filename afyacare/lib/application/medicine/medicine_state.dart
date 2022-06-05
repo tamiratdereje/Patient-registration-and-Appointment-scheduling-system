@@ -10,8 +10,13 @@ abstract class MedicineState extends Equatable {
 
 class MedicineLoading extends MedicineState {}
 
+class MedicineAdding extends MedicineState{}
+
+class MedicineAddSuccessful extends MedicineState{}
+
+class MedicineAddFailed extends MedicineState{}
 class MedicinesOperationSuccess extends MedicineState {
-  final Iterable<MedicineDomain> medicines;
+  final List<MedicineDomain> medicines;
 
    MedicinesOperationSuccess([this.medicines = const []]);
 

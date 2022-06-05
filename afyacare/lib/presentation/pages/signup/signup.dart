@@ -145,7 +145,7 @@ class _SignupState extends State<Signup> {
 
                                   // const SizedBox(height: 25),
                                   TextFormField(
-                                    key: Key("createusername"),
+                                    key: Key("username"),
                                     controller: usernameController,
                                     decoration: const InputDecoration(
                                       labelText: "Create username",
@@ -157,7 +157,7 @@ class _SignupState extends State<Signup> {
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    key: Key("createpassword"),
+                                    key: Key("password"),
                                     obscureText: _passwordVisible,
                                     controller: passwordController,
                                     decoration: InputDecoration(
@@ -234,6 +234,7 @@ class _SignupState extends State<Signup> {
                               }
                             }, builder: (context, state) {
                               return TextButton(
+                                key:Key("signup"),
                                   onPressed: () {
                                     String brday = birthdayController.text;
                                     if (_formKey.currentState!.validate()) {
@@ -266,6 +267,7 @@ class _SignupState extends State<Signup> {
                               children: [
                                 Text("Have an account? "),
                                 TextButton(
+                                  key: Key("login"),
                                     style: ButtonStyle(
                                       overlayColor: MaterialStateProperty.all(
                                           Colors.transparent),

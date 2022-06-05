@@ -1,9 +1,7 @@
 
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:regexpattern/regexpattern.dart';
 import 'package:afyacare/presentation_data/text_data.dart';
 import 'package:flutter/material.dart';
 
@@ -78,39 +76,37 @@ class _AppointedPatientState extends State<AppointedPatient> {
           const circleClip(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Text(
-                    "Appointed",
-                    style: AfyaTheme.lightTextTheme.headline2,
-                  ),
-                  Text(
-                    "Patient",
-                    style: AfyaTheme.lightTextTheme.headline2,
-                  ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "Appointed",
+                  style: AfyaTheme.lightTextTheme.headline2,
+                ),
+                Text(
+                  "Patient",
+                  style: AfyaTheme.lightTextTheme.headline2,
+                ),
 
-                  SizedBox(
-                    height: 80,
-                  ),
+                SizedBox(
+                  height: 80,
+                ),
 
-                  // Expanded(
-                  //   child: ,
-                  // ),
-                  Expanded(
-                    child: ListView.builder(
-                        padding: const EdgeInsets.all(10),
-                        itemCount: contact.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return contact[index];
-                        }),
-                  )
-                ],
-              ),
+                // Expanded(
+                //   child: ,
+                // ),
+                Expanded(
+                  child: ListView.builder(
+                      padding: const EdgeInsets.all(10),
+                      itemCount: contact.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return contact[index];
+                      }),
+                )
+              ],
             ),
           )
         ],
@@ -163,7 +159,33 @@ class EachContact extends StatelessWidget {
           ),
           Row(
             children: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.person_remove),color: Colors.red,),
+              IconButton(onPressed: (){
+                showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('Remove patient'),
+                                        content: const Text(
+                                            'Are you sure you want to remove patient?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'Cancel'),
+                                            child: const Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, 'OK'),
+                                            child: const Text(
+                                              'Delete',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+              }, icon: Icon(Icons.person_remove),color: Colors.red,),
               SizedBox(
                 width: 5,
               ),

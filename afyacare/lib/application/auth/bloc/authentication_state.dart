@@ -16,3 +16,7 @@ class AuthenticationNotAuthenticated extends AuthenticationState {}
 
 class AuthenticationAuthenticated extends AuthenticationState {}
 
+class AuthenticationAuthenticatedPharm extends AuthenticationState{}
+
+class AuthenticationAuthenticatedDoct extends AuthenticationState{}
+

@@ -17,8 +17,8 @@ class SignupDataProvider {
     if (response.statusCode == 200) {
       return true;
     } else {
+      print("provider");
       throw Exception("Signup Failed");
     }
-
   }
 }
