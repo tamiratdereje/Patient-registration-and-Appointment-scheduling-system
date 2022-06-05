@@ -52,11 +52,10 @@ app.get('/api',(req,res)=>{
 
 // Defining route
 app.use('/api/auth', authRoutes);
-// app.use('/let', check);
 app.use('/api/medicine', medicine_route);
 app.use('/api/record', record_route);
 app.use('/api/schedule', schedule_route );
-
+app.use('/api/profile' , user_route);
 // assigning port
 app.listen(3000,()=>{
     console.log('app running on port: 3000');

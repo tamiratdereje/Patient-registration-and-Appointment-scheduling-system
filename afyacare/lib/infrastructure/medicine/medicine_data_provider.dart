@@ -1,80 +1,88 @@
 import 'dart:convert';
 
+import 'package:afyacare/infrastructure/core/sharedPref.dart';
+import 'package:afyacare/infrastructure/endpoints/endpoint.dart';
 import 'package:afyacare/infrastructure/medicine/medicine_model.dart';
 import 'package:http/http.dart' as http;
 
-const baseUrl = 'http://192.168.56.1:3000/medicine';
-
-
 class MedicineProvider {
+  Future<void> createMedicine(MedicineModel medicineModel) async {
+    SharedPref pref = SharedPref();
+    String? token = await pref.getToken();
 
-    Future<MedicineModel> createMedicine(MedicineModel medicineModel) async {
-      
-      final response = await http.post(Uri.parse(baseUrl),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-        body: jsonEncode(medicineModel)
-      );     
+    final response = await http.post(
+        Uri.parse('${EndPoint().baseUrl}${EndPoint().medicine}'),
+        headers: <String, String>{
+          "Access-Control-Allow-Origin": "*",
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token!
+        },
+        body: jsonEncode(medicineModel));
 
-      if (response.statusCode == 200){
-        print(response.body);
-        return MedicineModel.fromJson(jsonDecode(response.body));
-      }
-      else {
-        throw Exception('failed to create medicine');
-      }
+    if (response.statusCode == 201) {
+      print(response.body);
+      // return MedicineModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('failed to create medicine');
     }
-    
+  }
 
   Future<List<MedicineModel>> getAllMedicine() async {
-    final response = await http
-        .get(Uri.parse(baseUrl), headers: {"Access-Control-Allow-Origin": "*"});
+    SharedPref pref = SharedPref();
+    final token = await pref.getToken();
+    print(token);
+    final response = await http.get(
+        Uri.parse('${EndPoint().baseUrl}${EndPoint().medicine}'),
+        headers: {"Access-Control-Allow-Origin": "*", "token": token!});
     print(response.statusCode);
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final Iterable list = json["medicines"];
-
-      return list.map((value) => MedicineModel.fromJson(value)).toList();
+      final List<MedicineModel> medicines =
+          list.map((value) => MedicineModel.fromJson(value)).toList();
+      return medicines;
     } else {
       throw Exception("error fetching medicine");
     }
   }
 
   Future<MedicineModel> getMedicine(String id) async {
-
-    final response = await http
-        .get(Uri.parse('$baseUrl/$id'), headers: {"Access-Control-Allow-Origin": "*"});
+    final response = await http.get(
+        Uri.parse('${EndPoint().baseUrl}${EndPoint().medicine}'),
+        headers: {"Access-Control-Allow-Origin": "*"});
 
     if (response.statusCode == 200) {
       return MedicineModel.fromJson(jsonDecode(response.body));
-
     } else {
       throw Exception("error fetching medicine");
     }
   }
+
   // deleteMedicine
   Future<void> deleteMedicine(String id) async {
+    final response = await http.delete(
+      Uri.parse('${EndPoint().medicine}$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+    );
 
-      final response = await http.delete(Uri.parse('$baseUrl/$id'),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      );
-
-      if (response.statusCode != 204){
-        print(response.body);
-        throw Exception('failed to delete');
-      }
-
+    if (response.statusCode != 204) {
+      print(response.body);
+      throw Exception('failed to delete');
     }
-
+  }
 
   Future<void> editMedicine(MedicineModel medicineModel) async {
-        final response = await http.patch(Uri.parse(baseUrl),
-          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-          body: jsonEncode(medicineModel)
-      );
-      if (response.statusCode != 204){
-        throw Exception('failed to to edit');
-      }
+    final response = await http.patch(
+        Uri.parse('${EndPoint().medicine}${medicineModel.id}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: jsonEncode(medicineModel));
+    if (response.statusCode != 204) {
+      throw Exception('failed to to edit');
     }
-
+  }
 }

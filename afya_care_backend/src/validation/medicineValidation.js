@@ -7,6 +7,7 @@ const medicineValidation = (value) => {
         name: joi.string().required().min(3),
         quantity: joi.number().required(),
         descrption: joi.string(),
+        _id: joi.string()
     });
     return medicineSchema.validate(value);
 }

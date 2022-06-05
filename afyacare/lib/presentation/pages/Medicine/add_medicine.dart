@@ -1,6 +1,17 @@
+import 'package:afyacare/application/medicine/medicine_bloc.dart';
+import 'package:afyacare/application/medicine/medicine_event.dart';
+import 'package:afyacare/application/medicine/medicine_state.dart';
+import 'package:afyacare/domain/Medicine/medicine_Domain.dart';
+import 'package:afyacare/domain/Medicine/medicine_description.dart';
+import 'package:afyacare/domain/Medicine/medicine_name.dart';
+import 'package:afyacare/domain/Medicine/medicine_quantity.dart';
 import 'package:afyacare/domain/Medicine/medicine_validator.dart';
 import 'package:afyacare/presentation/core/afya_theme.dart';
 import 'package:afyacare/presentation/core/widgets/circle_clip.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 import 'package:afyacare/presentation/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -30,116 +41,160 @@ class _AddMedicineState extends State<AddMedicine> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const circleClip(),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Stack(
-              children: [
-                SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      Text(
-                        "Add",
-                        style: AfyaTheme.lightTextTheme.headline2,
-                      ),
-                      Text(
-                        "Medicine",
-                        style: AfyaTheme.lightTextTheme.headline2,
-                      ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      const Text(
-                        "For pharmacist use only!",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Form(
-                        key: _formKey,
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Column(
-                                  children: [
-                                    TextFormField(
-                                      key: Key("name"),
-                                        controller: medicineName,
-                                        decoration: const InputDecoration(
-                                          labelText: "Medicine Name",
+
+    return BlocProvider<MedicineBLoc>(
+        create: (context) => MedicineBLoc(),
+        child: Scaffold(
+          body: Stack(
+            children: [
+              const circleClip(),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          Text(
+                            "Add",
+                            style: AfyaTheme.lightTextTheme.headline2,
+                          ),
+                          Text(
+                            "Medicine",
+                            style: AfyaTheme.lightTextTheme.headline2,
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          const Text(
+                            "For pharmacist use only!",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          Form(
+                            key: _formKey,
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                            controller: medicineName,
+                                            decoration: const InputDecoration(
+                                              labelText: "Medicine Name",
+                                            ),
+                                            validator: (value) =>
+                                                MedicineValidator()
+                                                    .medicineNameValidator(
+                                                        value)),
+                                        const SizedBox(
+                                          height: 25,
                                         ),
-                                        validator: (value) =>
-                                            MedicineValidator()
-                                                .medicineNameValidator(value)),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    TextFormField(
-                                      key: Key("quantity"),
-                                        controller: quantity,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          labelText: "Quantity",
+                                        TextFormField(
+                                            controller: quantity,
+                                            keyboardType: TextInputType.number,
+                                            decoration: const InputDecoration(
+                                              labelText: "Quantity",
+                                            ),
+                                            validator: (value) =>
+                                                MedicineValidator()
+                                                    .medicineQuantityValidator(
+                                                        value)),
+                                        const SizedBox(
+                                          height: 25,
                                         ),
-                                        validator: (value) =>
-                                            MedicineValidator()
-                                                .medicineQuantityValidator(
-                                                    value)),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    TextFormField(
-                                      key: Key("description"),
-                                        controller: desc,
-                                        keyboardType: TextInputType.text,
-                                        decoration: const InputDecoration(
-                                          labelText: "Description",
+                                        TextFormField(
+                                            controller: desc,
+                                            keyboardType: TextInputType.text,
+                                            decoration: const InputDecoration(
+                                              labelText: "Description",
+                                            ),
+                                            validator: (value) =>
+                                                MedicineValidator()
+                                                    .medicineDescriptionValidator(
+                                                        value)),
+                                        const SizedBox(
+                                          height: 25,
+
                                         ),
-                                        validator: (value) =>
-                                            MedicineValidator()
-                                                .medicineDescriptionValidator(value)),
-                                    const SizedBox(
-                                      height: 25,
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                              TextButton(
-                                key: Key("button"),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
+
+                                  ),
+                                  BlocConsumer<MedicineBLoc, MedicineState>(
+                                      listener: (context, state) async {
+                                    if (state is MedicineAddSuccessful) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
+                                            backgroundColor: Color.fromARGB(
+                                                108, 25, 221, 31),
+                                            content: Text('Login Successful')),
+                                      );
+                                    } else if (state is MedicineAdding) {
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Processing Data')),
+                                      );
+                                    } else if (state is MedicineAddFailed) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            backgroundColor: Colors.redAccent,
                                             content:
-                                                Text('Adding medicine Data')),
+                                                Text('Failed to add Medicine')),
                                       );
                                     }
-                                  },
-                                  child: const CustomButton(title: "Add")),
-                            ],
+                                  }, builder: (context, state) {
+                                    return TextButton(
+                                        onPressed: () {
+                                        
+                                          MedicineDomain medicineDomain =
+                                              MedicineDomain(
+                                                  name: MedicineName(
+                                                      medicineName:
+                                                          medicineName.text),
+                                                  descrption:
+                                                      MedicineDescription(
+                                                          medicineDescription:
+                                                              desc.text),
+                                                  quantity: MedicineQuantity(
+                                                      medicineQuantity:
+                                                          int.parse(
+                                                              quantity.text)));
+
+                                          BlocProvider.of<MedicineBLoc>(context)
+                                              .add(MedicineCreateEvent(
+                                                  medicineDomain));
+                                          desc.clear();
+                                          quantity.clear();
+                                          medicineName.clear();
+                                        },
+                                        child: CustomButton(title: "Add"));
+                                  }),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+              )
+            ],
+          ),
+        ));
   }
 }
