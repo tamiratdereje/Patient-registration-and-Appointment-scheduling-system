@@ -18,19 +18,15 @@ void main() {
 
   
     await tester.pumpWidget(MaterialApp(
-      home: BlocProvider<SignupBloc>(
-        create: (context) => SignupBloc(),
-        child: Search(),
+      home: Scaffold(body: Search()),
       ),
-    ));
-    await tester.enterText(addValue, "Parcetamol");
-    // await tester.enterText(addQuantity, "5");
-    // await tester.enterText(addDescription, "heal fever");
- 
+    );
     await tester.tap(addButton);
+    await tester.enterText(addValue, "Parcetamol");
+ 
+    
 
     expect(find.text("Parcetamol"), findsOneWidget);
-    // expect(find.text("5"), findsOneWidget);
-    // expect(find.text("heal fever"), findsWidgets);
+
   });
 }

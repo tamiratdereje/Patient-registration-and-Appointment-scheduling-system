@@ -9,8 +9,9 @@ import 'package:go_router/go_router.dart';
 
 void main() {
   testWidgets('Sign in authentication', (WidgetTester tester) async {
-    final addUserName = find.byKey(const ValueKey("enterusername"));
-    final addPassword = find.byKey(const ValueKey("enterpassword"));
+    final addUserName = find.byKey(const ValueKey("username"));
+    final addPassword = find.byKey(const ValueKey("password"));
+    final form = find.byType(TextFormField);
     final signButton = find.byKey(const ValueKey("login"));
 
     await tester.pumpWidget(MaterialApp(
@@ -19,11 +20,13 @@ void main() {
         child: Login(),
       ),
     ));
-    await tester.enterText(addUserName, "libanabduba");
-    await tester.enterText(addPassword, "liban@123");
     await tester.tap(signButton);
     await tester.pump();
-    expect(find.text("libanabduba"), findsOneWidget);
-    expect(find.text("liban@123"), findsOneWidget);
+    await tester.enterText(addUserName, "libanabduba");
+    await tester.enterText(addPassword, "liban@123");
+    
+    expect(form, findsWidgets);
+    expect(find.textContaining("libanabduba"), findsOneWidget);
+    expect(find.textContaining("liban@123"), findsOneWidget);
   });
 }

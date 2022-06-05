@@ -13,4 +13,7 @@ class Screen {
   String medicineList = '/medicineList';
   String addMedicine = "/addMedicine";
   String search = "/search";
+  String admin = "/admin";
+  String adminList = "/adminList";
+  String profile = "/profile";
 }

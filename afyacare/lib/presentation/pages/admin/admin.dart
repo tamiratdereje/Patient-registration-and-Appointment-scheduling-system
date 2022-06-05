@@ -146,7 +146,7 @@ class _SignupState extends State<AdminAdd> {
 
                                   // const SizedBox(height: 25),
                                   TextFormField(
-                                    key: Key("createusername"),
+                                    key: Key("username"),
                                     controller: usernameController,
                                     decoration: const InputDecoration(
                                       labelText: "Create username",
@@ -158,7 +158,7 @@ class _SignupState extends State<AdminAdd> {
                                     height: 25,
                                   ),
                                   TextFormField(
-                                    key: Key("createpassword"),
+                                    key: Key("password"),
                                     obscureText: _passwordVisible,
                                     controller: passwordController,
                                     decoration: InputDecoration(
@@ -212,6 +212,7 @@ class _SignupState extends State<AdminAdd> {
                               ),
                             ),
                             DropdownButton<String>(
+                              key: Key("drop"),
                               focusColor: Colors.white,
                               value: _chosenValue,
                               //elevation: 5,
@@ -269,6 +270,7 @@ class _SignupState extends State<AdminAdd> {
                               }
                             }, builder: (context, state) {
                               return TextButton(
+                                key: Key("button"),
                                   onPressed: () {
                                     String brday = birthdayController.text;
                                     if (_formKey.currentState!.validate()) {
