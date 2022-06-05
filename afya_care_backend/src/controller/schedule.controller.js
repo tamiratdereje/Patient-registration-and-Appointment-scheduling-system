@@ -9,10 +9,10 @@ const user = require("../models/user");
 const addSchedule = async (req, res) => {
     console.log(req.userId, "-------------------------------------------------------------------")
 
-  const { error } = scheduleValidation(req.body);
-  if (error) {
-    return res.status(400).send({ message: "why is it not working" });
-  }
+  // const { error } = scheduleValidation(req.body);
+  // if (error) {
+  //   return res.status(400).send({ message: "why is it not working" });
+  // }
 
   var date = new Date(req.body.date);
   const patient = req.userId;
@@ -45,7 +45,10 @@ const getSchedule = async (req, res) => {
   const role = await userService.role(req.userId);
 
   if (role === "patient") {
+    console.log("patient called0");
+
     const schedules = await scheduleService.findUserSchedules(req.userId);
+    console.log(schedules);
 
     // await user.findById(schedules[0].patient)
 
@@ -54,12 +57,12 @@ const getSchedule = async (req, res) => {
     //     }});
 
     console.log(schedules);
-    return res.json(schedules);
-
+    return res.json({"schedules" : schedules});
+    
         
   } else if (role === "doctor") {
     const schedules = await scheduleService.findDoctorSchedules(req.userId);
-    return res.json(schedules);
+    return res.json({"schedules" : schedules});
   }
 
 };

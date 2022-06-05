@@ -50,6 +50,7 @@ const findFreeDoctor = async (time)=>{
 
 /*, date: {$gte: new Date(Date.now())}*/
 
+
 const findUserSchedules = async (id)=>{
     try {
     var schedules = await Schedule.find({patient:id}).populate("doctor");
@@ -71,7 +72,6 @@ const findDoctorSchedules = async (id)=>{
         console.log(error);
     }
 }
-
 
 
 const saveSchedule = async (date,patient,doctor)=>{
@@ -96,7 +96,5 @@ const deleteSchedule = async (id)=>{
         return
     }
 }
-
-
 
 module.exports = {  findUserSchedules , findDoctorSchedules , findFreeDoctor , saveSchedule , deleteSchedule }

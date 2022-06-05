@@ -1,4 +1,5 @@
 import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
+import 'package:afyacare/domain/schedule/schedule_id.dart';
 import 'package:afyacare/presentation/routes/path.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +17,9 @@ class UpcomingSchedule extends StatefulWidget {
 }
 
 class _UpcomingScheduleState extends State<UpcomingSchedule> {
+
+
+  
   List schedules = <Widget>[
     Card1(
     
@@ -31,10 +35,13 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+    BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.push(Screen().appointment);
+        },
         child: const Icon(Icons.add),
       ),
       body: Stack(
@@ -73,7 +80,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                            return  Expanded(
                         child: ListView.separated(
                           itemBuilder: (context, index) {
-                            return Card1(name: state.schedules[index].userHelper!.name, specialization: state.schedules[index].dateTime.toString() , id: state.schedules[index].id!.schedule_id,);
+                            return Card1(name: state.schedules[index].userHelper.name, specialization: state.schedules[index].dateTime.toString() , id: state.schedules[index].id.schedule_id,);
                           },
                           separatorBuilder: (context, index) {
                             return const SizedBox(
@@ -84,10 +91,14 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                         ),
                       );
                         }
-                        return   Column(
+                        else{
+                          return   Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children:  [Center(child: Text("No Result"),)],
                                 );
+
+                        }
+                        
                        
                       }, listener: (context , state){}),
                      
@@ -150,7 +161,7 @@ class Card1 extends StatelessWidget {
                         style: AfyaTheme.lightTextTheme.headline3,
                       ),
                       Text(
-                        specialization,
+                        specialization.substring(0,10) + ' at ' +specialization.substring(10,13),
                       )
                     ],
                   )
@@ -167,7 +178,7 @@ class Card1 extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text('08:00-09:00 Am')
+               
               ]),
               const SizedBox(
                 height: 10,
@@ -178,7 +189,7 @@ class Card1 extends StatelessWidget {
                   TextButton(
                     key: Key("reschedule"),
                     onPressed: () {
-                      context.push(Screen().appointment , extra: "adfasdf");
+                      context.push(Screen().editAppointment+'/'+id!);
                     },
                     child: CustomButton(
                         title: "Reschedule",
@@ -186,7 +197,10 @@ class Card1 extends StatelessWidget {
                   ),
                   TextButton(
                    key: Key("cancel"),
-                    onPressed: () {},
+                    onPressed: ()async {
+                      BlocProvider.of<ScheduleBloc>(context).add(ScheduleDeleteEvent(ScheduleId(schedule_id: id!)));
+                      BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
+                    },
                     child: CustomButton(
                       muted: true,
                       title: "Cancel",

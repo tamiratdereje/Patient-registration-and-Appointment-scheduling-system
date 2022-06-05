@@ -1,18 +1,18 @@
 import 'package:afyacare/domain/schedule/schedule_domain_helper.dart';
-import 'package:afyacare/infrastructure/Schedule/patient_schedule_model.dart';
+import 'package:afyacare/infrastructure/Schedule/patient_schedule_model_response.dart';
 import 'package:flutter/foundation.dart';
 
 class DoctorScheduleModel {
 
   DateTime dateTime;
-  DoctorScheduleModelHelper? user;
-  String? scheduleId;
+  DoctorScheduleModelHelper user;
+  String scheduleId;
   
 
   DoctorScheduleModel({
     required this.dateTime,
-    this.user,
-    this.scheduleId
+    required this.user,
+    required this.scheduleId
   });
 
 

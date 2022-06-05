@@ -4,13 +4,13 @@ import 'package:afyacare/domain/schedule/schedule_id.dart';
 
 class ScheduleDomain {
   ScheduleDate dateTime;
-  UserHelper? userHelper;
-  ScheduleId? id;
+  UserHelper userHelper;
+  ScheduleId id;
 
   ScheduleDomain({
     required this.dateTime,
-    this.userHelper,
-    this.id
+    required this.userHelper,
+    required this.id
   });
     
 }

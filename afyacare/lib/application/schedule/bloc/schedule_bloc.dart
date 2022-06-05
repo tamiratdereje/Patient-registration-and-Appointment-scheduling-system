@@ -7,10 +7,9 @@ import 'package:afyacare/infrastructure/core/sharedPref.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-
-
 part 'schedule_event.dart';
 part 'schedule_state.dart';
+
 
 class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
 
@@ -62,7 +61,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   Future<void> _onScheduleUpdate(event, emit) async {
     emit(ScheduleAdding());
     try {
-      await scheduleRepo.editSchedule(event.scheduleDomain);
+      await scheduleRepo.editSchedule(event.time, event.id);
       emit(ScheduleAddSuccessful());
     } catch (error) {
       emit(ScheduleAddFailed());
@@ -75,21 +74,24 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
 
       emit(ScheduleLoading());
         try {
-          if (cur_role == "doctor"){
-            final schedules  = await scheduleRepo.getDoctorSchedules();
-            print("211111345666666666666666");
-            print(schedules);
-            // if (schedules.length){
+          // if (cur_role == "doctor"){
+          //   final schedules  = await scheduleRepo.getDoctorSchedules();
+          //   print("21111134566666666666wooowoooooooooooooooooooooooohahaaaaaaaa6666");
+          //   print(schedules);
+          //   // if (schedules.length){
 
-            // }
-            emit(SchedulesOperationSuccess(schedules));
-          }
-          else if(cur_role == "patient"){
+          //   // }
+          //   emit(SchedulesOperationSuccess(schedules));
+          // }
+           if(cur_role == "patient"){
+            print("noooooooooooooooooooooooooooooooo");
             final schedules = await scheduleRepo.getPatientSchedules();
             emit(SchedulesOperationSuccess(schedules));
           }
+
         } catch (error) {
-          emit(MedicineOperationFailure(error: error));      
+          print(error);
+          emit(ScheduleOperationFailure(error: error));      
         }
   }
 

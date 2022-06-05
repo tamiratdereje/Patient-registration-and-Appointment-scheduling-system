@@ -1,18 +1,20 @@
+import 'dart:convert';
+
 import 'package:afyacare/domain/schedule/schedule_domain_helper.dart';
-import 'package:afyacare/infrastructure/Schedule/patient_schedule_model.dart';
+import 'package:afyacare/infrastructure/Schedule/patient_schedule_model_response.dart';
 import 'package:flutter/foundation.dart';
 
 class PatientScheduleModel {
 
   DateTime dateTime;
-  PatientScheduleModelHelper? user;
-  String? scheduleId;
+  PatientScheduleModelHelper user;
+  String scheduleId;
   
 
   PatientScheduleModel({
     required this.dateTime,
-    this.user,
-    this.scheduleId
+    required this.user,
+    required this.scheduleId
   });
 
 
@@ -24,10 +26,10 @@ class PatientScheduleModel {
 
  );
 
- Map<String , dynamic> toJson() => {
-   "date":  dateTime,
-   "id": scheduleId
-   };
+//  Map<String , dynamic> toJson() => {
+//    "date":  dateTime,
+//    "id": scheduleId
+//    };
   
 }
 
@@ -49,5 +51,19 @@ class PatientScheduleModelHelper{
       doctorId: json["_id"],
       doctor_name: json["name"]
     );
+
+}
+
+class UpdateScheduleModel{
+  DateTime date;
+  String id;
+
+  UpdateScheduleModel({required this.date , required this.id});
+
+  Map<String,dynamic> toJson()=> {
+    "_id":id,
+    "date":date.toString()
+  };
+  
 
 }

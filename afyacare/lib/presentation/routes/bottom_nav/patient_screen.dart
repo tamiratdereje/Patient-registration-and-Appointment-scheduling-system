@@ -1,7 +1,9 @@
+import 'package:afyacare/application/schedule/bloc/schedule_bloc.dart';
 import 'package:afyacare/presentation/pages/search/search.dart';
 import 'package:afyacare/presentation/pages/user_profile/profile.dart';
 import 'package:afyacare/presentation/pages/user_profile/user_history.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../pages/appointment/upcoming_schedule.dart';
 
 class MainScreen extends StatefulWidget {
@@ -23,6 +25,9 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.grey.shade100,
           currentIndex: current,
           onTap: (index) {
+            if(index == 0){
+              BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
+            }
             setState(() {
               current = index;
             });

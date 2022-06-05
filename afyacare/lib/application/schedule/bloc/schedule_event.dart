@@ -28,12 +28,13 @@ class ScheduleLoadEvent extends ScheduleEvent{
 
 
 class ScheduleUpdateEvent extends ScheduleEvent {
+  
+  // final ScheduleDomain scheduleDomain;
+  DateTime time;
+  String id;
+  ScheduleUpdateEvent({required this.time,required this.id});
 
-  final ScheduleDomain scheduleDomain;
-  const ScheduleUpdateEvent(this.scheduleDomain);
 
-  @override
-  List<Object> get props => [scheduleDomain]; 
   
 }
 
