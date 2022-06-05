@@ -90,7 +90,6 @@ const logout = async (req, res) => {
         message : "you are logged out"
     })
 
-    // res.redirect('/');
 }
 
 

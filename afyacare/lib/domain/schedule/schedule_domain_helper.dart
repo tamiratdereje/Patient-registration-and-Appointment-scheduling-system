@@ -1,5 +1,9 @@
 class UserHelper {
   
   String name;
-  UserHelper({required this.name});
+  String userId;
+
+  UserHelper({required this.name, required this.userId});
 }
+
+
