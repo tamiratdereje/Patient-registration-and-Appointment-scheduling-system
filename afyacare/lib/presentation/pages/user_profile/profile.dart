@@ -84,6 +84,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         Expanded(child: Container()),
                         TextButton.icon(
+                          key: Key("logout"),
                           icon: Icon(Icons.logout, color: Colors.black),
                           label: Text(
                             "Logout",
@@ -221,6 +222,7 @@ class _UserProfileState extends State<UserProfile> {
                             BlocConsumer<ProfileBloc, ProfileState>(
                                 builder: (context, state) {
                               return (TextButton(
+                                key: Key("button"),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       ProfileDomain profileDomain =

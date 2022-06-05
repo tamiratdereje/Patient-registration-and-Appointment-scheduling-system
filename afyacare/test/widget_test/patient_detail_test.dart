@@ -12,15 +12,17 @@ void main() {
     final addButton = find.byKey(const ValueKey("add"));
     final saveButton = find.byKey(const ValueKey("button"));
 
-
+   
+   
     await tester.pumpWidget(const MaterialApp(home: PatientDetails()));
+    await tester.tap(addButton);
     await tester.enterText(addMedicine, "Parcetamol");
     await tester.enterText(addDescription, "kill germ");
 
     await tester.tap(saveButton);
-    await tester.tap(addButton);
 
-    // expect(find.text("Parcetamol"), findsOneWidget);
+
+    expect(find.text("Parcetamol"), findsOneWidget);
     expect(find.text("kill germ"), findsOneWidget);
   });
 }

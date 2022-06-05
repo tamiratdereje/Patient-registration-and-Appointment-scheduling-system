@@ -187,21 +187,24 @@ class Card1 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    key: Key("reschedule"),
                     onPressed: () {
                       context.push(Screen().editAppointment+'/'+id!);
                     },
                     child: CustomButton(
+                      key: Key("reschedule"),
                         title: "Reschedule",
                         width: MediaQuery.of(context).size.width / 2 - 60),
                   ),
                   TextButton(
+
                    key: Key("cancel"),
                     onPressed: ()async {
                       BlocProvider.of<ScheduleBloc>(context).add(ScheduleDeleteEvent(ScheduleId(schedule_id: id!)));
                       BlocProvider.of<ScheduleBloc>(context).add(ScheduleLoadEvent());
                     },
+
                     child: CustomButton(
+                      key: Key("cancel"),
                       muted: true,
                       title: "Cancel",
                       width: MediaQuery.of(context).size.width / 2 - 60,

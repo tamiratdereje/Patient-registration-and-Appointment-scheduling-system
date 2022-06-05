@@ -4,7 +4,12 @@ import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 import 'package:afyacare/presentation/pages/Medicine/add_medicine.dart';
 
 import 'package:afyacare/infrastructure/core/sharedPref.dart';
+
 import 'package:afyacare/presentation/pages/appointment/editappointment.dart';
+
+import 'package:afyacare/presentation/pages/admin/admin.dart';
+import 'package:afyacare/presentation/pages/admin/admin_list.dart';
+
 
 import 'package:afyacare/presentation/pages/appointment/upcoming_schedule.dart';
 import 'package:afyacare/presentation/pages/intro/intro_screen.dart';
@@ -23,6 +28,8 @@ import '../pages/appointment/upcoming_schedule.dart';
 import '../pages/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../pages/user_profile/profile.dart';
 
 class RouterMain extends StatelessWidget {
   final AuthenticationBloc authenticationBloc;
@@ -60,6 +67,7 @@ class RouterMain extends StatelessWidget {
         state.location != Screen().upcomingSchedule &&
           state.location != Screen().mainscreen) {
         return Screen().mainscreen;
+
       }
     } else if (authenticationBloc.state is AuthenticationAuthenticatedDoct &&
         state.location != Screen().doctorscreen) {
@@ -68,6 +76,7 @@ class RouterMain extends StatelessWidget {
         state.location != Screen().medicineDetail &&
         state.location != Screen().pharmacistScreen) {
       return Screen().pharmacistScreen;
+
     }
 
     return null;
@@ -77,8 +86,8 @@ class RouterMain extends StatelessWidget {
     _router = GoRouter(
       refreshListenable: GoRouterRefreshStream(authenticationBloc.stream),
 
-      redirect: (state) => redirector(state),
-      initialLocation: Screen().splashScreen,
+      // redirect: (state) => redirector(state),
+      initialLocation: Screen().profile,
 
       routes: <GoRoute>[
         GoRoute(
@@ -87,6 +96,16 @@ class RouterMain extends StatelessWidget {
               const PharmacistScreen(),
         ),
         
+         GoRoute(
+          path: Screen().profile,
+          builder: (BuildContext context, GoRouterState state) =>
+              const UserProfile(),
+        ),
+        GoRoute(
+          path: Screen().admin,
+          builder: (BuildContext context, GoRouterState state) =>
+              const AdminAdd(),
+        ),
          GoRoute(
           path: Screen().search,
           builder: (BuildContext context, GoRouterState state) =>
