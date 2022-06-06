@@ -13,11 +13,11 @@ class Screen {
   String medicineList = '/medicineList';
   String addMedicine = "/addMedicine";
   String search = "/search";
+  String adminScreen = "/adminScreen";
 
   String editAppointment = "/edAppointment";
 
   String admin = "/admin";
   String adminList = "/adminList";
   String profile = "/profile";
-
 }

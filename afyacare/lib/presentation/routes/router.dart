@@ -3,6 +3,7 @@ import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 import 'package:afyacare/presentation/pages/Medicine/add_medicine.dart';
 
 import 'package:afyacare/infrastructure/core/sharedPref.dart';
+import 'package:afyacare/presentation/pages/admin/adminscreen.dart';
 
 import 'package:afyacare/presentation/pages/appointment/editappointment.dart';
 
@@ -71,8 +72,8 @@ class RouterMain extends StatelessWidget {
         state.location != Screen().doctorscreen) {
       return Screen().doctorscreen;
     } else if (authenticationBloc.state is AuthenticationAuthenticatedadmin &&
-        state.location != Screen().admin) {
-      return Screen().admin;
+        state.location != Screen().adminScreen) {
+      return Screen().adminScreen;
     } else if (authenticationBloc.state is AuthenticationAuthenticatedPharm &&
         state.location != Screen().medicineDetail &&
         state.location != Screen().pharmacistScreen) {
@@ -102,6 +103,11 @@ class RouterMain extends StatelessWidget {
           path: Screen().admin,
           builder: (BuildContext context, GoRouterState state) =>
               const AdminAdd(),
+        ),
+        GoRoute(
+          path: Screen().adminScreen,
+          builder: (BuildContext context, GoRouterState state) =>
+              const AdminScreen(),
         ),
         GoRoute(
           path: Screen().search,
