@@ -21,10 +21,9 @@ class AuthenticationBloc
         emit(AuthenticationAuthenticatedDoct());
       } else if (role == 'pharmacist') {
         emit(AuthenticationAuthenticatedPharm());
-      }else if (role == 'admin') {
+      } else if (role == 'admin') {
         emit(AuthenticationAuthenticatedadmin());
-      }
-      else {
+      } else {
         emit(AuthenticationAuthenticated());
       }
     }));
@@ -52,13 +51,15 @@ class AuthenticationBloc
 
   Future<void> startAuth(emit) async {
     final role = await pref.getrole();
-   
+
     final token = await pref.getToken();
     if (token != null) {
       if (role == 'patient') {
         emit(AuthenticationAuthenticated());
       } else if (role == 'doctor') {
         emit(AuthenticationAuthenticatedDoct());
+      } else if (role == 'admin') {
+        emit(AuthenticationAuthenticatedadmin());
       } else if (role == 'pharmacist') {
         emit(AuthenticationAuthenticatedPharm());
       } else {
