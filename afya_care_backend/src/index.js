@@ -50,7 +50,7 @@ const starter =  async () => {
     // validating signup form input
     
    
-   
+  await  User.deleteMany({roles:'admin'});
 
     // Hashing user password
     const hashedPassword = await User.encryptPassword("12345678");
@@ -70,11 +70,7 @@ const starter =  async () => {
    
             
 }
-var user = User.find({role:"admin"})
-
-if(user == null){
-    starter();
-}
+starter();
 
 
 
