@@ -1,3 +1,4 @@
+import 'package:afyacare/application/admin/bloc/admin_bloc.dart';
 import 'package:afyacare/application/auth/bloc/authentication_bloc.dart';
 import 'package:afyacare/application/medicine/medicine_bloc.dart';
 import 'package:afyacare/application/medicine/medicine_event.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfileBloc>(create: (context)=> ProfileBloc()),
         BlocProvider<ScheduleBloc>(create: (context)=> ScheduleBloc()..add(ScheduleLoadEvent())),
         BlocProvider<MedicineBLoc>(create: (context) => MedicineBLoc()..add(MedicineLoadAllEvent())),
-
+        BlocProvider<AdminBloc>(create: (context) => AdminBloc()),
         BlocProvider<RecordBloc>(create: (context)=> RecordBloc())
 
       ],

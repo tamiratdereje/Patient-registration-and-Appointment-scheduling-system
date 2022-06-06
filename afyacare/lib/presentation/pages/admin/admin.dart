@@ -1,4 +1,6 @@
+import 'package:afyacare/application/admin/bloc/admin_bloc.dart';
 import 'package:afyacare/application/signup_form/bloc/signup_bloc.dart';
+import 'package:afyacare/domain/admin_register_user/admin_register_doctor_domian.dart';
 import 'package:afyacare/domain/signup/confirm_password_validator.dart';
 import 'package:afyacare/domain/signup/date_of_birth_domain.dart';
 import 'package:afyacare/domain/signup/fullname_domain.dart';
@@ -35,7 +37,7 @@ class _SignupState extends State<AdminAdd> {
   TextEditingController birthdayController = TextEditingController();
   TextEditingController dateinput = TextEditingController();
   late String formattedDate;
-  String _chosenValue = 'Doctor';
+  String _chosenValue = 'doctor';
   @override
   void initState() {
     _passwordVisible = true;
@@ -219,9 +221,9 @@ class _SignupState extends State<AdminAdd> {
                               style: TextStyle(color: Colors.white),
                               iconEnabledColor: Colors.black,
                               items: <String>[
-                                'Doctor',
+                                'doctor',
                               
-                                'Pharmacist',
+                                'pharmacist',
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   
@@ -245,22 +247,22 @@ class _SignupState extends State<AdminAdd> {
                                 });
                               },
                             ),
-                            BlocConsumer<SignupBloc, SignupState>(
+                            BlocConsumer<AdminBloc, AdminState>(
                                 listener: (context, state) {
-                              if (state is SignupSuccessful) {
+                              if (state is AdminSuccessful) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       backgroundColor:
                                           Color.fromARGB(108, 25, 221, 31),
                                       content: Text('AdminAdd Successful')),
                                 );
-                                context.go(Screen().login);
-                              } else if (state is SignupLoading) {
+                               
+                              } else if (state is AdminAdding) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text('Processing Data')),
                                 );
-                              } else if (state is SignupFailed) {
+                              } else if (state is AdminFailed) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       backgroundColor: Colors.redAccent,
@@ -274,26 +276,10 @@ class _SignupState extends State<AdminAdd> {
                                   onPressed: () {
                                     String brday = birthdayController.text;
                                     if (_formKey.currentState!.validate()) {
-                                      final blocProv =
-                                          BlocProvider.of<SignupBloc>(context);
-                                      final SignupDomain signupDomain =
-                                          SignupDomain(
-                                              username: Username(
-                                                  username:
-                                                      usernameController.text),
-                                              fullName: FullName(
-                                                  fullName:
-                                                      fullNameController.text),
-                                              dateOfBirth: DateOfBirth(
-                                                  dateOfBirth: formattedDate),
-                                              password: Password(
-                                                  password:
-                                                      passwordController.text),
-                                              confirmPassword: Password(
-                                                  password:
-                                                      passwordConfirmController
-                                                          .text));
-                                      blocProv.add(SignUpEvent(signupDomain));
+                                     
+                                          
+                                      AddDoctorDomainRequest addDoctorDomainRequest = AddDoctorDomainRequest(username:usernameController.text, name: fullNameController.text, birth_date: formattedDate, password: passwordController.text, roles: _chosenValue);
+                                    BlocProvider.of<AdminBloc>(context).add(AdminRegisterUser(addDoctorDomainRequest));
                                     }
                                   },
                                   child: CustomButton(title: "Add"));
