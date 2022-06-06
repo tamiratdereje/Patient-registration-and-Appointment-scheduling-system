@@ -25,7 +25,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List pages = [UpcomingSchedule(), UserHistory(), UserProfile()];
+  List pages = [UpcomingSchedule(), UserHistory(),Search(), UserProfile()];
   int current = 0;
   @override
   Widget build(BuildContext context) {
@@ -56,6 +56,8 @@ class _MainScreenState extends State<MainScreen> {
                 label: "Home", icon: Icon(Icons.apps_outlined)),
             BottomNavigationBarItem(
                 label: "history", icon: Icon(Icons.history)),
+            BottomNavigationBarItem(
+                label: "search", icon: Icon(Icons.search)),
             BottomNavigationBarItem(label: "profile", icon: Icon(Icons.person)),
           ]),
     );

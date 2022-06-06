@@ -34,6 +34,7 @@ class MedicineOperationFailure extends MedicineState {
   @override
   List<Object> get props => [error];
 }
+class searchFailed extends MedicineState{}
 
 class MedicieSearchSuccessful extends MedicineState {
   final MedicineName medicineName;
