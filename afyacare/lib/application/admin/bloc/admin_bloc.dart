@@ -14,7 +14,6 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     on<AdminEvent>((event, emit) async{
       
     });
-
     on<AdminRegisterUser>((event, emit) async{
       await _addUser (event, emit);
       
@@ -25,6 +24,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   Future<void> _addUser(event, emit) async {
     emit(AdminAdding());
     try {
+      print("inside0********************");
         await adminProvider.createUser(event.addDoctorDomainRequest);
         emit(AdminSuccessful());
       

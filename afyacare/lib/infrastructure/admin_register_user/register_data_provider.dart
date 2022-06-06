@@ -9,7 +9,7 @@ class AdminProvider {
   
 
 Future<void> createUser(AddDoctorDomainRequest doc) async {
-
+print("inside111111111********************");
   final response = await http.post(
         Uri.parse(
             "${EndPoint().baseUrl}${EndPoint().auth}/${EndPoint().signup}"),
@@ -17,7 +17,7 @@ Future<void> createUser(AddDoctorDomainRequest doc) async {
           'Content-Type': 'application/json; charset=UTF-8'
         },
         body: jsonEncode(doc));
-
+print("inside2222222********************");
     if (response.statusCode == 200) {
       print("added");
     } else {
@@ -27,3 +27,5 @@ Future<void> createUser(AddDoctorDomainRequest doc) async {
 
 }
 }
+
+
