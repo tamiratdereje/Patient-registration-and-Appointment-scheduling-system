@@ -23,10 +23,3 @@
   3. After checkup patient will get notified about medicines prescribed for them. And also check the availability of the medicine in the hospital pharmacy.
 
 
-###### Group member:
-      
-- Tamirat Dereje UGR/5111/12
-- Liban Abduba UGR/3781/12 
-- Naol Kecha UGR/6903/12 
-- Abel Mekonen UGR/7784/12 
-- Jebessa Dejene UGR/0459/12
